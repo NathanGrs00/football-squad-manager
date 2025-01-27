@@ -25,3 +25,95 @@ ADD CONSTRAINT fk_sselection_id FOREIGN KEY (selection_id) REFERENCES selection(
 
 ALTER TABLE `selection`
 ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES `user`(id);
+
+
+INSERT INTO formation (name)
+VALUES ("4-4-2"),
+        ("4-3-3"),
+        ("3-5-2"),
+        ("5-4-1"),
+        ("4-2-3-1");
+
+INSERT INTO position (name, abbreviation)
+VALUES ("Goalkeeper", "GK"),
+        ("Leftback", "LB"),
+		("Rightback","RB"),
+        ("Centerback","CB"),
+        ("Left Centerback","LCB"),
+        ("Right Centerback","RCB"),
+        ("Left Wingback","LWB"),
+        ("Right Wingback","RWB"),
+        ("Center Defensive Midfielder","CDM"),
+        ("Left Defensive Midfielder","LDM"),
+        ("Right Defensive Midfielder","RDM"),
+        ("Left Midfielder","LM"),
+        ("Right Midfielder","RM"),
+        ("Center Midfielder","CM"),
+        ("Left Center Midfielder","LCM"),
+        ("Right Center Midfielder","RCM"),
+        ("Attacking Midfielder","AMC"),
+        ("Left Attacking Midfielder","AML"),
+        ("Right Attacking Midfielder","AMR"),
+        ("Left Winger","LW"),
+        ("Right Winger","RW"),
+        ("Striker","ST"),
+        ("Left Forward","LF"),
+        ("Right Forward","RF");
+
+INSERT INTO formation_position (formation_id, position_id)
+VALUES
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "LCB")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "RCB")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "LB")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "RB")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "LCM")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "RCM")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "AMC")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "LW")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "RW")),
+    ((SELECT id FROM formation WHERE name = "4-3-3"), (SELECT id FROM position WHERE abbreviation = "ST")),
+
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "LCB")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "RCB")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "LB")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "RB")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "LCM")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "RCM")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "LM")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "RM")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "LF")),
+    ((SELECT id FROM formation WHERE name = "4-4-2"), (SELECT id FROM position WHERE abbreviation = "RF")),
+
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "CB")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "LCB")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "RCB")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "LDM")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "RDM")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "CM")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "LM")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "RM")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "LF")),
+    ((SELECT id FROM formation WHERE name = "3-5-2"), (SELECT id FROM position WHERE abbreviation = "RF")),
+
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "CB")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "LCB")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "RCB")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "LWB")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "RWB")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "LCM")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "RCM")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "LM")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "RM")),
+    ((SELECT id FROM formation WHERE name = "5-4-1"), (SELECT id FROM position WHERE abbreviation = "ST")),
+
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "LCB")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "RCB")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "LB")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "RB")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "LDM")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "RDM")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "AMC")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "AML")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "AMR")),
+    ((SELECT id FROM formation WHERE name = "4-2-3-1"), (SELECT id FROM position WHERE abbreviation = "ST"));
+
