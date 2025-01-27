@@ -1,4 +1,4 @@
-package com.nathan.footballsquadmanagerbp2.models;
+package com.nathan.footballsquadmanagerbp2.model;
 
 import java.sql.Date;
 

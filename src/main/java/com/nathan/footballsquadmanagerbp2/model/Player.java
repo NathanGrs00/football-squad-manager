@@ -1,4 +1,4 @@
-package com.nathan.footballsquadmanagerbp2.models;
+package com.nathan.footballsquadmanagerbp2.model;
 
 public class Player {
     private int playerId;
