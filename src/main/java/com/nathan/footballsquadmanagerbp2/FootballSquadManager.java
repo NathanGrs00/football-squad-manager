@@ -1,20 +1,19 @@
 package com.nathan.footballsquadmanagerbp2;
 
+import com.nathan.footballsquadmanagerbp2.view.LoginView;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class FootballSquadManager extends Application {
+    public static int[] screenSize = {800, 600};
+
     @Override
     public void start(Stage stage) {
-        Pane root = new Pane();
-        Scene scene = new Scene(root, 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
+        LoginView loginView = new LoginView();
+
+        stage.setResizable(false);
+        stage.setTitle("Football Squad Manager");
+        stage.setScene(loginView.getScene());
         stage.show();
     }
 
