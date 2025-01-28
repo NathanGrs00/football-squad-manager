@@ -1,0 +1,47 @@
+.label {
+    -fx-font-family: Poppins;
+    -fx-font-size: 14;
+    -fx-text-fill: #F2F2F2;
+}
+
+.text-field {
+    -fx-background-color: #7C72A0;
+    -fx-prompt-text-fill: #F2F2F2;
+    -fx-text-fill: #F2F2F2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
+    -fx-border-color: none;
+    -fx-font-family: Poppins;
+}
+
+.text-field:focused {
+    -fx-border-color: #32DE8A;
+    -fx-border-radius: 5;
+}
+
+.button {
+    -fx-background-color: #32DE8A;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
+    -fx-font-family: Poppins;
+    -fx-text-fill: #2C0E37;
+    -fx-padding: 10 20;
+    -fx-transition: all 0.5s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #7C72A0;
+    -fx-text-fill: #F2F2F2;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.button:pressed {
+    -fx-background-color: #0AD3FF;
+}
+
+#root-pane {
+    -fx-background-color: #2C0E37;
+}
+
+#club-logo {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
+}
