@@ -1,5 +1,6 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
+import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.service.LoginService;
 
 public class LoginController {
@@ -7,9 +8,14 @@ public class LoginController {
 
     public String checkLogin(String username, String password){
         boolean isValid = loginService.checkLogin(username, password);
-        if (isValid){
+        if(username.isEmpty() || password.isEmpty()){
+            return "Username or password is empty";
+        }
+        else if (isValid){
+            FootballSquadManager footballSquadManager = new FootballSquadManager();
+            footballSquadManager.getHomescreen();
             return "Login Successful";
         }
-        return "Login Failed";
+        return "Login Unsuccessful";
     }
 }

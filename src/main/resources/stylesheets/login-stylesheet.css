@@ -5,12 +5,13 @@
 }
 
 .text-field {
+    -fx-font-family: Poppins;
+    -fx-min-height: 40px;
     -fx-background-color: #7C72A0;
     -fx-prompt-text-fill: #F2F2F2;
     -fx-text-fill: #F2F2F2;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
     -fx-border-color: none;
-    -fx-font-family: Poppins;
 }
 
 .text-field:focused {
@@ -39,9 +40,18 @@
 }
 
 #root-pane {
-    -fx-background-color: #2C0E37;
+    -fx-background-color: linear-gradient(to top, #2C0E37, #1d1525);
 }
 
 #club-logo {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
+    -fx-smooth: true;
+}
+
+#login-fields {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+#login-fields VBox {
+    -fx-spacing: 5;
 }

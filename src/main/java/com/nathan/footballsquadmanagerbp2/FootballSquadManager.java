@@ -1,5 +1,7 @@
 package com.nathan.footballsquadmanagerbp2;
 
+import com.nathan.footballsquadmanagerbp2.controller.StageController;
+import com.nathan.footballsquadmanagerbp2.view.HomeView;
 import com.nathan.footballsquadmanagerbp2.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -7,18 +9,32 @@ import javafx.stage.Stage;
 
 
 public class FootballSquadManager extends Application {
-    public static int[] screenSize = {800, 600};
+    public static int[] screenSize = {1280, 720};
 
     @Override
-    public void start(Stage stage) {
-        LoginView loginView = new LoginView();
-        Image clubIcon = new Image(getClass().getResource("/images/logo_fc_club_second.png").toExternalForm(), 500, 500, true, true);
+    public void start(Stage primaryStage) {
+        StageController.setPrimaryStage(primaryStage);
+        getLogin();
+        setGlobalOptions();
+    }
 
-        stage.getIcons().add(clubIcon);
-        stage.setResizable(false);
-        stage.setTitle("Football Squad Manager");
-        stage.setScene(loginView.getScene());
-        stage.show();
+    public void setGlobalOptions() {
+        Image clubIcon = new Image(getClass().getResource("/images/logo_fc_club_second.png").toExternalForm(), 500, 500, true, true);
+        StageController.getPrimaryStage().getIcons().add(clubIcon);
+        StageController.getPrimaryStage().setTitle("Football Squad Manager");
+        StageController.getPrimaryStage().setResizable(false);
+        StageController.getPrimaryStage().show();
+    }
+
+    public void getLogin() {
+        LoginView loginView = new LoginView();
+        StageController.getPrimaryStage().setScene(loginView.getScene());
+    }
+
+    public void getHomescreen() {
+        StageController.getPrimaryStage().setResizable(true);
+        HomeView homeView = new HomeView();
+        StageController.getPrimaryStage().setScene(homeView.getScene());
     }
 
     public static void main(String[] args) {
