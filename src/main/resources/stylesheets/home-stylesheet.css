@@ -1,3 +1,7 @@
+#root-pane {
+    -fx-background-color: #7C72A0;
+}
+
 .button {
     -fx-background-color: #7C72A0;
     -fx-background-radius: 0;
@@ -10,10 +14,6 @@
     -fx-font-weight: bold;
     -fx-font-size: 20px;
     -fx-padding: 10 20;
-}
-
-#home-background {
-    -fx-background-color: #7C72A0;
 }
 
 #home-foreground {
@@ -32,9 +32,11 @@
 #home-content Label {
     -fx-font-family: Poppins;
     -fx-text-fill: #F2F2F2;
+    -fx-wrap-text: true;
 }
 
 #home-content VBox {
-    -fx-pref-width: 50;
     -fx-background-color: #32DE8A;
+    -fx-pref-height: 55;
+    -fx-alignment: bottom-center;
 }
