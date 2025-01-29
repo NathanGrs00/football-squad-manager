@@ -4,12 +4,14 @@ import com.nathan.footballsquadmanagerbp2.controller.StageController;
 import com.nathan.footballsquadmanagerbp2.view.HomeView;
 import com.nathan.footballsquadmanagerbp2.view.LoginView;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 public class FootballSquadManager extends Application {
-    public static int[] screenSize = {1280, 720};
+    public static int[] screenSize = {1600, 900};
 
     @Override
     public void start(Stage primaryStage) {
@@ -23,6 +25,9 @@ public class FootballSquadManager extends Application {
         StageController.getPrimaryStage().getIcons().add(clubIcon);
         StageController.getPrimaryStage().setTitle("Football Squad Manager");
         StageController.getPrimaryStage().setResizable(false);
+        StageController.getPrimaryStage().setX(100);
+        StageController.getPrimaryStage().setY(50);
+
         StageController.getPrimaryStage().show();
     }
 

@@ -76,7 +76,7 @@ public class LoginView {
 
         returnLabel = new Label();
 
-        fadeTransition = new FadeTransition(Duration.seconds(5), clubLogo);
+        fadeTransition = new FadeTransition(Duration.seconds(10), clubLogo);
     }
 
     private void applyStyling(){
