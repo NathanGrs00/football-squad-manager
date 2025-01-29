@@ -1,7 +1,3 @@
-#root-pane {
-    -fx-background-color: #7C72A0;
-}
-
 .button {
     -fx-background-color: #7C72A0;
     -fx-background-radius: 0;
@@ -16,27 +12,31 @@
     -fx-padding: 10 20;
 }
 
-#home-foreground {
+#root-pane {
+    -fx-background-color: #7C72A0;
+}
+
+#menubar {
     -fx-background-color: #2C0E37;
 }
 
-#home-content {
+#menubar-contents {
     -fx-alignment: center;
     -fx-spacing: 30;
 }
 
-#home-content ImageView {
+#menubar-contents ImageView {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 1, 2);
 }
 
-#home-content Label {
-    -fx-font-family: Poppins;
-    -fx-text-fill: #F2F2F2;
-    -fx-wrap-text: true;
-}
-
-#home-content VBox {
+#menubar-contents VBox {
     -fx-background-color: #32DE8A;
     -fx-pref-height: 55;
     -fx-alignment: bottom-center;
+}
+
+#menubar-contents Label {
+    -fx-font-family: Poppins;
+    -fx-text-fill: #F2F2F2;
+    -fx-wrap-text: true;
 }

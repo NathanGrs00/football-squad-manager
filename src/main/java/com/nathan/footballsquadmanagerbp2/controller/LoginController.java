@@ -8,13 +8,12 @@ public class LoginController {
 
     public String checkLogin(String username, String password){
         boolean isValid = loginService.checkLogin(username, password);
+
         if(username.isEmpty() || password.isEmpty()){
             return "Username or password is empty";
-        }
-        else if (isValid){
+        } else if (isValid){
             FootballSquadManager footballSquadManager = new FootballSquadManager();
             footballSquadManager.getHomescreen();
-            return "Login Successful";
         }
         return "Login Unsuccessful";
     }

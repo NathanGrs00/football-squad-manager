@@ -6,14 +6,16 @@ public class Player {
     private String playerLastName;
     private int playerAge;
     private String playerPrefFoot;
+    private int playerShirtNumber;
     private String playerStatus;
 
-    public Player(int playerId, String playerFirstName, String playerLastName, int playerAge, String playerPrefFoot, String playerStatus) {
+    public Player(int playerId, String playerFirstName, String playerLastName, int playerAge, String playerPrefFoot, int playerShirtNumber, String playerStatus) {
         this.playerId = playerId;
         this.playerFirstName = playerFirstName;
         this.playerLastName = playerLastName;
         this.playerAge = playerAge;
         this.playerPrefFoot = playerPrefFoot;
+        this.playerShirtNumber = playerShirtNumber;
         this.playerStatus = playerStatus;
     }
 
@@ -35,6 +37,10 @@ public class Player {
 
     public String getPlayerPrefFoot() {
         return playerPrefFoot;
+    }
+
+    public int getPlayerShirtNumber() {
+        return playerShirtNumber;
     }
 
     public String getPlayerStatus() {
@@ -59,6 +65,10 @@ public class Player {
 
     public void setPlayerPrefFoot(String playerPrefFoot) {
         this.playerPrefFoot = playerPrefFoot;
+    }
+
+    public void setPlayerShirtNumber(int playerShirtNumber) {
+        this.playerShirtNumber = playerShirtNumber;
     }
 
     public void setPlayerStatus(String playerStatus) {

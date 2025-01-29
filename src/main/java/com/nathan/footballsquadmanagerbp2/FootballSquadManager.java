@@ -1,6 +1,7 @@
 package com.nathan.footballsquadmanagerbp2;
 
 import com.nathan.footballsquadmanagerbp2.controller.StageController;
+import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import com.nathan.footballsquadmanagerbp2.view.HomeView;
 import com.nathan.footballsquadmanagerbp2.view.LoginView;
 import javafx.application.Application;
@@ -35,9 +36,13 @@ public class FootballSquadManager extends Application {
     }
 
     public void getHomescreen() {
-        StageController.getPrimaryStage().setResizable(true);
         HomeView homeView = new HomeView();
         StageController.getPrimaryStage().setScene(homeView.getScene());
+    }
+
+    public void getAllPlayers() {
+        AllPlayersView allPlayersView = new AllPlayersView();
+        StageController.getPrimaryStage().setScene(allPlayersView.getScene());
     }
 
     public static void main(String[] args) {
