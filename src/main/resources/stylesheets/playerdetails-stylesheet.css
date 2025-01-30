@@ -7,53 +7,44 @@
     -fx-text-fill: #F2F2F2;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
     -fx-border-color: none;
+    -fx-border-width: 0;
     -fx-background-radius: 0;
 }
 
-.text-area {
+.combo-box {
     -fx-font-family: Poppins;
-    -fx-font-size: 20px;
-    -fx-control-inner-background: #7C72A0;
-    -fx-text-fill: #F2F2F2;
+    -fx-font-size: 18px;
+    -fx-background-color: #F2F2F2;
     -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
 }
 
-.text-area:focused{
-    -fx-border-color: none;
+.combo-box .arrow {
+    -fx-background-color: #2C0E37;
 }
 
-#root-pane {
-    -fx-spacing: 20;
-    -fx-alignment: center;
+.combo-box-popup .list-view {
+    -fx-background-color: #4A3F78;
+    -fx-border-color: #2C0E37;
 }
 
-#name-box {
-    -fx-spacing: 10;
-    -fx-alignment: center;
+.combo-box-popup .list-cell {
+    -fx-padding: 10px;
+    -fx-background-color: #4A3F78;
+    -fx-text-fill: #F2F2F2;
 }
 
-#name-box TextField {
-    -fx-min-width: 280;
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #6B5DA7;
 }
 
-#other-positions-field {
-    -fx-max-width: 250;
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #917CDA;
+    -fx-text-fill: white;
 }
 
-#field-box {
-    -fx-alignment: center;
-}
-
-#field-box TextField {
-    -fx-max-width: 50;
-}
-
-#button-box {
-    -fx-alignment: center;
-    -fx-spacing: 20;
-}
-
-#button-box .button {
+.button {
     -fx-background-color: #7C72A0;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
@@ -67,3 +58,18 @@
     -fx-padding: 10 20;
 }
 
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #F2F2F2;
+}
+
+#root-pane {
+    -fx-hgap: 25px;
+    -fx-vgap: 30px;
+    -fx-background-color: #2C0E37;
+    -fx-alignment: center;
+}
+
+#root-pane VBox {
+    -fx-spacing: 5px;
+}

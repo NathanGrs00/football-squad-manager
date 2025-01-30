@@ -4,7 +4,6 @@ import com.nathan.footballsquadmanagerbp2.controller.StageController;
 import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import com.nathan.footballsquadmanagerbp2.view.HomeView;
 import com.nathan.footballsquadmanagerbp2.view.LoginView;
-import com.nathan.footballsquadmanagerbp2.view.ShowPlayerView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

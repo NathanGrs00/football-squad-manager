@@ -1,16 +1,16 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
 import com.nathan.footballsquadmanagerbp2.model.Player;
-import com.nathan.footballsquadmanagerbp2.view.ShowPlayerView;
+import com.nathan.footballsquadmanagerbp2.view.PlayerDetailsView;
 
 public class AllPlayersController {
-    ShowPlayerView showPlayerView;
+    PlayerDetailsView showPlayerView;
 
     public void addPlayer() {
-        showPlayerView = new ShowPlayerView(null);
+        showPlayerView = new PlayerDetailsView(null);
     }
 
     public void editPlayer(Player player) {
-        showPlayerView = new ShowPlayerView(player);
+        showPlayerView = new PlayerDetailsView(player);
     }
 }
