@@ -23,6 +23,11 @@ public class PlayerService {
         playerDAO.insertPlayer(player);
     }
 
+    public void deletePlayer(Player player) {
+        int id = player.getPlayerId();
+        playerDAO.deletePlayer(id);
+    }
+
     public ObservableList<Player> getPlayers() {
         ObservableList<Player> players = FXCollections.observableArrayList();
         ResultSet allPlayers = playerDAO.getAllPlayers();

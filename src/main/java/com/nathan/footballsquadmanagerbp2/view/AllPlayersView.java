@@ -4,10 +4,12 @@ import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -95,6 +97,7 @@ public class AllPlayersView {
         allPlayersTable.getColumns().addAll(numberCol, firstNameCol, lastNameCol, ageCol, footCol, statusCol);
         allPlayersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         allPlayersTable.setFixedCellSize(30);
+        allPlayersTable.setPlaceholder(new Label("No players! if you are not seeing your changes, please click 'PLAYERS' in the left menu." ));
 
         allPlayersTable.setItems(playerList);
     }
@@ -112,7 +115,10 @@ public class AllPlayersView {
         });
 
         deletePlayerButton.setOnAction(event -> {
-
+            Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
+            if (selectedPlayer != null) {
+                allPlayersController.deletePlayer(selectedPlayer);
+            }
         });
     }
 }

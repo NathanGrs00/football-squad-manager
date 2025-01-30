@@ -32,6 +32,16 @@ public class PlayerDAO {
         }
     }
 
+    public void deletePlayer(int playerId) {
+        String query = "DELETE FROM player WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, playerId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public ResultSet getAllPlayers() {
         ResultSet players;
         String query = "SELECT * FROM player";

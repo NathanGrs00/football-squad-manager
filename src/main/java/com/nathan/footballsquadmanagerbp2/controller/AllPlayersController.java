@@ -17,6 +17,10 @@ public class AllPlayersController {
         showPlayerView = new PlayerDetailsView(player);
     }
 
+    public void deletePlayer(Player player) {
+        playerService.deletePlayer(player);
+    }
+
     public ObservableList<Player> getAllPlayers() {
         playerService = new PlayerService();
         return playerService.getPlayers();
