@@ -5,7 +5,6 @@ import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -53,7 +52,7 @@ public class AllPlayersView {
         overviewContents = new VBox();
 
         allPlayersTable = new TableView<>();
-        playerList = FXCollections.observableArrayList();
+        playerList = allPlayersController.getAllPlayers();
 
         buttonBox = new HBox();
         addPlayerButton = new Button("Add Player");
@@ -96,11 +95,6 @@ public class AllPlayersView {
         allPlayersTable.getColumns().addAll(numberCol, firstNameCol, lastNameCol, ageCol, footCol, statusCol);
         allPlayersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         allPlayersTable.setFixedCellSize(30);
-
-        //TODO: remove once db connection is made.
-        playerList.add(new Player(0, "Bob", "Greenfield", 32, "L", 7, "Available"));
-        playerList.add(new Player(1, "Alice", "Greenfield", 32, "R", 4, "Not available"));
-        playerList.add(new Player(2, "Dennis", "Greenfield", 24, "R", 1, "Injured"));
 
         allPlayersTable.setItems(playerList);
     }

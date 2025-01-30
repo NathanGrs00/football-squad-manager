@@ -2,9 +2,7 @@ package com.nathan.footballsquadmanagerbp2.model;
 
 import com.nathan.footballsquadmanagerbp2.service.DBConnector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PlayerDAO {
     private final Connection conn;
@@ -32,5 +30,17 @@ public class PlayerDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ResultSet getAllPlayers() {
+        ResultSet players;
+        String query = "SELECT * FROM player";
+        try {
+            Statement stmt = conn.createStatement();
+            players = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return players;
     }
 }

@@ -193,9 +193,12 @@ public class PlayerDetailsView {
         goBackButton.setOnAction(event -> {popupStage.close();});
         saveButton.setOnAction(event -> {
             if (player == null) {
-                controller.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField);
+                boolean isValid = controller.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField);
+                if (isValid) {
+                    popupStage.close();
+                }
             }
-            //TODO add player to database || edit existing player (ifcheck).
+            //TODO: edit existing player (ifcheck).
             });
     }
 }

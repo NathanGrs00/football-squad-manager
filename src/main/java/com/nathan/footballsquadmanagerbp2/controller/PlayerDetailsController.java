@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 public class PlayerDetailsController {
     AlertService alertService = new AlertService();
 
-    public void ValidateFields(TextField firstName, TextField lastName, TextField age, ComboBox<String> prefFoot, TextField shirtNumber, ComboBox<String> status) {
+    public boolean ValidateFields(TextField firstName, TextField lastName, TextField age, ComboBox<String> prefFoot, TextField shirtNumber, ComboBox<String> status) {
         try {
             String txtFirstName = firstName.getText();
             String txtLastName = lastName.getText();
@@ -20,23 +20,25 @@ public class PlayerDetailsController {
 
             if (txtPrefFoot == null || txtStatus == null) {
                 alertService.getAlert("Please fill in the preferred foot and the status of the player");
-                return;
+                return false;
             } else if (intShirtNumber < 0 || intShirtNumber > 99) {
                 alertService.getAlert("Shirt number must be between 0 and 99");
-                return;
+                return false;
             } else if (txtFirstName.length() > 15) {
                 alertService.getAlert("First name must be less than 16 characters");
-                return;
+                return false;
             } else if (txtLastName.length() > 20) {
                 alertService.getAlert("Last name must be less than 21 characters");
-                return;
-            } else if (intAge < 0 || intAge > 65) {
-                alertService.getAlert("Age must be between 0 and 65");
-                return;
+                return false;
+            } else if (intAge < 15 || intAge > 65) {
+                alertService.getAlert("Age must be between 15 and 65");
+                return false;
             }
 
             PlayerService playerService = new PlayerService();
             playerService.insertPlayer(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus);
+            alertService.getAlert("Player saved successfully");
+            return true;
         }
         // If formats are incorrect, show error.
         catch (NumberFormatException ex) {

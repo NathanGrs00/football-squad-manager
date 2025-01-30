@@ -1,5 +1,8 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Player {
     private int playerId;
     private String playerFirstName;
@@ -8,6 +11,16 @@ public class Player {
     private String playerPrefFoot;
     private int playerShirtNumber;
     private String playerStatus;
+
+    public Player(ResultSet rs) throws SQLException {
+        this.playerId = rs.getInt("id");
+        this.playerFirstName = rs.getString("first_name");
+        this.playerLastName = rs.getString("last_name");
+        this.playerAge = rs.getInt("age");
+        this.playerPrefFoot = rs.getString("pref_foot");
+        this.playerShirtNumber = rs.getInt("playing_number");
+        this.playerStatus = rs.getString("status");
+    }
 
     public Player(int playerId, String playerFirstName, String playerLastName, int playerAge, String playerPrefFoot, int playerShirtNumber, String playerStatus) {
         this.playerId = playerId;
