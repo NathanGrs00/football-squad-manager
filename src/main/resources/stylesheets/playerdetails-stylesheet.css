@@ -1,0 +1,69 @@
+.text-field {
+    -fx-font-family: Poppins;
+    -fx-font-size: 20px;
+    -fx-min-height: 60px;
+    -fx-background-color: #7C72A0;
+    -fx-prompt-text-fill: #F2F2F2;
+    -fx-text-fill: #F2F2F2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
+    -fx-border-color: none;
+    -fx-background-radius: 0;
+}
+
+.text-area {
+    -fx-font-family: Poppins;
+    -fx-font-size: 20px;
+    -fx-control-inner-background: #7C72A0;
+    -fx-text-fill: #F2F2F2;
+    -fx-border-color: transparent;
+}
+
+.text-area:focused{
+    -fx-border-color: none;
+}
+
+#root-pane {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+#name-box {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+#name-box TextField {
+    -fx-min-width: 280;
+}
+
+#other-positions-field {
+    -fx-max-width: 250;
+}
+
+#field-box {
+    -fx-alignment: center;
+}
+
+#field-box TextField {
+    -fx-max-width: 50;
+}
+
+#button-box {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+#button-box .button {
+    -fx-background-color: #7C72A0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-pref-width: 150;
+    -fx-pref-height: 50;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
+    -fx-text-fill: #F2F2F2;
+    -fx-font-family: Poppins;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-padding: 10 20;
+}
+

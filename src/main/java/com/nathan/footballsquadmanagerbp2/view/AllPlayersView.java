@@ -1,9 +1,11 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
+import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +17,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class AllPlayersView {
+    private AllPlayersController allPlayersController;
+
     private HBox root;
     private Pane menubar;
     private VBox overviewContents;
@@ -31,6 +35,7 @@ public class AllPlayersView {
         initLayout();
         applyStyling();
         initTable();
+        handleButtonActions();
     }
 
     public Scene getScene() {
@@ -41,9 +46,12 @@ public class AllPlayersView {
     }
 
     private void initLayout() {
+        allPlayersController = new AllPlayersController();
+
         root = new HBox();
         menubar = new MenuBar().createMenuBar();
         overviewContents = new VBox();
+
         allPlayersTable = new TableView<>();
         playerList = FXCollections.observableArrayList();
 
@@ -89,10 +97,28 @@ public class AllPlayersView {
         allPlayersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         allPlayersTable.setFixedCellSize(30);
 
-        playerList.add(new Player(0, "Bob", "Greenfield", 32, "L", 7, "available"));
-        playerList.add(new Player(1, "Alice", "Greenfield", 32, "R", 4, "not available"));
-        playerList.add(new Player(2, "Dennis", "Greenfield", 24, "R", 1, "injured"));
+        //TODO: remove once db connection is made.
+        playerList.add(new Player(0, "Bob", "Greenfield", 32, "L", 7, "Available"));
+        playerList.add(new Player(1, "Alice", "Greenfield", 32, "R", 4, "Not available"));
+        playerList.add(new Player(2, "Dennis", "Greenfield", 24, "R", 1, "Injured"));
 
         allPlayersTable.setItems(playerList);
+    }
+
+    public void handleButtonActions() {
+        addPlayerButton.setOnAction(event -> {
+            allPlayersController.addPlayer();
+        });
+
+        editPlayerButton.setOnAction(event -> {
+            Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
+            if (selectedPlayer != null) {
+                allPlayersController.editPlayer(selectedPlayer);
+            }
+        });
+
+        deletePlayerButton.setOnAction(event -> {
+
+        });
     }
 }
