@@ -5,16 +5,32 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnector {
-    Connection conn;
+    private Connection conn;
     private String url = "jdbc:mysql://localhost:3306/f_squad_manager?user=root&password=";
 
-    public Connection getConnection() {
+    private static DBConnector instance;
+
+    private DBConnector() {}
+
+    public void init() {
         try {
             conn = DriverManager.getConnection(url);
-            return conn;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Connection getConnection() {
         return conn;
+    }
+
+    public static DBConnector getInstance() throws SQLException {
+        if (instance != null && !instance.getConnection().isClosed()) {
+            return instance;
+        } else {
+            instance = new DBConnector();
+            instance.init();
+        }
+        return instance;
     }
 }

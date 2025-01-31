@@ -5,14 +5,13 @@ import com.nathan.footballsquadmanagerbp2.service.DBConnector;
 import java.sql.*;
 
 public class PlayerDAO {
-    private final Connection conn;
+    private Connection conn;
 
     public PlayerDAO() {
         try {
-            DBConnector db = new DBConnector();
-            conn = db.getConnection();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            conn = DBConnector.getInstance().getConnection();
+        } catch (SQLException e){
+            e.printStackTrace();
         }
     }
 
