@@ -15,9 +15,9 @@ public class PlayerDAO {
         }
     }
 
-    public void insertPlayer(Player player) {
+    public int insertPlayer(Player player) {
         String query = "INSERT INTO player VALUES (?,?,?,?,?,?,?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, player.getPlayerId());
             pstmt.setString(2, player.getPlayerFirstName());
             pstmt.setString(3, player.getPlayerLastName());
@@ -26,9 +26,16 @@ public class PlayerDAO {
             pstmt.setInt(6, player.getPlayerShirtNumber());
             pstmt.setString(7, player.getPlayerStatus());
             pstmt.executeUpdate();
+
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if(rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return -1;
     }
 
     public void deletePlayer(int playerId) {

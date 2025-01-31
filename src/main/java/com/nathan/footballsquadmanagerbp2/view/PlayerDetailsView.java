@@ -128,7 +128,7 @@ public class PlayerDetailsView {
             lastNameField.setText(player.getPlayerLastName());
             prefFootField.setValue(player.getPlayerPrefFoot());
             ageField.setText(String.valueOf(player.getPlayerAge()));
-            favPositionField.setValue(positionController.getFavPos()); //TODO make combobox work from position_player dao.
+            favPositionField.setValue("test"); //TODO make combobox work from position_player dao. //positionController.getFavPos
             otherPositionsField.setText("test"); //TODO same here.
             shirtNumberField.setText(String.valueOf(player.getPlayerShirtNumber()));
             statusField.setValue(player.getPlayerStatus());
@@ -194,9 +194,8 @@ public class PlayerDetailsView {
         goBackButton.setOnAction(event -> {popupStage.close();});
         saveButton.setOnAction(event -> {
             if (player == null) {
-                boolean isPlayerValid = playerController.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField);
-                boolean isPlayerPositionsValid = positionController.ValidateFields(favPositionField, otherPositionsField);
-                if (isPlayerValid && isPlayerPositionsValid) {
+                boolean isPlayerValid = playerController.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField, favPositionField, otherPositionsField);
+                if (isPlayerValid) {
                     popupStage.close();
                 }
             }

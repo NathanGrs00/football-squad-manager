@@ -29,8 +29,9 @@ public class PositionService {
         return positions;
     }
 
-    public void setPlayerPosition(Player player, String favPos) {
-        Position position = new Position(0, favPos);
+    public void setPlayerBestPosition(int playerId, String favPos) {
+        Position position = positionDAO.getFavPosition(favPos);
 
+        positionDAO.addPositionPlayerLink(playerId, position.getPositionId(), 5);
     }
 }

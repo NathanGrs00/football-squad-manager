@@ -22,9 +22,10 @@ public class PlayerService {
 
         Player player = new Player(id, firstName, lastName, age, firstLetterFoot, shirtNumber, status);
 
+
+        int generatedId = playerDAO.insertPlayer(player);
         positionService = new PositionService();
-        positionService.setPlayerPosition(player, favPos);
-        playerDAO.insertPlayer(player);
+        positionService.setPlayerBestPosition(generatedId, favPos);
     }
 
     public void deletePlayer(Player player) {
