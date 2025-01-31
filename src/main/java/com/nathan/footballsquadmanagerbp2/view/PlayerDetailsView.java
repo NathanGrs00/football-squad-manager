@@ -1,6 +1,7 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.controller.PlayerDetailsController;
+import com.nathan.footballsquadmanagerbp2.controller.PositionController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PlayerDetailsView {
-    private PlayerDetailsController controller;
+    private PlayerDetailsController playerController;
+    private PositionController positionController;
     private Stage popupStage;
     private Player player;
 
@@ -68,7 +70,8 @@ public class PlayerDetailsView {
     }
 
     private void initLayouts(){
-        controller  = new PlayerDetailsController();
+        playerController = new PlayerDetailsController();
+        positionController = new PositionController();
         popupStage = new Stage();
         root = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -109,9 +112,7 @@ public class PlayerDetailsView {
         favPosBox = new VBox();
         favPositionTag = new Label("Favourite position: ");
         favPositionField = new ComboBox<>();
-        favPositions = FXCollections.observableArrayList(
-                //TODO: get abbreviations from the positions table
-        );
+        favPositions = positionController.getAllPositionNames();
 
         favPositionField.setItems(favPositions);
 
@@ -127,7 +128,7 @@ public class PlayerDetailsView {
             lastNameField.setText(player.getPlayerLastName());
             prefFootField.setValue(player.getPlayerPrefFoot());
             ageField.setText(String.valueOf(player.getPlayerAge()));
-            favPositionField.setValue("test"); //TODO make combobox work from position_player dao.
+            favPositionField.setValue(positionController.getFavPos()); //TODO make combobox work from position_player dao.
             otherPositionsField.setText("test"); //TODO same here.
             shirtNumberField.setText(String.valueOf(player.getPlayerShirtNumber()));
             statusField.setValue(player.getPlayerStatus());
@@ -193,8 +194,9 @@ public class PlayerDetailsView {
         goBackButton.setOnAction(event -> {popupStage.close();});
         saveButton.setOnAction(event -> {
             if (player == null) {
-                boolean isValid = controller.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField);
-                if (isValid) {
+                boolean isPlayerValid = playerController.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField);
+                boolean isPlayerPositionsValid = positionController.ValidateFields(favPositionField, otherPositionsField);
+                if (isPlayerValid && isPlayerPositionsValid) {
                     popupStage.close();
                 }
             }

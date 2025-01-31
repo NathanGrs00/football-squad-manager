@@ -10,16 +10,20 @@ import java.sql.SQLException;
 
 public class PlayerService {
     private PlayerDAO playerDAO;
+    private PositionService positionService;
 
     public PlayerService() {
         playerDAO = new PlayerDAO();
     }
 
-    public void insertPlayer(String firstName, String lastName, int age, String prefFoot, int shirtNumber, String status) {
+    public void insertPlayer(String firstName, String lastName, int age, String prefFoot, int shirtNumber, String status, String favPos) {
         int id = 0;
         String firstLetterFoot = prefFoot.substring(0, 1);
 
         Player player = new Player(id, firstName, lastName, age, firstLetterFoot, shirtNumber, status);
+
+        positionService = new PositionService();
+        positionService.setPlayerPosition(player, favPos);
         playerDAO.insertPlayer(player);
     }
 

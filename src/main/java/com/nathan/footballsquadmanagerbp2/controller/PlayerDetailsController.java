@@ -1,15 +1,15 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
-
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+
 public class PlayerDetailsController {
     AlertService alertService = new AlertService();
 
-    public boolean ValidateFields(TextField firstName, TextField lastName, TextField age, ComboBox<String> prefFoot, TextField shirtNumber, ComboBox<String> status) {
+    public boolean ValidateFields(TextField firstName, TextField lastName, TextField age, ComboBox<String> prefFoot, TextField shirtNumber, ComboBox<String> status, ComboBox<String> favPos, TextField otherPos) {
         try {
             String txtFirstName = firstName.getText();
             String txtLastName = lastName.getText();
@@ -17,6 +17,10 @@ public class PlayerDetailsController {
             String txtPrefFoot = prefFoot.getValue();
             int intShirtNumber = Integer.parseInt(shirtNumber.getText());
             String txtStatus = status.getValue();
+            String txtFavPos = favPos.getValue();
+            String txtOtherPos = otherPos.getText();
+
+            //TODO: txtOtherPos, parse String into ArrayList (remove ,)
 
             if (txtPrefFoot == null || txtStatus == null) {
                 alertService.getAlert("Please fill in the preferred foot and the status of the player");
@@ -36,7 +40,7 @@ public class PlayerDetailsController {
             }
 
             PlayerService playerService = new PlayerService();
-            playerService.insertPlayer(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus);
+            playerService.insertPlayer(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos);
             alertService.getAlert("Player saved successfully");
             return true;
         }

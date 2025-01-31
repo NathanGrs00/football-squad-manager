@@ -1,9 +1,18 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Position {
     private int positionId;
     private String positionName;
     private String positionAbreviation;
+
+    public Position(ResultSet rs) throws SQLException {
+        positionId = rs.getInt("id");
+        positionName = rs.getString("name");
+        positionAbreviation = rs.getString("abbreviation");
+    }
 
     public Position(int positionId, String positionName, String positionAbreviation) {
         this.positionId = positionId;

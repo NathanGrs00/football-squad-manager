@@ -99,6 +99,7 @@ public class AllPlayersView {
         allPlayersTable.setFixedCellSize(30);
         allPlayersTable.setPlaceholder(new Label("No players! if you are not seeing your changes, please click 'PLAYERS' in the left menu." ));
 
+        // TODO: ObservableList for changes.
         allPlayersTable.setItems(playerList);
     }
 
