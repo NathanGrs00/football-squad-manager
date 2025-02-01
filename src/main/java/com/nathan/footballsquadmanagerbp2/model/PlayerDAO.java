@@ -39,10 +39,14 @@ public class PlayerDAO {
     }
 
     public void deletePlayer(int playerId) {
+        String deletePlayerPositionLink = "DELETE FROM player_position WHERE player_id = ?";
         String query = "DELETE FROM player WHERE id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, playerId);
-            pstmt.executeUpdate();
+        try (PreparedStatement pstmt1 = conn.prepareStatement(deletePlayerPositionLink);
+             PreparedStatement pstmt2 = conn.prepareStatement(query)) {
+            pstmt1.setInt(1, playerId);
+            pstmt1.executeUpdate();
+            pstmt2.setInt(1, playerId);
+            pstmt2.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
