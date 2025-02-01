@@ -1,6 +1,7 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
 import com.nathan.footballsquadmanagerbp2.service.DBConnector;
+import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 
 import java.sql.*;
 

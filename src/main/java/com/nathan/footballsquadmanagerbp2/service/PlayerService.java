@@ -2,6 +2,7 @@ package com.nathan.footballsquadmanagerbp2.service;
 
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.PlayerDAO;
+import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 public class PlayerService {
     private PlayerDAO playerDAO;
     private PositionService positionService;
+    private AllPlayersView allPlayersView;
 
     public PlayerService() {
         playerDAO = new PlayerDAO();

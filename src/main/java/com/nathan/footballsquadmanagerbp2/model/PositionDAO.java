@@ -47,9 +47,6 @@ public class PositionDAO {
 
     public void addPositionPlayerLink (int playerId, int positionId, int proficiency) {
         String query = "INSERT INTO player_position VALUES (?, ?, ?)";
-        System.out.println(playerId);
-        System.out.println(positionId);
-        System.out.println(proficiency);
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)){
             pstmt.setInt(1, playerId);

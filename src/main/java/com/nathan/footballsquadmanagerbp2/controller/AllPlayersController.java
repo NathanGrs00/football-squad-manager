@@ -3,6 +3,7 @@ package com.nathan.footballsquadmanagerbp2.controller;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
+import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import com.nathan.footballsquadmanagerbp2.view.PlayerDetailsView;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -11,26 +12,25 @@ import javafx.scene.control.ButtonType;
 import java.util.Optional;
 
 public class AllPlayersController {
-    PlayerDetailsView showPlayerView;
-    PlayerService playerService;
+    private PlayerDetailsView showPlayerView;
+    private PlayerService playerService;
 
-    public void addPlayer() {
-        showPlayerView = new PlayerDetailsView(null);
+    public void addPlayer(AllPlayersView allPlayersView) {
+        showPlayerView = new PlayerDetailsView(null, allPlayersView);
     }
 
-    public void editPlayer(Player player) {
-        showPlayerView = new PlayerDetailsView(player);
+    public void editPlayer(Player player, AllPlayersView allPlayersView) {
+        showPlayerView = new PlayerDetailsView(player, allPlayersView);
     }
 
     public void deletePlayer(Player player) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this player?",
+                ButtonType.OK, ButtonType.CANCEL);
         alert.setTitle("Delete Player");
-        alert.setContentText("Are you sure you want to delete this player?");
         alert.setHeaderText(null);
 
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             playerService.deletePlayer(player);
         }
     }

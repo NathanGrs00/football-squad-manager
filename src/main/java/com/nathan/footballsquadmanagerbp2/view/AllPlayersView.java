@@ -3,8 +3,6 @@ package com.nathan.footballsquadmanagerbp2.view;
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -105,13 +103,13 @@ public class AllPlayersView {
 
     public void handleButtonActions() {
         addPlayerButton.setOnAction(event -> {
-            allPlayersController.addPlayer();
+            allPlayersController.addPlayer(this);
         });
 
         editPlayerButton.setOnAction(event -> {
             Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
             if (selectedPlayer != null) {
-                allPlayersController.editPlayer(selectedPlayer);
+                allPlayersController.editPlayer(selectedPlayer, this);
             }
         });
 
@@ -119,7 +117,14 @@ public class AllPlayersView {
             Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
             if (selectedPlayer != null) {
                 allPlayersController.deletePlayer(selectedPlayer);
+                refresh();
             }
         });
+    }
+
+    public void refresh() {
+        allPlayersTable.getItems().clear();
+        ObservableList<Player> updatedPlayers = allPlayersController.getAllPlayers();
+        allPlayersTable.setItems(updatedPlayers);
     }
 }

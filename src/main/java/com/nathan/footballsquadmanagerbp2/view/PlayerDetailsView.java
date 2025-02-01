@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PlayerDetailsView {
+    private AllPlayersView allPlayersView;
     private PlayerDetailsController playerController;
     private PositionController positionController;
     private Stage popupStage;
@@ -62,7 +63,8 @@ public class PlayerDetailsView {
     private Button goBackButton;
     private Button saveButton;
 
-    public PlayerDetailsView(Player player) {
+    public PlayerDetailsView(Player player, AllPlayersView allPlayersView) {
+        this.allPlayersView = allPlayersView;
         this.player = player;
         initLayouts();
         applyStyling();
@@ -133,6 +135,12 @@ public class PlayerDetailsView {
             shirtNumberField.setText(String.valueOf(player.getPlayerShirtNumber()));
             statusField.setValue(player.getPlayerStatus());
         }
+
+        popupStage.setOnHidden(event -> {
+            if (allPlayersView != null) {
+                allPlayersView.refresh();
+            }
+        });
     }
 
     private void applyStyling(){
