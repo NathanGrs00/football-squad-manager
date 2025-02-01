@@ -17,11 +17,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PlayerDetailsView {
-    private AllPlayersView allPlayersView;
+    private final AllPlayersView allPlayersView;
     private PlayerDetailsController playerController;
     private PositionController positionController;
     private Stage popupStage;
-    private Player player;
+    private final Player player;
 
     private GridPane root;
     private ColumnConstraints columnConstraints;
@@ -136,7 +136,7 @@ public class PlayerDetailsView {
             statusField.setValue(player.getPlayerStatus());
         }
 
-        popupStage.setOnHidden(event -> {
+        popupStage.setOnHidden(_ -> {
             if (allPlayersView != null) {
                 allPlayersView.refresh();
             }
@@ -199,8 +199,8 @@ public class PlayerDetailsView {
     }
 
     private void handleButtonClicks(){
-        goBackButton.setOnAction(event -> {popupStage.close();});
-        saveButton.setOnAction(event -> {
+        goBackButton.setOnAction(_ -> popupStage.close());
+        saveButton.setOnAction(_ -> {
             if (player == null) {
                 boolean isPlayerValid = playerController.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField, favPositionField, otherPositionsField);
                 if (isPlayerValid) {

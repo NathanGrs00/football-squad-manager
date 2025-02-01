@@ -102,18 +102,16 @@ public class AllPlayersView {
     }
 
     public void handleButtonActions() {
-        addPlayerButton.setOnAction(event -> {
-            allPlayersController.addPlayer(this);
-        });
+        addPlayerButton.setOnAction(_ -> allPlayersController.addPlayer(this));
 
-        editPlayerButton.setOnAction(event -> {
+        editPlayerButton.setOnAction(_ -> {
             Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
             if (selectedPlayer != null) {
                 allPlayersController.editPlayer(selectedPlayer, this);
             }
         });
 
-        deletePlayerButton.setOnAction(event -> {
+        deletePlayerButton.setOnAction(_ -> {
             Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
             if (selectedPlayer != null) {
                 allPlayersController.deletePlayer(selectedPlayer);

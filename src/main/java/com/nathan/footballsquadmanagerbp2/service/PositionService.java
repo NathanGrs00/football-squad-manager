@@ -1,6 +1,5 @@
 package com.nathan.footballsquadmanagerbp2.service;
 
-import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.Position;
 import com.nathan.footballsquadmanagerbp2.model.PositionDAO;
 
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PositionService {
-    private PositionDAO positionDAO;
+    private final PositionDAO positionDAO;
 
     public PositionService() {
         positionDAO = new PositionDAO();

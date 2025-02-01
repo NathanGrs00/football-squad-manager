@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 public class DBConnector {
     private Connection conn;
-    private String url = "jdbc:mysql://localhost:3306/f_squad_manager?user=root&password=";
 
     private static DBConnector instance;
 
@@ -14,9 +13,10 @@ public class DBConnector {
 
     public void init() {
         try {
+            String url = "jdbc:mysql://localhost:3306/f_squad_manager?user=root&password=";
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

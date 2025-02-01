@@ -14,15 +14,10 @@ public class PositionController {
         ArrayList<Position> positions = positionService.getPositions();
         ObservableList<String> positionNames = FXCollections.observableArrayList();
 
-        // TODO: make positionNames a list of Position.getAbbreviation() in a forloop.
         for (Position position : positions) {
             positionNames.add(position.getPositionAbreviation());
         }
 
         return positionNames;
-    }
-
-    public void getFavPos() {
-
     }
 }

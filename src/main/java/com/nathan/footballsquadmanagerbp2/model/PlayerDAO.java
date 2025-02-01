@@ -1,18 +1,17 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
 import com.nathan.footballsquadmanagerbp2.service.DBConnector;
-import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 
 import java.sql.*;
 
 public class PlayerDAO {
-    private Connection conn;
+    private final Connection conn;
 
     public PlayerDAO() {
         try {
             conn = DBConnector.getInstance().getConnection();
         } catch (SQLException e){
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
