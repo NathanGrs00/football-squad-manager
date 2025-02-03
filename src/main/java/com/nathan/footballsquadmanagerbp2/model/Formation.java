@@ -1,8 +1,16 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Formation {
     private int formationId;
     private String formationName;
+
+    public Formation(ResultSet resultSet) throws SQLException {
+        this.formationId = resultSet.getInt("id");
+        this.formationName = resultSet.getString("name");
+    }
 
     public Formation(int formationId, String formationName) {
         this.formationId = formationId;
