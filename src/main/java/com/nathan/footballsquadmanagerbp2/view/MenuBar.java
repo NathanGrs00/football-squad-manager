@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class MenuBar {
+    // Private variables, final because they will never change.
     private final HomeController homeController;
 
     private final Pane root;
@@ -30,6 +31,7 @@ public class MenuBar {
 
     private final Timeline timeline;
 
+    // Constructor initializes the variables.
     public MenuBar() {
         homeController = new HomeController();
 
@@ -60,6 +62,7 @@ public class MenuBar {
         root.getChildren().add(menubarContents);
     }
 
+    // Menubar for the homescreen.
     public Pane createHomescreen(){
         setWidthAndGaps(1400, 300, 300, 500);
         getButtonHandlingHomescreen();
@@ -68,6 +71,7 @@ public class MenuBar {
         return root;
     }
 
+    // Menubar for the rest of the application.
     public Pane createMenuBar(){
         setWidthAndGaps(300, 200, 200, 200);
         getButtonHandlingMenuBar();
@@ -77,6 +81,7 @@ public class MenuBar {
         return root;
     }
 
+    // Dynamically changing the layout based on values.
     public void setWidthAndGaps(int rootWidth, int imageWidth, int imageHeight, int barWidth){
         root.setPrefWidth(rootWidth);
 
@@ -89,24 +94,14 @@ public class MenuBar {
         menubarContents.setLayoutX(contentWidthGap / 2);
     }
 
+    // Spacer to make space.
     public Region getSpacer(int height){
         Region extraSpacing = new Region();
         extraSpacing.setPrefHeight(height);
         return extraSpacing;
     }
 
-    private void getButtonHandlingMenuBar(){
-        allPlayersButton.setOnAction(_ -> homeController.sendToPlayers());
-
-        newSelectionButton.setOnAction(_ ->{
-
-        });
-
-        allSelectionsButton.setOnAction(_ ->{
-
-        });
-    }
-
+    // Menubar handling for the homescreen (with animation)
     private void getButtonHandlingHomescreen(){
         allPlayersButton.setOnAction(_ ->{
             getAnimation();
@@ -125,12 +120,28 @@ public class MenuBar {
         });
     }
 
+    // MenuBar navigation for rest of the application.
+    private void getButtonHandlingMenuBar(){
+        allPlayersButton.setOnAction(_ -> homeController.sendToPlayers());
+
+        newSelectionButton.setOnAction(_ ->{
+
+        });
+
+        allSelectionsButton.setOnAction(_ ->{
+
+        });
+    }
+
+    // Animation for the sliding to the left.
     private void getAnimation(){
         timeline.getKeyFrames().addAll(
+                // Starting frame.
                 new KeyFrame(Duration.seconds(0),
                         new KeyValue(root.prefWidthProperty(), root.getPrefWidth()),
                         new KeyValue(menubarContents.prefWidthProperty(), menubarContents.getPrefWidth())
                 ),
+                // 1.5 seconds in, set the properties to different values.
                 new KeyFrame(Duration.seconds(1.5),
                         new KeyValue(root.prefWidthProperty(), 300, Interpolator.EASE_BOTH),
                         new KeyValue(menubarImage.fitWidthProperty(), 200, Interpolator.EASE_BOTH),

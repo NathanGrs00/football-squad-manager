@@ -1,6 +1,5 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
-import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
 import com.nathan.footballsquadmanagerbp2.controller.PlayerDetailsController;
 import com.nathan.footballsquadmanagerbp2.controller.PositionController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
@@ -18,9 +17,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PlayerDetailsView {
+    // Private variables.
     private final AllPlayersView allPlayersView;
     private PlayerDetailsController playerController;
-    private PositionController positionController;
     private Stage popupStage;
     private final Player player;
 
@@ -41,7 +40,6 @@ public class PlayerDetailsView {
     private VBox prefFootBox;
     private Label prefFootTag;
     private ComboBox prefFootField;
-    private ObservableList<String> feet;
 
     private VBox numberBox;
     private Label numberTag;
@@ -54,16 +52,15 @@ public class PlayerDetailsView {
     private VBox favPosBox;
     private Label favPositionTag;
     private ComboBox favPositionField;
-    private ObservableList<String> favPositions;
 
     private VBox otherPosBox;
     private Label otherPositionsTag;
     private TextField otherPositionsField;
-    private ObservableList<String> statuses;
 
     private Button goBackButton;
     private Button saveButton;
 
+    // Constructor to populate scene and pass the Player to fill data and allPlayersView for changing the table.
     public PlayerDetailsView(Player player, AllPlayersView allPlayersView) {
         this.allPlayersView = allPlayersView;
         this.player = player;
@@ -72,10 +69,11 @@ public class PlayerDetailsView {
         handleButtonClicks();
     }
 
+    // Initializing the variables.
     private void initLayouts(){
         playerController = new PlayerDetailsController();
 
-        positionController = new PositionController();
+        PositionController positionController = new PositionController();
         popupStage = new Stage();
         root = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -93,11 +91,13 @@ public class PlayerDetailsView {
 
         prefFootBox = new VBox();
         prefFootTag = new Label("Preferred foot: ");
+        // Comboboxes are filled with observableLists.
         prefFootField = new ComboBox<>();
-        feet = FXCollections.observableArrayList(
+        ObservableList<String> feet = FXCollections.observableArrayList(
                 "Left", "Right", "Both"
         );
 
+        // TODO: handle unchecked calls.
         prefFootField.setItems(feet);
 
         numberBox = new VBox();
@@ -107,7 +107,7 @@ public class PlayerDetailsView {
         statusBox = new VBox();
         statusTag = new Label("Status: ");
         statusField = new ComboBox<>();
-        statuses = FXCollections.observableArrayList(
+        ObservableList<String> statuses = FXCollections.observableArrayList(
                 "Available", "Not available", "Injured", "Suspended"
         );
 
@@ -116,7 +116,7 @@ public class PlayerDetailsView {
         favPosBox = new VBox();
         favPositionTag = new Label("Favourite position: ");
         favPositionField = new ComboBox<>();
-        favPositions = positionController.getAllPositionNames();
+        ObservableList<String> favPositions = positionController.getAllPositionNames();
 
         favPositionField.setItems(favPositions);
 
@@ -127,6 +127,7 @@ public class PlayerDetailsView {
         goBackButton = new Button("Go Back");
         saveButton = new Button("Save");
 
+        // If there is a player passed, then fill in the values of the fields.
         if (player != null) {
             firstNameField.setText(player.getPlayerFirstName());
             lastNameField.setText(player.getPlayerLastName());
@@ -138,6 +139,7 @@ public class PlayerDetailsView {
             statusField.setValue(player.getPlayerStatus());
         }
 
+        // When window closes, refresh the table.
         popupStage.setOnHidden(_ -> {
             if (allPlayersView != null) {
                 allPlayersView.refresh();
@@ -145,6 +147,7 @@ public class PlayerDetailsView {
         });
     }
 
+    // Styling and layout.
     private void applyStyling(){
         root.setId("root-pane");
         columnConstraints.setMaxWidth(250);
@@ -152,6 +155,7 @@ public class PlayerDetailsView {
 
         Image clubIcon = new Image(getClass().getResource("/images/logo_fc_club_second.png").toExternalForm(), 500, 500, true, true);
         popupStage.getIcons().add(clubIcon);
+        // Changing the title, based on add or edit.
         if (player == null) {
             popupStage.setTitle("Add new player");
         } else {
@@ -181,6 +185,7 @@ public class PlayerDetailsView {
         favPosBox.getChildren().addAll(favPositionTag, favPositionField);
         otherPosBox.getChildren().addAll(otherPositionsTag, otherPositionsField);
 
+        // Grid Layout.
         root.add(firstNameBox, 0, 0);
         root.add(lastNameBox, 1, 0);
         root.add(ageBox, 0, 1);
@@ -200,16 +205,22 @@ public class PlayerDetailsView {
         return homeScene;
     }
 
+    // Handling the button clicks.
     private void handleButtonClicks(){
         goBackButton.setOnAction(_ -> popupStage.close());
         saveButton.setOnAction(_ -> {
+            int id;
+            // Passing the player, used in the player_position table.
             if (player == null) {
-                boolean isPlayerValid = playerController.ValidateFields(firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField, favPositionField, otherPositionsField);
-                if (isPlayerValid) {
-                    popupStage.close();
-                }
+                id = 0;
+            } else {
+                id = player.getPlayerId();
             }
-            //TODO: edit existing player (ifcheck).
-            });
+            // If changes have been made successfully, close the stage.
+            boolean isValid = playerController.ValidateAndSave(id, firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField, favPositionField, otherPositionsField);
+            if (isValid) {
+                popupStage.close();
+            }
+        });
     }
 }

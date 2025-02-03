@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class PositionController {
     PositionService positionService = new PositionService();
 
+    // Getting an observable list for the combobox from an ArrayList of all the position objects.
     public ObservableList<String> getAllPositionNames() {
         ArrayList<Position> positions = positionService.getPositions();
         ObservableList<String> positionNames = FXCollections.observableArrayList();

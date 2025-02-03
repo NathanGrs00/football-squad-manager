@@ -8,12 +8,15 @@ public class Position {
     private String positionName;
     private String positionAbreviation;
 
+
+    // First constructor is for the data in SQL, to a model.
     public Position(ResultSet rs) throws SQLException {
         positionId = rs.getInt("id");
         positionName = rs.getString("name");
         positionAbreviation = rs.getString("abbreviation");
     }
 
+    // Second is for input into Model.
     public Position(int positionId, String positionName, String positionAbreviation) {
         this.positionId = positionId;
         this.positionName = positionName;

@@ -12,6 +12,7 @@ public class Player {
     private int playerShirtNumber;
     private String playerStatus;
 
+    // First constructor is for the data in SQL, to a model.
     public Player(ResultSet rs) throws SQLException {
         this.playerId = rs.getInt("id");
         this.playerFirstName = rs.getString("first_name");
@@ -22,6 +23,7 @@ public class Player {
         this.playerStatus = rs.getString("status");
     }
 
+    // Second is for Data into Model.
     public Player(int playerId, String playerFirstName, String playerLastName, int playerAge, String playerPrefFoot, int playerShirtNumber, String playerStatus) {
         this.playerId = playerId;
         this.playerFirstName = playerFirstName;

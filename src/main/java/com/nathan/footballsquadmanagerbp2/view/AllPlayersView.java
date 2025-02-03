@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class AllPlayersView {
+    // Private variables so they can be used in all functions.
     private AllPlayersController allPlayersController;
     private PlayerDetailsController playerDetailsController;
 
@@ -33,13 +34,15 @@ public class AllPlayersView {
     private Button editPlayerButton;
     private Button deletePlayerButton;
 
+    // Constructor to populate the scene.
     public AllPlayersView() {
-        initLayout();
-        applyStyling();
+        initVariables();
+        initLayouts();
         initTable();
         handleButtonActions();
     }
 
+    // Returns the scene for the view.
     public Scene getScene() {
         Scene homeScene = new Scene(root, FootballSquadManager.screenSize[0], FootballSquadManager.screenSize[1]);
         homeScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -47,7 +50,8 @@ public class AllPlayersView {
         return homeScene;
     }
 
-    private void initLayout() {
+    // Initializing the variables
+    private void initVariables() {
         allPlayersController = new AllPlayersController();
         playerDetailsController = new PlayerDetailsController();
 
@@ -64,7 +68,8 @@ public class AllPlayersView {
         deletePlayerButton = new Button("Delete Player");
     }
 
-    private void applyStyling() {
+    // Layout and Styling
+    private void initLayouts() {
         buttonBox.setId("button-box");
         overviewContents.setId("overview-contents");
 
@@ -77,10 +82,14 @@ public class AllPlayersView {
         root.getChildren().addAll(menubar, overviewContents);
     }
 
+    // Initializing the table.
     private void initTable() {
+        // Creates a new column, takes an integer from the Player model.
         TableColumn<Player, Integer> numberCol = new TableColumn<>("Number");
+        // Sets the value for the column as the getter from the Player Model.
         numberCol.setCellValueFactory(new PropertyValueFactory<>("playerShirtNumber"));
 
+        // Repeat for other columns.
         TableColumn<Player, String> firstNameCol = new TableColumn<>("First name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("playerFirstName"));
 
@@ -89,8 +98,11 @@ public class AllPlayersView {
 
         TableColumn<Player, String> favPosCol = new TableColumn<>("Favourite Position");
         favPosCol.setCellValueFactory(cellData -> {
+            // Retrieves the player object from the row.
             Player player = cellData.getValue();
+            // Retrieve the favorite position from the database.
             String favPos = playerDetailsController.getFavPosColumn(player.getPlayerId());
+            // Wrapping the string in a SimpleStringProperty so that it is observable.
             return new SimpleStringProperty(favPos);
         });
 
@@ -104,6 +116,7 @@ public class AllPlayersView {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("playerStatus"));
 
         allPlayersTable.getColumns().addAll(numberCol, firstNameCol, lastNameCol, favPosCol, ageCol, footCol, statusCol);
+        // No resizing, evenly distributed.
         allPlayersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         allPlayersTable.setFixedCellSize(30);
         allPlayersTable.setPlaceholder(new Label("No players added yet!" ));
@@ -112,11 +125,14 @@ public class AllPlayersView {
     }
 
     public void handleButtonActions() {
+        // Button handling functions. Passing 'this' so that the PlayerDetailsView can update the table when mutating.
         addPlayerButton.setOnAction(_ -> allPlayersController.addPlayer(this));
 
         editPlayerButton.setOnAction(_ -> {
             Player selectedPlayer = allPlayersTable.getSelectionModel().getSelectedItem();
+            // Making sure the user selected a player
             if (selectedPlayer != null) {
+                // Passing the selected player for filled in values in the PlayerDetailsView.
                 allPlayersController.editPlayer(selectedPlayer, this);
             }
         });
@@ -130,6 +146,7 @@ public class AllPlayersView {
         });
     }
 
+    // Refreshing the table function.
     public void refresh() {
         allPlayersTable.getItems().clear();
         ObservableList<Player> updatedPlayers = allPlayersController.getAllPlayers();

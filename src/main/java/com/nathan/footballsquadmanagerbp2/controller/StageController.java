@@ -3,6 +3,7 @@ package com.nathan.footballsquadmanagerbp2.controller;
 import javafx.stage.Stage;
 
 public class StageController {
+    // Class for setting and getting the primaryStage.
     private static Stage primaryStage;
 
     private StageController() {

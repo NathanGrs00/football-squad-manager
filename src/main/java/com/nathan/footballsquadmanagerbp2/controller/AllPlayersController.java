@@ -12,28 +12,34 @@ public class AllPlayersController {
     private PlayerDetailsView showPlayerView;
     private PlayerService playerService;
 
+    public AllPlayersController() {
+        this.playerService = new PlayerService();
+    }
+
+    // Navigating to the new stage, without player.
     public void addPlayer(AllPlayersView allPlayersView) {
         showPlayerView = new PlayerDetailsView(null, allPlayersView);
     }
 
+    // Navigating to the new stage, with player.
     public void editPlayer(Player player, AllPlayersView allPlayersView) {
         showPlayerView = new PlayerDetailsView(player, allPlayersView);
     }
 
+    // Confirming the user wants to delete the player.
     public void deletePlayer(Player player) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to delete this player?",
-                ButtonType.OK, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Player");
-        alert.setHeaderText(null);
+        alert.setHeaderText("Are you sure you want to delete this player?");
+        alert.setContentText("This action cannot be undone.");
 
         if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             playerService.deletePlayer(player);
         }
     }
 
+    // Calling playerService to get all the players in the database.
     public ObservableList<Player> getAllPlayers() {
-        playerService = new PlayerService();
         return playerService.getPlayers();
     }
 }

@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class LoginView {
+    // Private variables.
     private LoginController controller;
 
     private Pane rootPane;
@@ -39,11 +40,13 @@ public class LoginView {
     private double loginWidth;
     private double loginHeight;
 
+    // Constructor to populate scene.
     public LoginView() {
-        initLayout();
+        initVariables();
         applyStyling();
     }
 
+    // getScene for the stage.
     public Scene getScene() {
         Scene loginScene = new Scene(rootPane, loginWidth, loginHeight);
         loginScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -51,7 +54,8 @@ public class LoginView {
         return loginScene;
     }
 
-    private void initLayout() {
+    // Initializing the variables.
+    private void initVariables() {
         controller = new LoginController();
 
         rootPane = new Pane();
@@ -64,6 +68,7 @@ public class LoginView {
         clubLogo = new ImageView(logoPath);
         colorAdjust = new ColorAdjust();
         blur = new GaussianBlur(1);
+        fadeTransition = new FadeTransition(Duration.seconds(10), clubLogo);
 
         Label usernameTag = new Label("Username");
         txtUsername = new TextField();
@@ -75,10 +80,9 @@ public class LoginView {
         btnLogin = new Button("Login");
 
         returnLabel = new Label();
-
-        fadeTransition = new FadeTransition(Duration.seconds(10), clubLogo);
     }
 
+    // Layout and styling.
     private void applyStyling(){
         txtUsername.setPromptText("Username");
         txtPassword.setPromptText("Password");
@@ -119,6 +123,7 @@ public class LoginView {
         rootPane.getChildren().addAll(clubLogo, loginFields);
     }
 
+    // TODO: use User model and database!
     private void handleLoginButton() {
         String username = txtUsername.getText();
         String password = txtPassword.getText();

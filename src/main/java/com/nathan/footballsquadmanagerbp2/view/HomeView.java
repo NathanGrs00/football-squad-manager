@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class HomeView {
+    // HomeView uses a stretched out version of the menubar.
     private final HBox root;
 
     public HomeView() {
