@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 public class PlayerDetailsView {
     private final AllPlayersView allPlayersView;
     private PlayerDetailsController playerController;
-    private AllPlayersController allPlayersController;
     private PositionController positionController;
     private Stage popupStage;
     private final Player player;
@@ -75,7 +74,6 @@ public class PlayerDetailsView {
 
     private void initLayouts(){
         playerController = new PlayerDetailsController();
-        allPlayersController = new AllPlayersController();
 
         positionController = new PositionController();
         popupStage = new Stage();
@@ -134,8 +132,8 @@ public class PlayerDetailsView {
             lastNameField.setText(player.getPlayerLastName());
             prefFootField.setValue(player.getPlayerPrefFoot());
             ageField.setText(String.valueOf(player.getPlayerAge()));
-            favPositionField.setValue(allPlayersController.getFavPosColumn(player.getPlayerId())); //TODO make combobox work from position_player dao. //positionController.getFavPos
-            otherPositionsField.setText("test"); //TODO same here.
+            favPositionField.setValue(playerController.getFavPosColumn(player.getPlayerId()));
+            otherPositionsField.setText(playerController.getOtherPosColumn(player.getPlayerId()));
             shirtNumberField.setText(String.valueOf(player.getPlayerShirtNumber()));
             statusField.setValue(player.getPlayerStatus());
         }

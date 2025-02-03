@@ -2,6 +2,7 @@ package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
+import com.nathan.footballsquadmanagerbp2.controller.PlayerDetailsController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.scene.layout.VBox;
 
 public class AllPlayersView {
     private AllPlayersController allPlayersController;
+    private PlayerDetailsController playerDetailsController;
 
     private HBox root;
     private Pane menubar;
@@ -47,6 +49,7 @@ public class AllPlayersView {
 
     private void initLayout() {
         allPlayersController = new AllPlayersController();
+        playerDetailsController = new PlayerDetailsController();
 
         root = new HBox();
         menubar = new MenuBar().createMenuBar();
@@ -87,7 +90,7 @@ public class AllPlayersView {
         TableColumn<Player, String> favPosCol = new TableColumn<>("Favourite Position");
         favPosCol.setCellValueFactory(cellData -> {
             Player player = cellData.getValue();
-            String favPos = allPlayersController.getFavPosColumn(player.getPlayerId());
+            String favPos = playerDetailsController.getFavPosColumn(player.getPlayerId());
             return new SimpleStringProperty(favPos);
         });
 

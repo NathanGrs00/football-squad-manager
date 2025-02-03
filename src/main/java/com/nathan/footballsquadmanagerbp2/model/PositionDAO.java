@@ -64,6 +64,28 @@ public class PositionDAO {
         return returnString;
     }
 
+    public String getOtherPositionsFromPlayerPositionTable(int playerId) {
+        StringBuilder positions = new StringBuilder();
+        String query = "SELECT p.abbreviation FROM position p " +
+                "JOIN player_position pp ON pp.position_id = p.id " +
+                "WHERE pp.player_id = ? AND pp.proficiency = 3";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, playerId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    if (positions.length() > 0) {
+                        positions.append(", ");
+                    }
+                    positions.append(rs.getString("abbreviation"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return positions.toString();
+    }
+
+
     public void addPositionPlayerLink (int playerId, int positionId, int proficiency) {
         String query = "INSERT INTO player_position VALUES (?, ?, ?)";
 

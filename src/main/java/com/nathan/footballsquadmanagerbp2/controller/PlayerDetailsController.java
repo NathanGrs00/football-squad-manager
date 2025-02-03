@@ -1,5 +1,6 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
+import com.nathan.footballsquadmanagerbp2.model.PositionDAO;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import com.nathan.footballsquadmanagerbp2.service.PositionService;
@@ -16,7 +17,14 @@ public class PlayerDetailsController {
     PlayerService playerService = new PlayerService();
     PositionService positionService = new PositionService();
 
-    public boolean ValidateFields(TextField firstName, TextField lastName, TextField age, ComboBox<String> prefFoot, TextField shirtNumber, ComboBox<String> status, ComboBox<String> favPos, TextField otherPos) {
+    public boolean ValidateFields(TextField firstName,
+                                  TextField lastName,
+                                  TextField age,
+                                  ComboBox<String> prefFoot,
+                                  TextField shirtNumber,
+                                  ComboBox<String> status,
+                                  ComboBox<String> favPos,
+                                  TextField otherPos) {
         try {
             String txtFirstName = firstName.getText();
             String txtLastName = lastName.getText();
@@ -27,14 +35,17 @@ public class PlayerDetailsController {
             String txtFavPos = favPos.getValue();
             String txtOtherPos = otherPos.getText();
 
+            //Takes each position split by comma's and puts it into an array, and converts it into a stream for processing.
             List<String> positions = Arrays.stream(txtOtherPos.split(","))
+                    //Trims all the whitespace.
                     .map(String::trim)
+                    //Filters out any empty inputs
                     .filter(s -> !s.isEmpty())
+                    //Puts them back into a List
                     .collect(Collectors.toList());
 
-            //TODO: txtOtherPos, parse String into ArrayList (remove ,)
-
-            if (txtPrefFoot == null || txtStatus == null) {
+            //Checking if comboboxes are empty;
+            if (txtPrefFoot == null || txtStatus == null || txtFavPos == null) {
                 alertService.getAlert("Please fill in the preferred foot and the status of the player");
                 return false;
             } else if (intShirtNumber < 0 || intShirtNumber > 99) {
@@ -50,6 +61,7 @@ public class PlayerDetailsController {
                 alertService.getAlert("Age must be between 15 and 65");
                 return false;
             } else if (!positionService.checkIfPositionExists(positions)) {
+                // Gives an error if any position in the input does not exist.
                 alertService.getAlert("Please enter the other positions in this format: 'RWB, CDM, LB' etc.");
                 return false;
             }
@@ -64,5 +76,13 @@ public class PlayerDetailsController {
             alertService.getAlert("Please enter the correct format details.");
             throw new RuntimeException(ex);
         }
+    }
+    public String getFavPosColumn(int playerId) {
+        PositionDAO positionDAO = new PositionDAO();
+        return positionDAO.getFavPositionFromPlayerPositionTable(playerId);
+    }
+    public String getOtherPosColumn(int playerId) {
+        PositionDAO positionDAO = new PositionDAO();
+        return positionDAO.getOtherPositionsFromPlayerPositionTable(playerId);
     }
 }

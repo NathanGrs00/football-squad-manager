@@ -1,9 +1,7 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
 import com.nathan.footballsquadmanagerbp2.model.Player;
-import com.nathan.footballsquadmanagerbp2.model.PositionDAO;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
-import com.nathan.footballsquadmanagerbp2.service.PositionService;
 import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import com.nathan.footballsquadmanagerbp2.view.PlayerDetailsView;
 import javafx.collections.ObservableList;
@@ -37,10 +35,5 @@ public class AllPlayersController {
     public ObservableList<Player> getAllPlayers() {
         playerService = new PlayerService();
         return playerService.getPlayers();
-    }
-
-    public String getFavPosColumn(int playerId) {
-        PositionDAO positionDAO = new PositionDAO();
-        return positionDAO.getFavPositionFromPlayerPositionTable(playerId);
     }
 }
