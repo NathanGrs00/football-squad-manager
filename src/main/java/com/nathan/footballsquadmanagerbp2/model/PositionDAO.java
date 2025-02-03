@@ -27,7 +27,7 @@ public class PositionDAO {
         return positions;
     }
 
-    public Position getFavPosition(String positionName) {
+    public Position getPosition(String positionName) {
         String query = "SELECT * FROM position WHERE abbreviation = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {

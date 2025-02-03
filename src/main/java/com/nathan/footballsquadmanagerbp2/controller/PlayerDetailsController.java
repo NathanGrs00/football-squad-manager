@@ -2,12 +2,19 @@ package com.nathan.footballsquadmanagerbp2.controller;
 
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
+import com.nathan.footballsquadmanagerbp2.service.PositionService;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class PlayerDetailsController {
     AlertService alertService = new AlertService();
+    PlayerService playerService = new PlayerService();
+    PositionService positionService = new PositionService();
 
     public boolean ValidateFields(TextField firstName, TextField lastName, TextField age, ComboBox<String> prefFoot, TextField shirtNumber, ComboBox<String> status, ComboBox<String> favPos, TextField otherPos) {
         try {
@@ -19,6 +26,11 @@ public class PlayerDetailsController {
             String txtStatus = status.getValue();
             String txtFavPos = favPos.getValue();
             String txtOtherPos = otherPos.getText();
+
+            List<String> positions = Arrays.stream(txtOtherPos.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
 
             //TODO: txtOtherPos, parse String into ArrayList (remove ,)
 
@@ -37,13 +49,16 @@ public class PlayerDetailsController {
             } else if (intAge < 15 || intAge > 65) {
                 alertService.getAlert("Age must be between 15 and 65");
                 return false;
+            } else if (!positionService.checkIfPositionExists(positions)) {
+                alertService.getAlert("Please enter the other positions in this format: 'RWB, CDM, LB' etc.");
+                return false;
             }
 
-            PlayerService playerService = new PlayerService();
-            playerService.insertPlayer(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos);
+            playerService.insertPlayer(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos, positions);
             alertService.getAlert("Player saved successfully");
             return true;
         }
+
         // If formats are incorrect, show error.
         catch (NumberFormatException ex) {
             alertService.getAlert("Please enter the correct format details.");

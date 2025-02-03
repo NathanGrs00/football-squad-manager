@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class PlayerService {
     private final PlayerDAO playerDAO;
@@ -15,7 +16,7 @@ public class PlayerService {
         playerDAO = new PlayerDAO();
     }
 
-    public void insertPlayer(String firstName, String lastName, int age, String prefFoot, int shirtNumber, String status, String favPos) {
+    public void insertPlayer(String firstName, String lastName, int age, String prefFoot, int shirtNumber, String status, String favPos, List<String> positions) {
         int id = 0;
         String firstLetterFoot = prefFoot.substring(0, 1);
 
@@ -25,6 +26,7 @@ public class PlayerService {
         int generatedId = playerDAO.insertPlayer(player);
         PositionService positionService = new PositionService();
         positionService.setPlayerBestPosition(generatedId, favPos);
+        positionService.setOtherPositions(generatedId, positions);
     }
 
     public void deletePlayer(Player player) {
