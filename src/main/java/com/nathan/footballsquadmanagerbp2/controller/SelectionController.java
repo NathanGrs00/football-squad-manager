@@ -8,6 +8,10 @@ import java.util.List;
 public class SelectionController {
     private FormationDAO formationDAO;
 
+    public SelectionController() {
+        formationDAO = new FormationDAO();
+    }
+
     public List<Formation> getFormations() {
         return formationDAO.getAllFormations();
     }

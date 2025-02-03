@@ -5,6 +5,7 @@ import com.nathan.footballsquadmanagerbp2.service.DBConnector;
 import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import com.nathan.footballsquadmanagerbp2.view.HomeView;
 import com.nathan.footballsquadmanagerbp2.view.LoginView;
+import com.nathan.footballsquadmanagerbp2.view.NewSelectionView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -44,6 +45,11 @@ public class FootballSquadManager extends Application {
     public void getAllPlayers() {
         AllPlayersView allPlayersView = new AllPlayersView();
         StageController.getPrimaryStage().setScene(allPlayersView.getScene());
+    }
+
+    public void getNewSelection() {
+        NewSelectionView newSelectionView = new NewSelectionView();
+        StageController.getPrimaryStage().setScene(newSelectionView.getScene());
     }
 
     public static void main(String[] args) {

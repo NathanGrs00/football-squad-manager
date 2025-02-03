@@ -17,7 +17,7 @@ public class HomeController {
     }
 
     public void sendToNewSelection(){
-
+        footballSquadManager.getNewSelection();
     }
 
     public void sendToAllSelections(){
