@@ -3,6 +3,7 @@ package com.nathan.footballsquadmanagerbp2.view;
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.AllPlayersController;
 import com.nathan.footballsquadmanagerbp2.model.Player;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -77,11 +78,18 @@ public class AllPlayersView {
         TableColumn<Player, Integer> numberCol = new TableColumn<>("Number");
         numberCol.setCellValueFactory(new PropertyValueFactory<>("playerShirtNumber"));
 
-        TableColumn<Player, String> firstNameCol = new TableColumn<>("Last name");
+        TableColumn<Player, String> firstNameCol = new TableColumn<>("First name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("playerFirstName"));
 
         TableColumn<Player, String> lastNameCol = new TableColumn<>("Last name");
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("playerLastName"));
+
+        TableColumn<Player, String> favPosCol = new TableColumn<>("Favourite Position");
+        favPosCol.setCellValueFactory(cellData -> {
+            Player player = cellData.getValue();
+            String favPos = allPlayersController.getFavPosColumn(player.getPlayerId());
+            return new SimpleStringProperty(favPos);
+        });
 
         TableColumn<Player, Integer> ageCol = new TableColumn<>("Age");
         ageCol.setCellValueFactory(new PropertyValueFactory<>("playerAge"));
@@ -92,12 +100,11 @@ public class AllPlayersView {
         TableColumn<Player, String> statusCol = new TableColumn<>("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<>("playerStatus"));
 
-        allPlayersTable.getColumns().addAll(numberCol, firstNameCol, lastNameCol, ageCol, footCol, statusCol);
+        allPlayersTable.getColumns().addAll(numberCol, firstNameCol, lastNameCol, favPosCol, ageCol, footCol, statusCol);
         allPlayersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         allPlayersTable.setFixedCellSize(30);
-        allPlayersTable.setPlaceholder(new Label("No players! if you are not seeing your changes, please click 'PLAYERS' in the left menu." ));
+        allPlayersTable.setPlaceholder(new Label("No players added yet!" ));
 
-        // TODO: ObservableList for changes.
         allPlayersTable.setItems(playerList);
     }
 

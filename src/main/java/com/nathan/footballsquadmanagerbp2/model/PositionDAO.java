@@ -45,6 +45,25 @@ public class PositionDAO {
         return null;
     }
 
+    public String getFavPositionFromPlayerPositionTable(int playerId) {
+        String returnString = "";
+        String query = "SELECT p.abbreviation FROM position p JOIN player_position pp ON pp.position_id = p.id " +
+                "WHERE pp.player_id = ? AND pp.proficiency = 5";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, playerId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    returnString = rs.getString("abbreviation");
+                    return returnString;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return returnString;
+    }
+
     public void addPositionPlayerLink (int playerId, int positionId, int proficiency) {
         String query = "INSERT INTO player_position VALUES (?, ?, ?)";
 
