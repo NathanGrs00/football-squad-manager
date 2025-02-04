@@ -27,6 +27,7 @@ public class SelectionDAO {
             pstmt.setDate(3, selection.getSelectionDate());
             pstmt.setInt(4, selection.getSelectionUser().getUserId());
             pstmt.setInt(5, selection.getSelectionFormation().getFormationId());
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
