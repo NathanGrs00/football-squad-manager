@@ -32,4 +32,10 @@ public class Formation {
     public void setFormationName(String formationName) {
         this.formationName = formationName;
     }
+
+    // Ensures formationName can be used in a combobox, but still gains access to the .getFormationId() getter.
+    @Override
+    public String toString() {
+        return formationName;
+    }
 }

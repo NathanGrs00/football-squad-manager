@@ -1,9 +1,10 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
-import com.nathan.footballsquadmanagerbp2.controller.SelectionController;
+import com.nathan.footballsquadmanagerbp2.controller.NewSelectionController;
 import com.nathan.footballsquadmanagerbp2.model.Formation;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,7 +15,7 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 
 public class NewSelectionView {
-    SelectionController selectionController;
+    NewSelectionController selectionController;
     HBox root;
     Pane menuBar;
     VBox formationContent;
@@ -22,8 +23,10 @@ public class NewSelectionView {
     Label selectionNameTag;
     TextField selectionNameInput;
     Label formationTag;
-    ComboBox<String> formationChoice;
+    ComboBox<Formation> formationChoice;
     List<Formation> formations;
+
+    Button submitButton;
 
     public NewSelectionView() {
         initVariables();
@@ -31,7 +34,7 @@ public class NewSelectionView {
     }
 
     public void initVariables() {
-        selectionController = new SelectionController();
+        selectionController = new NewSelectionController();
         root = new HBox();
         formationContent = new VBox();
         menuBar = new MenuBar().createMenuBar();
@@ -41,16 +44,23 @@ public class NewSelectionView {
         formationTag = new Label("Formation: ");
         formationChoice = new ComboBox<>();
         formations = selectionController.getFormations();
+
+        submitButton = new Button("Save new selection");
     }
 
     public void initLayout() {
         root.setId("root-pane");
         menuBar.setId("menubar");
+        formationContent.setId("formation-content");
+        formationContent.setPrefWidth(FootballSquadManager.screenSize[0] - 300);
+        submitButton.setOnAction(e -> {
+            handleButtonClick();
+        });
 
         for (Formation formation : formations) {
-            formationChoice.getItems().add(formation.getFormationName());
+            formationChoice.getItems().add(formation);
         }
-        formationContent.getChildren().addAll(selectionNameTag, selectionNameInput, formationTag,  formationChoice);
+        formationContent.getChildren().addAll(selectionNameTag, selectionNameInput, formationTag, formationChoice, submitButton);
         root.getChildren().addAll(menuBar, formationContent);
     }
 
@@ -59,5 +69,9 @@ public class NewSelectionView {
         homeScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
         homeScene.getStylesheets().add(getClass().getResource("/stylesheets/new-selection-stylesheet.css").toExternalForm());
         return homeScene;
+    }
+
+    public void handleButtonClick() {
+        selectionController.validateFields(selectionNameInput, formationChoice);
     }
 }
