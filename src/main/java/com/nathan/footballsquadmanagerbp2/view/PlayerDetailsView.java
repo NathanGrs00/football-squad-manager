@@ -39,7 +39,7 @@ public class PlayerDetailsView {
 
     private VBox prefFootBox;
     private Label prefFootTag;
-    private ComboBox prefFootField;
+    private ComboBox<String> prefFootField;
 
     private VBox numberBox;
     private Label numberTag;
@@ -47,11 +47,11 @@ public class PlayerDetailsView {
 
     private VBox statusBox;
     private Label statusTag;
-    private ComboBox statusField;
+    private ComboBox<String> statusField;
 
     private VBox favPosBox;
     private Label favPositionTag;
-    private ComboBox favPositionField;
+    private ComboBox<String> favPositionField;
 
     private VBox otherPosBox;
     private Label otherPositionsTag;

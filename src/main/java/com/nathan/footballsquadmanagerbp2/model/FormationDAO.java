@@ -21,7 +21,7 @@ public class FormationDAO {
     }
 
     public List<Formation> getAllFormations() {
-        List<Formation> formations = new ArrayList<Formation>();
+        List<Formation> formations = new ArrayList<>();
         ResultSet resultSet;
         String query = "SELECT * FROM formation";
         try {

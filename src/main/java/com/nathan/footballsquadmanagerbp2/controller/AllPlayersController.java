@@ -9,8 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 public class AllPlayersController {
-    private PlayerDetailsView showPlayerView;
-    private PlayerService playerService;
+    private final PlayerService playerService;
 
     public AllPlayersController() {
         this.playerService = new PlayerService();
@@ -18,12 +17,12 @@ public class AllPlayersController {
 
     // Navigating to the new stage, without player.
     public void addPlayer(AllPlayersView allPlayersView) {
-        showPlayerView = new PlayerDetailsView(null, allPlayersView);
+        new PlayerDetailsView(null, allPlayersView);
     }
 
     // Navigating to the new stage, with player.
     public void editPlayer(Player player, AllPlayersView allPlayersView) {
-        showPlayerView = new PlayerDetailsView(player, allPlayersView);
+        new PlayerDetailsView(player, allPlayersView);
     }
 
     // Confirming the user wants to delete the player.

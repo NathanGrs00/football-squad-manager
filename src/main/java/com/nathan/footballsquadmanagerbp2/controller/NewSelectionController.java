@@ -14,8 +14,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class NewSelectionController {
-    private SelectionService selectionService;
-    private FormationDAO formationDAO;
+    private final SelectionService selectionService;
+    private final FormationDAO formationDAO;
 
     public NewSelectionController() {
         formationDAO = new FormationDAO();
@@ -26,15 +26,24 @@ public class NewSelectionController {
         return formationDAO.getAllFormations();
     }
 
-    public void validateFields(TextField name, ComboBox<Formation> formation) {
+    public String validateFields(TextField name, ComboBox<Formation> formation) {
         String txtname = name.getText();
         Formation selectedFormation = formation.getValue();
         LocalDate currentDate = LocalDate.now();
         Date sqlCurrentDate = Date.valueOf(currentDate);
 
+        String alertString = "";
+
+        if (txtname.isEmpty() || selectedFormation == null) {
+            alertString = "Please enter all fields";
+        } else if (txtname.length() > 25) {
+            alertString = "Name is too long";
+        }
+
         User loggedInUser = LoginService.getInstance().getLoggedInUser();
         if (loggedInUser != null) {
             selectionService.saveFormation(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
         }
+        return alertString;
     }
 }

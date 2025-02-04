@@ -123,7 +123,6 @@ public class LoginView {
         rootPane.getChildren().addAll(clubLogo, loginFields);
     }
 
-    // TODO: use User model and database!
     private void handleLoginButton() {
         String username = txtUsername.getText();
         String password = txtPassword.getText();

@@ -125,9 +125,7 @@ public class MenuBar {
     private void getButtonHandlingMenuBar(){
         allPlayersButton.setOnAction(_ -> homeController.sendToPlayers());
 
-        newSelectionButton.setOnAction(_ ->{
-            homeController.sendToNewSelection();
-        });
+        newSelectionButton.setOnAction(_ -> homeController.sendToNewSelection());
 
         allSelectionsButton.setOnAction(_ ->{
 

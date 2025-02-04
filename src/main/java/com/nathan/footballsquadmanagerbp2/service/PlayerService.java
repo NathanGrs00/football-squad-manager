@@ -12,13 +12,11 @@ import java.util.List;
 public class PlayerService {
     // Private variables.
     private final PlayerDAO playerDAO;
-    private AlertService alertService;
-    private PositionService positionService;
+    private final PositionService positionService;
 
     // Constructor to initialize the variables.
     public PlayerService() {
         playerDAO = new PlayerDAO();
-        alertService = new AlertService();
         positionService = new PositionService();
     }
 

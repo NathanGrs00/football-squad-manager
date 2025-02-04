@@ -3,6 +3,7 @@ package com.nathan.footballsquadmanagerbp2.view;
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.NewSelectionController;
 import com.nathan.footballsquadmanagerbp2.model.Formation;
+import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 
 public class NewSelectionView {
+    AlertService alertService = new AlertService();
     NewSelectionController selectionController;
     HBox root;
     Pane menuBar;
@@ -34,6 +36,7 @@ public class NewSelectionView {
     }
 
     public void initVariables() {
+        alertService = new AlertService();
         selectionController = new NewSelectionController();
         root = new HBox();
         formationContent = new VBox();
@@ -53,9 +56,7 @@ public class NewSelectionView {
         menuBar.setId("menubar");
         formationContent.setId("formation-content");
         formationContent.setPrefWidth(FootballSquadManager.screenSize[0] - 300);
-        submitButton.setOnAction(e -> {
-            handleButtonClick();
-        });
+        submitButton.setOnAction(_ -> handleButtonClick());
 
         for (Formation formation : formations) {
             formationChoice.getItems().add(formation);
@@ -72,6 +73,9 @@ public class NewSelectionView {
     }
 
     public void handleButtonClick() {
-        selectionController.validateFields(selectionNameInput, formationChoice);
+        String alertMessage = selectionController.validateFields(selectionNameInput, formationChoice);
+        if (!alertMessage.isEmpty()) {
+            alertService.getAlert(alertMessage);
+        }
     }
 }
