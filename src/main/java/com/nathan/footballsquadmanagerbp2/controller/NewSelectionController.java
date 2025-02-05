@@ -41,7 +41,7 @@ public class NewSelectionController {
         }
 
         User loggedInUser = LoginService.getInstance().getLoggedInUser();
-        if (loggedInUser != null) {
+        if (loggedInUser != null && alertString.isEmpty()) {
             selectionService.saveFormation(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
         }
         return alertString;

@@ -17,18 +17,22 @@ public class PositionService {
     }
 
     // Taking a ResultSet and making an Arraylist of Position models.
-    public ArrayList<Position> getPositions() {
+    public ArrayList<Position> getPositions(ResultSet resultSet) {
         ArrayList<Position> positions = new ArrayList<>();
-        ResultSet allPositions = positionDAO.getAllPositions();
 
         try {
-            while (allPositions.next()) {
-                positions.add(new Position(allPositions));
+            while (resultSet.next()) {
+                positions.add(new Position(resultSet));
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return positions;
+    }
+
+    public ArrayList<Position> getPositionsFromFormationId(int id) {
+        ResultSet resultSet = positionDAO.getAllPositionsFromFormation(id);
+        return getPositions(resultSet);
     }
 
     // Setting the players best position. 5 for proficiency will be the highest.
@@ -69,7 +73,7 @@ public class PositionService {
         positionDAO.updatePlayerPosition(id, List.of(favPos), 5);
     }
 
-    public void editOtherPositions(int id, List <String> positions) {
+    public void editOtherPositions(int id, List<String> positions) {
         positionDAO.updatePlayerPosition(id, positions, 5);
     }
 }

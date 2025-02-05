@@ -108,4 +108,16 @@ public class PositionDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public ResultSet getAllPositionsFromFormation(int formationId) {
+        String query = "SELECT p.* FROM position p JOIN formation_position fp ON p.id = fp.position_id " +
+                "WHERE fp.formation_id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, formationId);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

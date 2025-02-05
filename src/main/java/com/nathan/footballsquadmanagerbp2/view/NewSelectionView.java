@@ -3,20 +3,26 @@ package com.nathan.footballsquadmanagerbp2.view;
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.NewSelectionController;
 import com.nathan.footballsquadmanagerbp2.model.Formation;
+import com.nathan.footballsquadmanagerbp2.model.Position;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
+import com.nathan.footballsquadmanagerbp2.service.PositionService;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewSelectionView {
-    AlertService alertService = new AlertService();
+    PositionService positionService;
+    AlertService alertService;
     NewSelectionController selectionController;
     HBox root;
     Pane menuBar;
@@ -36,6 +42,7 @@ public class NewSelectionView {
     }
 
     public void initVariables() {
+        positionService = new PositionService();
         alertService = new AlertService();
         selectionController = new NewSelectionController();
         root = new HBox();
@@ -76,6 +83,20 @@ public class NewSelectionView {
         String alertMessage = selectionController.validateFields(selectionNameInput, formationChoice);
         if (!alertMessage.isEmpty()) {
             alertService.getAlert(alertMessage);
+        } else {
+            selectionNameTag.setVisible(false);
+            selectionNameInput.setVisible(false);
+            formationTag.setVisible(false);
+            formationChoice.setVisible(false);
+            submitButton.setVisible(false);
+            initGrid();
         }
+    }
+
+    public void initGrid() {
+        GridPane grid = new GridPane();
+
+        ArrayList<Position> list = positionService.getPositionsFromFormationId(formationChoice.getValue().getFormationId());
+        System.out.println(list);
     }
 }

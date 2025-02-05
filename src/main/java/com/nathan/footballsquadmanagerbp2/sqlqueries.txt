@@ -24,8 +24,8 @@ ADD CONSTRAINT fk_sposition_id FOREIGN KEY (position_id) REFERENCES `position`(i
 ADD CONSTRAINT fk_sselection_id FOREIGN KEY (selection_id) REFERENCES selection(id);
 
 ALTER TABLE `selection`
-ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES `user`(id);
-
+ADD CONSTRAINT fk_suser_id FOREIGN KEY (user_id) REFERENCES `user`(id);
+ADD CONSTRAINT fk_sformation_id FOREIGN KEY (formation_id) REFERENCES `formation`(id);
 
 INSERT INTO formation (name)
 VALUES ("4-4-2"),
