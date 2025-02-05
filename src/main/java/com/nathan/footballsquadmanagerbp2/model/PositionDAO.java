@@ -36,7 +36,7 @@ public class PositionDAO {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Position(rs.getInt("id"), rs.getString("name"), rs.getString("abbreviation"));
+                    return new Position(rs.getInt("id"), rs.getString("name"), rs.getString("abbreviation"), rs.getInt("xposition"), rs.getInt("yposition"));
                 }
             }
 
@@ -110,8 +110,7 @@ public class PositionDAO {
     }
 
     public ResultSet getAllPositionsFromFormation(int formationId) {
-        String query = "SELECT p.* FROM position p JOIN formation_position fp ON p.id = fp.position_id " +
-                "WHERE fp.formation_id = ?";
+        String query = "SELECT p.* FROM position p JOIN formation_position fp ON p.id = fp.position_id WHERE fp.formation_id = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, formationId);

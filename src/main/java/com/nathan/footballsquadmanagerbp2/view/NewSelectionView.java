@@ -3,8 +3,10 @@ package com.nathan.footballsquadmanagerbp2.view;
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.controller.NewSelectionController;
 import com.nathan.footballsquadmanagerbp2.model.Formation;
+import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.Position;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
+import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import com.nathan.footballsquadmanagerbp2.service.PositionService;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,11 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewSelectionView {
+    PlayerService playerService;
     PositionService positionService;
     AlertService alertService;
     NewSelectionController selectionController;
@@ -42,6 +44,7 @@ public class NewSelectionView {
     }
 
     public void initVariables() {
+        playerService = new PlayerService();
         positionService = new PositionService();
         alertService = new AlertService();
         selectionController = new NewSelectionController();
@@ -84,19 +87,33 @@ public class NewSelectionView {
         if (!alertMessage.isEmpty()) {
             alertService.getAlert(alertMessage);
         } else {
-            selectionNameTag.setVisible(false);
-            selectionNameInput.setVisible(false);
-            formationTag.setVisible(false);
-            formationChoice.setVisible(false);
-            submitButton.setVisible(false);
             initGrid();
         }
     }
 
     public void initGrid() {
         GridPane grid = new GridPane();
+        grid.setId("grid-pane");
+        grid.setHgap(20);
+        grid.setVgap(20);
 
-        ArrayList<Position> list = positionService.getPositionsFromFormationId(formationChoice.getValue().getFormationId());
-        System.out.println(list);
+        ArrayList<Player> players = playerService.getPlayers();
+        ArrayList<Position> positionsFromFormation = positionService.getPositionsFromFormationId(formationChoice.getValue().getFormationId());
+
+        Label titleTag = new Label("Selection name: " + selectionNameInput.getText());
+
+        for (Position pos : positionsFromFormation) {
+            Button positionButton = new Button(pos.getPositionAbreviation());
+
+            positionButton.setOnAction(_ -> {
+                //TODO: make buttons clickable to add players from players list.
+            });
+
+            positionButton.getStyleClass().add("position-button");
+            grid.add(positionButton, pos.getxPosition(), pos.getyPosition());
+        }
+
+        root.getChildren().remove(formationContent);
+        root.getChildren().addAll(titleTag, grid);
     }
 }

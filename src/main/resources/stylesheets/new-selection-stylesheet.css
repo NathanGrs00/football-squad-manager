@@ -62,3 +62,13 @@
     -fx-background-color: #2C0E37;
     -fx-max-width: 300px;
 }
+
+#grid-pane {
+    -fx-padding: 50px;
+    -fx-max-width: 1000px;
+}
+
+.position-button {
+    -fx-min-height: 125px;
+    -fx-background-color: #2C0E37;
+}

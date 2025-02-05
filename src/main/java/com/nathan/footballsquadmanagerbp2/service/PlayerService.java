@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerService {
@@ -82,9 +83,9 @@ public class PlayerService {
         playerDAO.deletePlayer(id);
     }
 
-    // Turning a Resultset into an ObservableList.
-    public ObservableList<Player> getPlayers() {
-        ObservableList<Player> players = FXCollections.observableArrayList();
+    // Turning a Resultset into an ArrayList.
+    public ArrayList<Player> getPlayers() {
+        ArrayList<Player> players = new ArrayList<>();
         ResultSet allPlayers = playerDAO.getAllPlayers();
 
         try {
