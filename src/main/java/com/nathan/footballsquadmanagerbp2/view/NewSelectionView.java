@@ -13,10 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,15 +91,22 @@ public class NewSelectionView {
     }
 
     public void initGrid() {
+        Image pitchBackground = new Image(getClass().getResource("/images/background_pitch.png").toExternalForm());
+        ImageView pitchImageView = new ImageView(pitchBackground);
+        pitchImageView.setFitWidth(FootballSquadManager.screenSize[0] - 100);
+        pitchImageView.setPreserveRatio(true);
+        pitchImageView.setTranslateX(17);
+        StackPane stackPane = new StackPane(pitchImageView, formationContent);
         GridPane grid = new GridPane();
         grid.setId("grid-pane");
-        grid.setHgap(20);
+        grid.setHgap(100);
         grid.setVgap(20);
 
         ArrayList<Player> players = playerService.getPlayers();
         ArrayList<Position> positionsFromFormation = positionService.getPositionsFromFormationId(formationChoice.getValue().getFormationId());
 
         Label titleTag = new Label("Selection name: " + selectionNameInput.getText());
+        titleTag.setId("title-tag");
 
         for (Position pos : positionsFromFormation) {
             Button positionButton = new Button(pos.getPositionAbreviation());
@@ -113,7 +119,8 @@ public class NewSelectionView {
             grid.add(positionButton, pos.getxPosition(), pos.getyPosition());
         }
 
-        root.getChildren().remove(formationContent);
-        root.getChildren().addAll(titleTag, grid);
+        formationContent.getChildren().removeAll(selectionNameTag, selectionNameInput, formationTag, formationChoice, submitButton);
+        formationContent.getChildren().addAll(titleTag, grid);
+        root.getChildren().add(stackPane);
     }
 }

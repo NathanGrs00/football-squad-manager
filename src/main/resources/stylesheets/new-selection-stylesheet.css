@@ -47,6 +47,11 @@
     -fx-text-fill: white;
 }
 
+.position-button {
+    -fx-min-height: 125px;
+    -fx-background-color: #2C0E37;
+}
+
 #formation-content {
     -fx-alignment: center;
     -fx-spacing: 20px;
@@ -63,12 +68,15 @@
     -fx-max-width: 300px;
 }
 
-#grid-pane {
-    -fx-padding: 50px;
-    -fx-max-width: 1000px;
+#title-tag {
+    -fx-text-fill: #F2F2F2;
+    -fx-font-family: Poppins;
+    -fx-font-size: 24px;
 }
 
-.position-button {
-    -fx-min-height: 125px;
-    -fx-background-color: #2C0E37;
+#grid-pane {
+    -fx-padding: 50px;
+    -fx-max-width: 1200px;
 }
+
+
