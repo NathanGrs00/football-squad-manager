@@ -8,34 +8,33 @@ import com.nathan.footballsquadmanagerbp2.model.Position;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import com.nathan.footballsquadmanagerbp2.service.PositionService;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class NewSelectionView {
-    PlayerService playerService;
-    PositionService positionService;
-    AlertService alertService;
-    NewSelectionController selectionController;
-    HBox root;
-    Pane menuBar;
-    VBox formationContent;
+    private Map<Button, Position> positionButtonMap;
+    private Set<Player> selectedPlayers;
+    private PlayerService playerService;
+    private PositionService positionService;
+    private AlertService alertService;
+    private NewSelectionController selectionController;
+    private HBox root;
+    private Pane menuBar;
+    private VBox formationContent;
 
-    Label selectionNameTag;
-    TextField selectionNameInput;
-    Label formationTag;
-    ComboBox<Formation> formationChoice;
-    List<Formation> formations;
+    private Label selectionNameTag;
+    private TextField selectionNameInput;
+    private Label formationTag;
+    private ComboBox<Formation> formationChoice;
+    private List<Formation> formations;
 
-    Button submitButton;
+    private Button submitButton;
 
     public NewSelectionView() {
         initVariables();
@@ -43,6 +42,9 @@ public class NewSelectionView {
     }
 
     public void initVariables() {
+        positionButtonMap = new HashMap<>();
+        selectedPlayers = new HashSet<>();
+
         playerService = new PlayerService();
         positionService = new PositionService();
         alertService = new AlertService();
@@ -93,14 +95,14 @@ public class NewSelectionView {
     public void initGrid() {
         Image pitchBackground = new Image(getClass().getResource("/images/background_pitch.png").toExternalForm());
         ImageView pitchImageView = new ImageView(pitchBackground);
-        pitchImageView.setFitWidth(FootballSquadManager.screenSize[0] - 100);
+        pitchImageView.setFitWidth(1200);
+        pitchImageView.setFitHeight(1100);
         pitchImageView.setPreserveRatio(true);
-        pitchImageView.setTranslateX(17);
-        StackPane stackPane = new StackPane(pitchImageView, formationContent);
+        pitchImageView.setTranslateX(15);
         GridPane grid = new GridPane();
         grid.setId("grid-pane");
-        grid.setHgap(100);
-        grid.setVgap(20);
+
+        StackPane stackPane = new StackPane(pitchImageView, grid);
 
         ArrayList<Player> players = playerService.getPlayers();
         ArrayList<Position> positionsFromFormation = positionService.getPositionsFromFormationId(formationChoice.getValue().getFormationId());
@@ -108,19 +110,62 @@ public class NewSelectionView {
         Label titleTag = new Label("Selection name: " + selectionNameInput.getText());
         titleTag.setId("title-tag");
 
+        Label formationTag = new Label("Formation: " + formationChoice.getValue().getFormationName());
+        formationTag.setId("formation-tag");
+
+        HBox selectionDetails = new HBox(titleTag, formationTag);
+        selectionDetails.setId("selection-details");
+
         for (Position pos : positionsFromFormation) {
             Button positionButton = new Button(pos.getPositionAbreviation());
 
             positionButton.setOnAction(_ -> {
-                //TODO: make buttons clickable to add players from players list.
+                Player previousPlayer = (Player) positionButton.getUserData();
+                if (previousPlayer != null) {
+                    selectedPlayers.remove(previousPlayer);
+                }
+
+                List<Player> availablePlayers = players.stream().filter(p-> !selectedPlayers.contains(p)).toList();
+
+                if (availablePlayers.isEmpty()) {
+                    alertService.getAlert("No player available!");
+                    return;
+                }
+
+                ChoiceDialog<Player> dialogue = new ChoiceDialog<>(availablePlayers.getFirst(), availablePlayers);
+                dialogue.setTitle("Select a player");
+                dialogue.setHeaderText("Choose a player for " + pos.getPositionAbreviation());
+                dialogue.setContentText("Player:");
+
+                Optional<Player> result = dialogue.showAndWait();
+                result.ifPresent(selectedPlayer -> {
+                    positionButton.setText(selectedPlayer.getPlayerLastName());
+                    positionButton.setUserData(selectedPlayer);
+                    positionButton.setStyle("-fx-opacity: 1;");
+                    selectedPlayers.add(selectedPlayer);
+                });
             });
 
-            positionButton.getStyleClass().add("position-button");
+            positionButton.getStyleClass().add("opacity-button");
             grid.add(positionButton, pos.getxPosition(), pos.getyPosition());
+            positionButtonMap.put(positionButton, pos);
         }
 
-        formationContent.getChildren().removeAll(selectionNameTag, selectionNameInput, formationTag, formationChoice, submitButton);
-        formationContent.getChildren().addAll(titleTag, grid);
-        root.getChildren().add(stackPane);
+        Button clearAllButton = new Button("Clear all");
+        clearAllButton.setOnAction(_ -> {
+            positionButtonMap.forEach((button, pos) -> {
+                button.setText(pos.getPositionAbreviation());
+                button.setUserData(null);
+                button.setStyle("-fx-opacity: 0.7;");
+            });
+            selectedPlayers.clear();
+        });
+        clearAllButton.setId("clear-all-button");
+
+        VBox selectionBox = new VBox(selectionDetails, stackPane, clearAllButton);
+        selectionBox.setAlignment(Pos.CENTER);
+
+        root.getChildren().remove(formationContent);
+        root.getChildren().add(selectionBox);
     }
 }

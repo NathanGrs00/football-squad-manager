@@ -89,4 +89,9 @@ public class Player {
     public void setPlayerStatus(String playerStatus) {
         this.playerStatus = playerStatus;
     }
+
+    @Override
+    public String toString() {
+        return playerFirstName + " " + playerLastName;
+    }
 }
