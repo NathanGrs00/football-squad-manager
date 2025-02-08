@@ -1,6 +1,8 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Selection {
     private int selectionId;
@@ -8,6 +10,18 @@ public class Selection {
     private Date selectionDate;
     private User selectionUser;
     private Formation selectionFormation;
+
+    private UserDAO userDAO;
+    private FormationDAO formationDAO;
+
+    public Selection(ResultSet rs) throws SQLException {
+        this.selectionId = rs.getInt("id");
+        this.selectionName = rs.getString("name");
+        this.selectionDate = rs.getDate("date");
+        userDAO = new UserDAO();
+        this.selectionUser = userDAO.getUser(rs.getString("name"));
+        this.selectionFormation = formationDAO.getFormationById(rs.getInt("formation_id"));
+    }
 
     public Selection(int selectionId, String selectionName, Date selectionDate, User selectionUser, Formation selectionFormation) {
         this.selectionId = selectionId;

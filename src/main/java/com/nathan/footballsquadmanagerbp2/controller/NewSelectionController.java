@@ -1,9 +1,6 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
-import com.nathan.footballsquadmanagerbp2.model.Formation;
-import com.nathan.footballsquadmanagerbp2.model.FormationDAO;
-import com.nathan.footballsquadmanagerbp2.model.Selection;
-import com.nathan.footballsquadmanagerbp2.model.User;
+import com.nathan.footballsquadmanagerbp2.model.*;
 import com.nathan.footballsquadmanagerbp2.service.LoginService;
 import com.nathan.footballsquadmanagerbp2.service.SelectionService;
 import javafx.scene.control.ComboBox;
@@ -11,6 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewSelectionController {
@@ -26,7 +24,7 @@ public class NewSelectionController {
         return formationDAO.getAllFormations();
     }
 
-    public String validateFields(TextField name, ComboBox<Formation> formation) {
+    public int validateFields(TextField name, ComboBox<Formation> formation) {
         String txtname = name.getText();
         Formation selectedFormation = formation.getValue();
         LocalDate currentDate = LocalDate.now();
@@ -41,9 +39,26 @@ public class NewSelectionController {
         }
 
         User loggedInUser = LoginService.getInstance().getLoggedInUser();
-        if (loggedInUser != null && alertString.isEmpty()) {
-            selectionService.saveFormation(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
+        if (loggedInUser != null) {
+            Selection selection = selectionService.saveSelection(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
         }
-        return alertString;
+        return selection;
+    }
+
+    public List<Player> getBestPlayers(List<Player> availablePlayers, Position position) {
+        List<Player> bestPlayers = new ArrayList<>();
+        int maxProficiency = -1;
+
+        for (Player player : availablePlayers) {
+            int proficiency = selectionService.getPlayerProficiencyForPosition(player.getPlayerId(), position.getPositionId());
+            if (proficiency > maxProficiency) {
+                maxProficiency = proficiency;
+                bestPlayers.clear();
+                bestPlayers.add(player);
+            } else if (proficiency == maxProficiency) {
+                bestPlayers.add(player);
+            }
+        }
+        return bestPlayers;
     }
 }

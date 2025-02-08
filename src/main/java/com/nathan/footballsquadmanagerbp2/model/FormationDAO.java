@@ -2,10 +2,7 @@ package com.nathan.footballsquadmanagerbp2.model;
 
 import com.nathan.footballsquadmanagerbp2.service.DBConnector;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,5 +31,19 @@ public class FormationDAO {
             throw new RuntimeException(e);
         }
         return formations;
+    }
+
+    public Formation getFormationById(int id) {
+        String query = "SELECT id, title FROM formations WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Formation(rs.getInt("id"), rs.getString("title"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

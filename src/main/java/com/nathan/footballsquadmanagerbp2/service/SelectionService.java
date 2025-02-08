@@ -6,8 +6,12 @@ import com.nathan.footballsquadmanagerbp2.model.SelectionDAO;
 public class SelectionService {
     SelectionDAO selectionDAO;
 
-    public void saveFormation(Selection selection) {
+    public Selection saveSelection(Selection selection) {
         selectionDAO = new SelectionDAO();
-        selectionDAO.insertNewSelection(selection);
+        return selectionDAO.insertNewSelection(selection);
+    }
+
+    public int getPlayerProficiencyForPosition(int playerId, int positionId) {
+        return 5;
     }
 }
