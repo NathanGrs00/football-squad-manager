@@ -24,23 +24,24 @@ public class NewSelectionController {
         return formationDAO.getAllFormations();
     }
 
-    public int validateFields(TextField name, ComboBox<Formation> formation) {
+    public Selection validateFields(TextField name, ComboBox<Formation> formation) {
         String txtname = name.getText();
         Formation selectedFormation = formation.getValue();
         LocalDate currentDate = LocalDate.now();
         Date sqlCurrentDate = Date.valueOf(currentDate);
 
-        String alertString = "";
+        //TODO: fix alerts.
 
         if (txtname.isEmpty() || selectedFormation == null) {
-            alertString = "Please enter all fields";
+            return null;
         } else if (txtname.length() > 25) {
-            alertString = "Name is too long";
+            return null;
         }
 
         User loggedInUser = LoginService.getInstance().getLoggedInUser();
+        Selection selection = null;
         if (loggedInUser != null) {
-            Selection selection = selectionService.saveSelection(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
+            selection = selectionService.saveSelection(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
         }
         return selection;
     }

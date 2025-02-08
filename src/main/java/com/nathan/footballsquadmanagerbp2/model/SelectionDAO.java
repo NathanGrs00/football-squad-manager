@@ -30,7 +30,8 @@ public class SelectionDAO {
             // Get the generated id in selection table.
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if(rs.next()) {
-                    return getSelection(rs.getInt("id"));
+                    int generatedId = rs.getInt(1);
+                    return getSelection(generatedId);
                 }
             }
         } catch (SQLException e) {

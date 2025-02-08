@@ -12,6 +12,7 @@ public class SelectionService {
     }
 
     public int getPlayerProficiencyForPosition(int playerId, int positionId) {
+        //TODO: add player filtering based on prof.
         return 5;
     }
 }

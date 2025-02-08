@@ -1,26 +1,18 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
+import com.nathan.footballsquadmanagerbp2.controller.HomeController;
 import com.nathan.footballsquadmanagerbp2.controller.NewSelectionController;
 import com.nathan.footballsquadmanagerbp2.model.Formation;
-import com.nathan.footballsquadmanagerbp2.model.Player;
-import com.nathan.footballsquadmanagerbp2.model.Position;
-import com.nathan.footballsquadmanagerbp2.service.AlertService;
-import com.nathan.footballsquadmanagerbp2.service.PlayerService;
-import com.nathan.footballsquadmanagerbp2.service.PositionService;
-import javafx.geometry.Pos;
+import com.nathan.footballsquadmanagerbp2.model.Selection;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.*;
 
 public class NewSelectionView {
-    private SelectionBuilderView selectionBuilderView;
 
-    private AlertService alertService;
     private NewSelectionController selectionController;
     private HBox root;
     private Pane menuBar;
@@ -40,7 +32,6 @@ public class NewSelectionView {
     }
 
     public void initVariables() {
-        alertService = new AlertService();
         selectionController = new NewSelectionController();
         root = new HBox();
         formationContent = new VBox();
@@ -77,7 +68,8 @@ public class NewSelectionView {
     }
 
     public void handleButtonClick() {
-        int selectionId = selectionController.validateFields(selectionNameInput, formationChoice);
-        selectionBuilderView = new SelectionBuilderView(selectionId);
+        Selection selection = selectionController.validateFields(selectionNameInput, formationChoice);
+        HomeController homeController = new HomeController();
+        homeController.sendToBuilder(selection);
     }
 }

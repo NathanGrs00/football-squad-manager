@@ -1,10 +1,8 @@
 package com.nathan.footballsquadmanagerbp2;
 
 import com.nathan.footballsquadmanagerbp2.controller.StageController;
-import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
-import com.nathan.footballsquadmanagerbp2.view.HomeView;
-import com.nathan.footballsquadmanagerbp2.view.LoginView;
-import com.nathan.footballsquadmanagerbp2.view.NewSelectionView;
+import com.nathan.footballsquadmanagerbp2.model.Selection;
+import com.nathan.footballsquadmanagerbp2.view.*;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -49,6 +47,11 @@ public class FootballSquadManager extends Application {
     public void getNewSelection() {
         NewSelectionView newSelectionView = new NewSelectionView();
         StageController.getPrimaryStage().setScene(newSelectionView.getScene());
+    }
+
+    public void getBuilder(Selection selection) {
+        SelectionBuilderView selectionBuilderView = new SelectionBuilderView(selection);
+        StageController.getPrimaryStage().setScene(selectionBuilderView.getScene());
     }
 
     public static void main(String[] args) {

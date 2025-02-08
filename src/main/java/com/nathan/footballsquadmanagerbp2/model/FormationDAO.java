@@ -34,15 +34,15 @@ public class FormationDAO {
     }
 
     public Formation getFormationById(int id) {
-        String query = "SELECT id, title FROM formations WHERE id = ?";
+        String query = "SELECT id, name FROM formation WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Formation(rs.getInt("id"), rs.getString("title"));
+                return new Formation(rs.getInt("id"), rs.getString("name"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }

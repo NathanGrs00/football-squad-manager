@@ -1,7 +1,6 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
 import com.nathan.footballsquadmanagerbp2.model.Player;
-import com.nathan.footballsquadmanagerbp2.model.Position;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import com.nathan.footballsquadmanagerbp2.view.AllPlayersView;
 import com.nathan.footballsquadmanagerbp2.view.PlayerDetailsView;
@@ -10,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class AllPlayersController {

@@ -11,15 +11,13 @@ public class Selection {
     private User selectionUser;
     private Formation selectionFormation;
 
-    private UserDAO userDAO;
-    private FormationDAO formationDAO;
-
     public Selection(ResultSet rs) throws SQLException {
         this.selectionId = rs.getInt("id");
         this.selectionName = rs.getString("name");
         this.selectionDate = rs.getDate("date");
-        userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO();
         this.selectionUser = userDAO.getUser(rs.getString("name"));
+        FormationDAO formationDAO = new FormationDAO();
         this.selectionFormation = formationDAO.getFormationById(rs.getInt("formation_id"));
     }
 

@@ -1,9 +1,9 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
-import com.nathan.footballsquadmanagerbp2.model.Formation;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.Position;
+import com.nathan.footballsquadmanagerbp2.model.Selection;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import com.nathan.footballsquadmanagerbp2.service.PositionService;
@@ -19,6 +19,7 @@ import javafx.scene.layout.*;
 import java.util.*;
 
 public class SelectionBuilderView {
+    private final Selection selection;
     private PlayerService playerService;
     private PositionService positionService;
     private Set<Player> selectedPlayers;
@@ -27,7 +28,8 @@ public class SelectionBuilderView {
     private HBox root;
     private Pane menuBar;
 
-    public SelectionBuilderView(int selectionId) {
+    public SelectionBuilderView(Selection selectionPassed) {
+        selection = selectionPassed;
         initVariables();
         initLayout();
         initGrid();
@@ -68,12 +70,12 @@ public class SelectionBuilderView {
         StackPane stackPane = new StackPane(pitchImageView, grid);
 
         ArrayList<Player> players = playerService.getPlayers();
-        ArrayList<Position> positionsFromFormation = positionService.getPositionsFromFormationId(formationChoice.getValue().getFormationId());
+        ArrayList<Position> positionsFromFormation = positionService.getPositionsFromFormationId(selection.getSelectionFormation().getFormationId());
 
-        Label titleTag = new Label("Selection name: " + selectionNameInput.getText());
+        Label titleTag = new Label("Selection name: " + selection.getSelectionName());
         titleTag.setId("title-tag");
 
-        Label formationTag = new Label("Formation: " + formationChoice.getValue().getFormationName());
+        Label formationTag = new Label("Formation: " + selection.getSelectionFormation().getFormationName());
         formationTag.setId("formation-tag");
 
         HBox selectionDetails = new HBox(titleTag, formationTag);
