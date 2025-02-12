@@ -19,7 +19,7 @@ public class LoginService {
     }
 
     public User checkLogin(String username, String password) {
-        loggedInUser = userDAO.getUser(username);
+        loggedInUser = userDAO.getUserByUsername(username);
 
         // If user exists and password is correct, return the user.
         if (loggedInUser != null & BCrypt.checkpw(password, loggedInUser.getPassword())) {

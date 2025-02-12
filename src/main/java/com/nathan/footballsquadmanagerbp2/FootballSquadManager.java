@@ -54,6 +54,11 @@ public class FootballSquadManager extends Application {
         StageController.getPrimaryStage().setScene(selectionBuilderView.getScene());
     }
 
+    public void getAllSelections() {
+        AllSelectionsView allSelectionsView = new AllSelectionsView();
+        StageController.getPrimaryStage().setScene(allSelectionsView.getScene());
+    }
+
     public static void main(String[] args) {
         launch();
     }

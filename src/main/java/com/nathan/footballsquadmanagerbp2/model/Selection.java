@@ -16,7 +16,7 @@ public class Selection {
         this.selectionName = rs.getString("name");
         this.selectionDate = rs.getDate("date");
         UserDAO userDAO = new UserDAO();
-        this.selectionUser = userDAO.getUser(rs.getString("name"));
+        this.selectionUser = userDAO.getUserById(rs.getInt("user_id"));
         FormationDAO formationDAO = new FormationDAO();
         this.selectionFormation = formationDAO.getFormationById(rs.getInt("formation_id"));
     }

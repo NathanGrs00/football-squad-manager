@@ -26,6 +26,6 @@ public class HomeController {
     }
 
     public void sendToAllSelections(){
-
+        footballSquadManager.getAllSelections();
     }
 }

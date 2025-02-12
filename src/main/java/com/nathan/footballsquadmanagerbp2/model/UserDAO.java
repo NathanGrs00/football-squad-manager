@@ -19,22 +19,40 @@ public class UserDAO {
         }
     }
 
-    public User getUser(String username) {
+    public User getUserByUsername(String username) {
         String query = "SELECT * FROM user WHERE name = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)){
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                return new User(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("password"),
-                        rs.getString("role")
-                );
+            if (rs.next()) {
+                return mapUser(rs);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public User getUserById(int userId) {
+        String query = "SELECT * FROM user WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return mapUser(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    private User mapUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("password"),
+                rs.getString("role")
+        );
     }
 }

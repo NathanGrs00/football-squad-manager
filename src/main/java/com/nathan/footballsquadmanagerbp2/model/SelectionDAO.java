@@ -57,4 +57,26 @@ public class SelectionDAO {
         return null;
     }
 
+    public void deleteSelection(Selection selection) {
+        String query = "DELETE FROM selection WHERE id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, selection.getSelectionId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ResultSet getAllSelections() {
+        ResultSet selections;
+        String query = "SELECT * FROM selection";
+        try {
+            Statement stmt = conn.createStatement();
+            selections = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return selections;
+    }
 }

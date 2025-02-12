@@ -118,6 +118,7 @@ public class MenuBar {
         allSelectionsButton.setOnAction(_ ->{
             getAnimation();
             timeline.play();
+            timeline.setOnFinished(_ -> homeController.sendToAllSelections());
         });
     }
 
@@ -128,7 +129,7 @@ public class MenuBar {
         newSelectionButton.setOnAction(_ -> homeController.sendToNewSelection());
 
         allSelectionsButton.setOnAction(_ ->{
-
+            homeController.sendToAllSelections();
         });
     }
 
