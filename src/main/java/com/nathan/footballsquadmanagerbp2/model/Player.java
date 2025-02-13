@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Player {
-    private int playerId;
-    private String playerFirstName;
-    private String playerLastName;
-    private int playerAge;
-    private String playerPrefFoot;
-    private int playerShirtNumber;
-    private String playerStatus;
+    private final int playerId;
+    private final String playerFirstName;
+    private final String playerLastName;
+    private final int playerAge;
+    private final String playerPrefFoot;
+    private final int playerShirtNumber;
+    private final String playerStatus;
 
     // First constructor is for the data in SQL, to a model.
     public Player(ResultSet rs) throws SQLException {
@@ -60,34 +60,6 @@ public class Player {
 
     public String getPlayerStatus() {
         return playerStatus;
-    }
-
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
-
-    public void setPlayerFirstName(String playerFirstName) {
-        this.playerFirstName = playerFirstName;
-    }
-
-    public void setPlayerLastName(String playerLastName) {
-        this.playerLastName = playerLastName;
-    }
-
-    public void setPlayerAge(int playerAge) {
-        this.playerAge = playerAge;
-    }
-
-    public void setPlayerPrefFoot(String playerPrefFoot) {
-        this.playerPrefFoot = playerPrefFoot;
-    }
-
-    public void setPlayerShirtNumber(int playerShirtNumber) {
-        this.playerShirtNumber = playerShirtNumber;
-    }
-
-    public void setPlayerStatus(String playerStatus) {
-        this.playerStatus = playerStatus;
     }
 
     @Override

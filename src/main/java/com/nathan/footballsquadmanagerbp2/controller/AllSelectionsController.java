@@ -1,10 +1,10 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
+import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.model.Selection;
 import com.nathan.footballsquadmanagerbp2.model.SelectionDetail;
 import com.nathan.footballsquadmanagerbp2.model.SelectionDetailDAO;
 import com.nathan.footballsquadmanagerbp2.service.SelectionService;
-import com.nathan.footballsquadmanagerbp2.view.SelectionBuilderView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -16,7 +16,7 @@ import java.util.List;
 public class AllSelectionsController {
 
     private final SelectionService selectionService;
-    private SelectionDetailDAO selectionDetailDAO;
+    private final SelectionDetailDAO selectionDetailDAO;
 
     public AllSelectionsController() {
         this.selectionService = new SelectionService();
@@ -26,7 +26,8 @@ public class AllSelectionsController {
     // Navigating to the new stage, with player.
     public void editSelection(Selection selection) {
         List<SelectionDetail> selectionDetails = selectionDetailDAO.getSelectionDetails(selection);
-        new SelectionBuilderView(selection, selectionDetails);
+        FootballSquadManager footballSquadManager = new FootballSquadManager();
+        footballSquadManager.getBuilder(selection, selectionDetails);
     }
 
     // Confirming the user wants to delete the selection.

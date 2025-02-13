@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Selection {
-    private int selectionId;
-    private String selectionName;
-    private Date selectionDate;
-    private User selectionUser;
-    private Formation selectionFormation;
+    private final int selectionId;
+    private final String selectionName;
+    private final Date selectionDate;
+    private final User selectionUser;
+    private final Formation selectionFormation;
 
     public Selection(ResultSet rs) throws SQLException {
         this.selectionId = rs.getInt("id");
@@ -47,25 +47,5 @@ public class Selection {
 
     public Formation getSelectionFormation() {
         return selectionFormation;
-    }
-
-    public void setSelectionId(int selectionId) {
-        this.selectionId = selectionId;
-    }
-
-    public void setSelectionName(String selectionName) {
-        this.selectionName = selectionName;
-    }
-
-    public void setSelectionDate(Date selectionDate) {
-        this.selectionDate = selectionDate;
-    }
-
-    public void setSelectionUser(User selectionUser) {
-        this.selectionUser = selectionUser;
-    }
-
-    public void setSelectionFormation(Formation selectionFormation) {
-        this.selectionFormation = selectionFormation;
     }
 }

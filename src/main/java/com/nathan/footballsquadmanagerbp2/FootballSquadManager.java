@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,9 +52,8 @@ public class FootballSquadManager extends Application {
         StageController.getPrimaryStage().setScene(newSelectionView.getScene());
     }
 
-    public void getBuilder(Selection selection) {
-        List<SelectionDetail> emptyList = new ArrayList<>();
-        SelectionBuilderView selectionBuilderView = new SelectionBuilderView(selection, emptyList);
+    public void getBuilder(Selection selection, List<SelectionDetail> details) {
+        SelectionBuilderView selectionBuilderView = new SelectionBuilderView(selection, details);
         StageController.getPrimaryStage().setScene(selectionBuilderView.getScene());
     }
 

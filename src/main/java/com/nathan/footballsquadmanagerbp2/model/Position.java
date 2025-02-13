@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Position {
-    private int positionId;
-    private String positionName;
-    private String positionAbreviation;
-    private int xPosition;
-    private int yPosition;
+    private final int positionId;
+    private final String positionName;
+    private final String positionAbreviation;
+    private final int xPosition;
+    private final int yPosition;
 
 
     // First constructor is for the data in SQL, to a model.
@@ -41,33 +41,11 @@ public class Position {
         return positionAbreviation;
     }
 
-    public int getxPosition() {
+    public int getXPosition() {
         return xPosition;
     }
 
-    public int getyPosition() {
+    public int getYPosition() {
         return yPosition;
     }
-
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
-    }
-
-    public void setPositionName(String positionName) {
-        this.positionName = positionName;
-    }
-
-    public void setPositionAbreviation(String positionAbreviation) {
-        this.positionAbreviation = positionAbreviation;
-    }
-
-    public void setxPosition(int xPosition) {
-        this.xPosition = xPosition;
-    }
-
-    public void setyPosition(int yPosition) {
-        this.yPosition = yPosition;
-    }
-
-
 }

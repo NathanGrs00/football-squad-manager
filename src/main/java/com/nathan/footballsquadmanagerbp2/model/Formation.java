@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Formation {
-    private int formationId;
-    private String formationName;
+    private final int formationId;
+    private final String formationName;
 
     public Formation(ResultSet resultSet) throws SQLException {
         this.formationId = resultSet.getInt("id");
@@ -23,14 +23,6 @@ public class Formation {
 
     public String getFormationName() {
         return formationName;
-    }
-
-    public void setFormationId(int formationId) {
-        this.formationId = formationId;
-    }
-
-    public void setFormationName(String formationName) {
-        this.formationName = formationName;
     }
 
     // Ensures formationName can be used in a combobox, but still gains access to the .getFormationId() getter.

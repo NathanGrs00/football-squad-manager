@@ -69,15 +69,19 @@ public class PlayerDAO {
 
     // Delete a player from the database.
     public void deletePlayer(int playerId) {
-        // But first delete the foreign key link in player_position.
+        // But first delete the foreign key link in player_position and selection_details.
         String deletePlayerPositionLink = "DELETE FROM player_position WHERE player_id = ?";
+        String deleteSelectionDetailsLink = "DELETE FROM selection_details WHERE player_id = ?";
         String query = "DELETE FROM player WHERE id = ?";
         try (PreparedStatement pstmt1 = conn.prepareStatement(deletePlayerPositionLink);
-             PreparedStatement pstmt2 = conn.prepareStatement(query)) {
+             PreparedStatement pstmt2 = conn.prepareStatement(deleteSelectionDetailsLink);
+             PreparedStatement pstmt3 = conn.prepareStatement(query)) {
             pstmt1.setInt(1, playerId);
             pstmt1.executeUpdate();
             pstmt2.setInt(1, playerId);
             pstmt2.executeUpdate();
+            pstmt3.setInt(1, playerId);
+            pstmt3.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -3,6 +3,10 @@ package com.nathan.footballsquadmanagerbp2.controller;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
 import com.nathan.footballsquadmanagerbp2.model.Selection;
+import com.nathan.footballsquadmanagerbp2.model.SelectionDetail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeController {
     FootballSquadManager footballSquadManager;
@@ -22,7 +26,8 @@ public class HomeController {
     }
 
     public void sendToBuilder(Selection selection) {
-        footballSquadManager.getBuilder(selection);
+        List<SelectionDetail> emptyList = new ArrayList<>();
+        footballSquadManager.getBuilder(selection, emptyList);
     }
 
     public void sendToAllSelections(){

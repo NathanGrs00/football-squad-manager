@@ -97,7 +97,6 @@ public class PlayerDetailsView {
                 "Left", "Right", "Both"
         );
 
-        // TODO: handle unchecked calls.
         prefFootField.setItems(feet);
 
         numberBox = new VBox();
@@ -217,7 +216,15 @@ public class PlayerDetailsView {
                 id = player.getPlayerId();
             }
             // If changes have been made successfully, close the stage.
-            boolean isValid = playerController.ValidateAndSave(id, firstNameField, lastNameField, ageField, prefFootField, shirtNumberField, statusField, favPositionField, otherPositionsField);
+            boolean isValid = playerController.ValidateAndSave(id,
+                                                               firstNameField,
+                                                               lastNameField,
+                                                               ageField,
+                                                               prefFootField,
+                                                               shirtNumberField,
+                                                               statusField,
+                                                               favPositionField,
+                                                               otherPositionsField);
             if (isValid) {
                 popupStage.close();
             }

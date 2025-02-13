@@ -12,7 +12,6 @@ import javafx.scene.layout.*;
 import java.util.*;
 
 public class NewSelectionView {
-
     private NewSelectionController selectionController;
     private HBox root;
     private Pane menuBar;

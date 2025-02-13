@@ -16,7 +16,8 @@ public class PlayerDetailsController {
     PlayerService playerService = new PlayerService();
 
     // Method to get Strings, Integers or Values from Textfields or Comboboxes.
-    public boolean ValidateAndSave(int playerId, TextField firstName,
+    public boolean ValidateAndSave(int playerId,
+                                   TextField firstName,
                                    TextField lastName,
                                    TextField age,
                                    ComboBox<String> prefFoot,
@@ -43,6 +44,7 @@ public class PlayerDetailsController {
                 //Puts them back into a List
                 .collect(Collectors.toList());
 
+        // TODO fix!
         // Returns alert if there is any in the validation.
         String alertString = playerService.ValidatePlayerForm(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos, positions);
 

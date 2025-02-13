@@ -1,6 +1,7 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
 import com.nathan.footballsquadmanagerbp2.model.*;
+import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.LoginService;
 import com.nathan.footballsquadmanagerbp2.service.SelectionService;
 import javafx.scene.control.ComboBox;
@@ -14,10 +15,12 @@ import java.util.List;
 public class NewSelectionController {
     private final SelectionService selectionService;
     private final FormationDAO formationDAO;
+    private AlertService alertService;
 
     public NewSelectionController() {
         formationDAO = new FormationDAO();
         selectionService = new SelectionService();
+        alertService = new AlertService();
     }
 
     public List<Formation> getFormations() {
@@ -30,11 +33,11 @@ public class NewSelectionController {
         LocalDate currentDate = LocalDate.now();
         Date sqlCurrentDate = Date.valueOf(currentDate);
 
-        //TODO: fix alerts.
-
         if (txtname.isEmpty() || selectedFormation == null) {
+            alertService.getAlert("Please fill in all required fields.");
             return null;
         } else if (txtname.length() > 25) {
+            alertService.getAlert("The selection name cannot exceed 25 characters.");
             return null;
         }
 
@@ -46,6 +49,7 @@ public class NewSelectionController {
         return selection;
     }
 
+    //TODO: give suggestion!
     public List<Player> getBestPlayers(List<Player> availablePlayers, Position position) {
         List<Player> bestPlayers = new ArrayList<>();
         int maxProficiency = -1;

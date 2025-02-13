@@ -1,10 +1,10 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
 public class User {
-    private int userId;
-    private String userName;
-    private String password;
-    private String role;
+    private final int userId;
+    private final String userName;
+    private final String password;
+    private final String role;
 
     public User(int userId, String userName, String password, String role) {
         this.userId = userId;
@@ -27,22 +27,6 @@ public class User {
 
     public String getRole() {
         return role;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     // Ensures userName can be used in a tableview property.

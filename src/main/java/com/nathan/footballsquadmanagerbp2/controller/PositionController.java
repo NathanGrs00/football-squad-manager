@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PositionController {
     PositionService positionService = new PositionService();
@@ -24,5 +25,9 @@ public class PositionController {
         }
 
         return positionNames;
+    }
+
+    public List<Position> getPositionsList(int formationId) {
+        return positionService.getPositionsFromFormationId(formationId);
     }
 }
