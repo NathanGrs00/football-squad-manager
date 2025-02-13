@@ -1,6 +1,5 @@
 package com.nathan.footballsquadmanagerbp2.service;
 
-import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.Selection;
 import com.nathan.footballsquadmanagerbp2.model.SelectionDAO;
 

@@ -2,10 +2,14 @@ package com.nathan.footballsquadmanagerbp2;
 
 import com.nathan.footballsquadmanagerbp2.controller.StageController;
 import com.nathan.footballsquadmanagerbp2.model.Selection;
+import com.nathan.footballsquadmanagerbp2.model.SelectionDetail;
 import com.nathan.footballsquadmanagerbp2.view.*;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FootballSquadManager extends Application {
@@ -50,7 +54,8 @@ public class FootballSquadManager extends Application {
     }
 
     public void getBuilder(Selection selection) {
-        SelectionBuilderView selectionBuilderView = new SelectionBuilderView(selection);
+        List<SelectionDetail> emptyList = new ArrayList<>();
+        SelectionBuilderView selectionBuilderView = new SelectionBuilderView(selection, emptyList);
         StageController.getPrimaryStage().setScene(selectionBuilderView.getScene());
     }
 

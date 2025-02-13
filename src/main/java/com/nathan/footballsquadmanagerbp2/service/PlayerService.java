@@ -50,7 +50,15 @@ public class PlayerService {
         return alertString;
     }
 
-    public void insertPlayer(String firstName, String lastName, int age, String prefFoot, int shirtNumber, String status, String favPos, List<String> positions) {
+    public void insertPlayer(String firstName,
+                             String lastName,
+                             int age,
+                             String prefFoot,
+                             int shirtNumber,
+                             String status,
+                             String favPos,
+                             List<String> positions) {
+
         int id = 0;
         // Taking the first letter of the foot, database constraints.
         String firstLetterFoot = prefFoot.substring(0, 1);
@@ -65,7 +73,15 @@ public class PlayerService {
         positionService.setOtherPositions(generatedId, positions);
     }
 
-    public void editPlayer(int id, String firstName, String lastName, int age, String prefFoot, int shirtNumber, String status, String favPos, List<String> positions) {
+    public void editPlayer(int id, String firstName,
+                           String lastName,
+                           int age,
+                           String prefFoot,
+                           int shirtNumber,
+                           String status,
+                           String favPos,
+                           List<String> positions) {
+
         String firstLetterFoot = prefFoot.substring(0, 1);
 
         // Passing new values to the database method.
@@ -94,5 +110,14 @@ public class PlayerService {
             throw new RuntimeException(e);
         }
         return players;
+    }
+
+    public Player getPlayerById(int id) {
+        for (Player player : getPlayers()) {
+            if (player.getPlayerId() == id) {
+                return player;
+            }
+        }
+        return null;
     }
 }

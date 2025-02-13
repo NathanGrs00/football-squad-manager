@@ -128,9 +128,7 @@ public class MenuBar {
 
         newSelectionButton.setOnAction(_ -> homeController.sendToNewSelection());
 
-        allSelectionsButton.setOnAction(_ ->{
-            homeController.sendToAllSelections();
-        });
+        allSelectionsButton.setOnAction(_ -> homeController.sendToAllSelections());
     }
 
     // Animation for the sliding to the left.

@@ -124,6 +124,9 @@ public class AllSelectionsView {
             Selection selectedSelection = allSelectionsTable.getSelectionModel().getSelectedItem();
             if (selectedSelection != null) {
                 allSelectionsController.deleteSelection(selectedSelection);
+                allSelectionsTable.getItems().clear();
+                ObservableList<Selection> updatedPlayers = allSelectionsController.getAllSelections();
+                allSelectionsTable.setItems(updatedPlayers);
             }
         });
     }

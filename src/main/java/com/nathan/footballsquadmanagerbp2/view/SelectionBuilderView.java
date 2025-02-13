@@ -1,12 +1,11 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
-import com.nathan.footballsquadmanagerbp2.model.Player;
-import com.nathan.footballsquadmanagerbp2.model.Position;
-import com.nathan.footballsquadmanagerbp2.model.Selection;
+import com.nathan.footballsquadmanagerbp2.model.*;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
 import com.nathan.footballsquadmanagerbp2.service.PositionService;
+import com.nathan.footballsquadmanagerbp2.service.SelectionDetailsService;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,7 +18,9 @@ import javafx.scene.layout.*;
 import java.util.*;
 
 public class SelectionBuilderView {
+    private SelectionDetailsService selectionDetailsService;
     private final Selection selection;
+    private final List<SelectionDetail> selectionDetails;
     private PlayerService playerService;
     private PositionService positionService;
     private Set<Player> selectedPlayers;
@@ -28,7 +29,8 @@ public class SelectionBuilderView {
     private HBox root;
     private Pane menuBar;
 
-    public SelectionBuilderView(Selection selectionPassed) {
+    public SelectionBuilderView(Selection selectionPassed, List<SelectionDetail> detailsPassed) {
+        selectionDetails = detailsPassed;
         selection = selectionPassed;
         initVariables();
         initLayout();
@@ -43,6 +45,7 @@ public class SelectionBuilderView {
     }
 
     public void initVariables() {
+        selectionDetailsService = new SelectionDetailsService();
         playerService = new PlayerService();
         positionService = new PositionService();
         selectedPlayers = new HashSet<>();
@@ -78,11 +81,27 @@ public class SelectionBuilderView {
         Label formationTag = new Label("Formation: " + selection.getSelectionFormation().getFormationName());
         formationTag.setId("formation-tag");
 
-        HBox selectionDetails = new HBox(titleTag, formationTag);
-        selectionDetails.setId("selection-details");
+        HBox selectionDetailsBox = new HBox(titleTag, formationTag);
+        selectionDetailsBox.setId("selection-details");
+
+        Map<Integer, Player> positionPlayerMap = new HashMap<>();
+        for (SelectionDetail detail : selectionDetails) {
+            Player player = playerService.getPlayerById(detail.getPlayerId()); // Assume this method exists
+            if (player != null) {
+                positionPlayerMap.put(detail.getPositionId(), player);
+                selectedPlayers.add(player); // Mark as selected
+            }
+        }
 
         for (Position pos : positionsFromFormation) {
             Button positionButton = new Button(pos.getPositionAbreviation());
+
+            if (positionPlayerMap.containsKey(pos.getPositionId())) {
+                Player preselectedPlayer = positionPlayerMap.get(pos.getPositionId());
+                positionButton.setText(preselectedPlayer.getPlayerLastName());
+                positionButton.setUserData(preselectedPlayer);
+                positionButton.setStyle("-fx-opacity: 1;");
+            }
 
             positionButton.setOnAction(_ -> {
                 Player previousPlayer = (Player) positionButton.getUserData();
@@ -91,7 +110,6 @@ public class SelectionBuilderView {
                 }
 
                 List<Player> availablePlayers = new ArrayList<>();
-
                 for (Player player : players) {
                     if (!selectedPlayers.contains(player)) {
                         availablePlayers.add(player);
@@ -110,10 +128,16 @@ public class SelectionBuilderView {
 
                 Optional<Player> result = dialogue.showAndWait();
                 result.ifPresent(selectedPlayer -> {
+                    if (previousPlayer != null) {
+                        selectionDetailsService.removePlayerFromSelection(selection.getSelectionId(), previousPlayer.getPlayerId(), pos.getPositionId());
+                    }
+
                     positionButton.setText(selectedPlayer.getPlayerLastName());
                     positionButton.setUserData(selectedPlayer);
                     positionButton.setStyle("-fx-opacity: 1;");
                     selectedPlayers.add(selectedPlayer);
+
+                    selectionDetailsService.insertDetails(selection.getSelectionId(), selectedPlayer.getPlayerId(), pos.getPositionId());
                 });
             });
 
@@ -130,10 +154,11 @@ public class SelectionBuilderView {
                 button.setStyle("-fx-opacity: 0.7;");
             });
             selectedPlayers.clear();
+            selectionDetailsService.removeAllEntries(selection.getSelectionId());
         });
         clearAllButton.setId("clear-all-button");
 
-        VBox selectionBox = new VBox(selectionDetails, stackPane, clearAllButton);
+        VBox selectionBox = new VBox(selectionDetailsBox, stackPane, clearAllButton);
         selectionBox.setAlignment(Pos.CENTER);
 
         root.getChildren().addAll(menuBar, selectionBox);
