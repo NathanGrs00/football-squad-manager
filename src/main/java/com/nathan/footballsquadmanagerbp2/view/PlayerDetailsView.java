@@ -172,7 +172,7 @@ public class PlayerDetailsView {
         shirtNumberField.setPromptText("Select number");
         statusField.setPromptText("Select status");
         favPositionField.setPromptText("Select position");
-        otherPositionsField.setPromptText("ST, LW, CAM");
+        otherPositionsField.setPromptText("ST, LW, AMC...");
         otherPositionsTag.setWrapText(true);
 
         firstNameBox.getChildren().addAll(firstNameTag, firstNameField);

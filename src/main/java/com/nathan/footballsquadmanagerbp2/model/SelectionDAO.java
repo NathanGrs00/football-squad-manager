@@ -11,7 +11,7 @@ public class SelectionDAO {
     public SelectionDAO() {
         try {
             conn = DBConnector.getInstance().getConnection();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -29,7 +29,7 @@ public class SelectionDAO {
 
             // Get the generated id in selection table.
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                if(rs.next()) {
+                if (rs.next()) {
                     int generatedId = rs.getInt(1);
                     return getSelection(generatedId);
                 }
@@ -58,11 +58,15 @@ public class SelectionDAO {
     }
 
     public void deleteSelection(Selection selection) {
-        String query = "DELETE FROM selection WHERE id = ?";
+        String query1 = "DELETE FROM selection_details WHERE selection_id = ?";
+        String query2 = "DELETE FROM selection WHERE id = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(query1);
+             PreparedStatement pstmt2 = conn.prepareStatement(query2)) {
             pstmt.setInt(1, selection.getSelectionId());
             pstmt.executeUpdate();
+            pstmt2.setInt(1, selection.getSelectionId());
+            pstmt2.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

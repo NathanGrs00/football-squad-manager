@@ -32,9 +32,7 @@ public class PlayerService {
         String alertString = "";
 
         //Checking if comboboxes are empty;
-        if (txtPrefFoot == null || txtStatus == null || txtFavPos == null) {
-            alertString = "Please fill in the preferred foot and the status of the player";
-        } else if (intShirtNumber < 0 || intShirtNumber > 99) {
+        if (intShirtNumber < 0 || intShirtNumber > 99) {
             alertString = "Shirt number must be between 0 and 99";
         } else if (txtFirstName.length() > 15) {
             alertString = "First name must be less than 16 characters";
@@ -70,6 +68,8 @@ public class PlayerService {
         int generatedId = playerDAO.insertPlayer(player);
         // Using the generated id to insert data in player_position table.
         positionService.setPlayerBestPosition(generatedId, favPos);
+
+        positions.removeIf(pos -> pos.equalsIgnoreCase(favPos));
         positionService.setOtherPositions(generatedId, positions);
     }
 

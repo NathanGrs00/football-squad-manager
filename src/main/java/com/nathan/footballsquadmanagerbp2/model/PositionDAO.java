@@ -19,7 +19,7 @@ public class PositionDAO {
 
     // Getting all the positions from the database.
     public ResultSet getAllPositions() {
-        String query = "SELECT * FROM position";
+        String query = "SELECT * FROM position ORDER BY id ASC";
         try {
             return conn.prepareStatement(query).executeQuery();
         } catch (SQLException e) {
@@ -29,7 +29,7 @@ public class PositionDAO {
 
     // Get a position from a position name (abbreviation).
     public Position getPosition(String positionName) {
-        String query = "SELECT * FROM position WHERE abbreviation = ?";
+        String query = "SELECT * FROM position WHERE abbreviation = ? LIMIT 1";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, positionName);

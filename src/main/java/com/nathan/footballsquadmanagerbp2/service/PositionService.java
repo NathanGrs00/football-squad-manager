@@ -74,6 +74,6 @@ public class PositionService {
     }
 
     public void editOtherPositions(int id, List<String> positions) {
-        positionDAO.updatePlayerPosition(id, positions, 5);
+        positionDAO.updatePlayerPosition(id, positions, 3);
     }
 }

@@ -1,6 +1,7 @@
 package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.FootballSquadManager;
+import com.nathan.footballsquadmanagerbp2.controller.PlayerDetailsController;
 import com.nathan.footballsquadmanagerbp2.controller.PositionController;
 import com.nathan.footballsquadmanagerbp2.model.*;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
@@ -24,7 +25,7 @@ public class SelectionBuilderView {
     private PositionController positionController;
     private AlertService alertService;
     private Set<Player> selectedPlayers;
-    private Map<Button, Position> positionButtonMap;
+    private Map<VBox, Position> positionButtonMap;
     private HBox root;
     private GridPane grid;
 
@@ -32,6 +33,12 @@ public class SelectionBuilderView {
         this.selectionDetails = detailsPassed;
         this.selection = selectionPassed;
         initVariables();
+        for (SelectionDetail detail : selectionDetails) {
+            Player player = playerService.getPlayerById(detail.getPlayerId());
+            if (player != null) {
+                selectedPlayers.add(player);
+            }
+        }
         initLayouts();
     }
 
@@ -75,10 +82,9 @@ public class SelectionBuilderView {
 
     private StackPane initPitchGrid() {
         ImageView pitchImageView = new ImageView(new Image(getClass().getResource("/images/background_pitch.png").toExternalForm()));
-        pitchImageView.setFitWidth(1200);
+        pitchImageView.setFitWidth(1300);
         pitchImageView.setFitHeight(1100);
         pitchImageView.setPreserveRatio(true);
-        pitchImageView.setTranslateX(15);
 
         grid.setId("grid-pane");
 
@@ -89,25 +95,32 @@ public class SelectionBuilderView {
 
     private void setupPositionButtons() {
         List<Player> players = playerService.getPlayers();
+        players.removeIf(player -> player.getPlayerStatus().equals("Not available"));
+
         List<Position> positionsFromFormation = positionController.getPositionsList(selection.getSelectionFormation().getFormationId());
 
         Map<Integer, Player> positionPlayerMap = getPlayerPositionMap();
 
         for (Position pos : positionsFromFormation) {
-            Button positionButton = new Button(pos.getPositionAbreviation());
+            Label placeholder = new Label(pos.getPositionAbreviation());
+            placeholder.setId("placeholder");
+            VBox playerCard = new VBox(placeholder);
 
             if (positionPlayerMap.containsKey(pos.getPositionId())) {
                 Player preselectedPlayer = positionPlayerMap.get(pos.getPositionId());
-                positionButton.setText(preselectedPlayer.getPlayerLastName());
-                positionButton.setUserData(preselectedPlayer);
-                positionButton.setStyle("-fx-opacity: 1;");
+                playerCard.getChildren().remove(placeholder);
+                playerCard = createPlayerCard(preselectedPlayer);
+                playerCard.setMinWidth(115);
+                playerCard.setUserData(preselectedPlayer);
+                playerCard.setStyle("-fx-opacity: 1;");
             }
 
-            positionButton.setOnAction(_ -> handlePositionSelection(positionButton, pos, players));
-            positionButton.getStyleClass().add("opacity-button");
+            VBox finalPlayerCard = playerCard;
+            playerCard.setOnMouseClicked(_ -> handlePositionSelection(finalPlayerCard, pos, players));
+            playerCard.getStyleClass().add("opacity-button");
 
-            grid.add(positionButton, pos.getXPosition(), pos.getYPosition());
-            positionButtonMap.put(positionButton, pos);
+            grid.add(playerCard, pos.getXPosition(), pos.getYPosition());
+            positionButtonMap.put(playerCard, pos);
         }
     }
 
@@ -123,18 +136,20 @@ public class SelectionBuilderView {
         return positionPlayerMap;
     }
 
-    private void handlePositionSelection(Button positionButton, Position pos, List<Player> players) {
-        Player previousPlayer = (Player) positionButton.getUserData();
+    private void handlePositionSelection(VBox playerInfo, Position pos, List<Player> players) {
+        Player previousPlayer = (Player) playerInfo.getUserData();
         if (previousPlayer != null) {
             selectedPlayers.remove(previousPlayer);
         }
 
         List<Player> availablePlayers = new ArrayList<>();
         for (Player player : players) {
-            if (!selectedPlayers.contains(player)) {
+            boolean isAlreadySelected = selectedPlayers.contains(player);
+            if (!isAlreadySelected) {
                 availablePlayers.add(player);
             }
         }
+
 
         if (availablePlayers.isEmpty()) {
             alertService.getAlert("No player available!");
@@ -148,13 +163,19 @@ public class SelectionBuilderView {
 
         Optional<Player> result = dialogue.showAndWait();
         result.ifPresent(selectedPlayer -> {
-            if (previousPlayer != null) {
-                selectionDetailsService.removePlayerFromSelection(selection.getSelectionId(), previousPlayer.getPlayerId(), pos.getPositionId());
+            if (selectedPlayers.contains(selectedPlayer)) {
+                alertService.getAlert("Player already selected!");
+                return;
             }
 
-            positionButton.setText(selectedPlayer.getPlayerLastName());
-            positionButton.setUserData(selectedPlayer);
-            positionButton.setStyle("-fx-opacity: 1;");
+            if (previousPlayer != null) {
+                selectionDetailsService.removePlayerFromSelection(selection.getSelectionId(), previousPlayer.getPlayerId(), pos.getPositionId());
+                selectedPlayers.remove(previousPlayer);
+            }
+            playerInfo.getChildren().clear();
+            playerInfo.getChildren().add(createPlayerCard(selectedPlayer));
+            playerInfo.setUserData(selectedPlayer);
+            playerInfo.setStyle("-fx-opacity: 1;");
             selectedPlayers.add(selectedPlayer);
 
             selectionDetailsService.insertDetails(selection.getSelectionId(), selectedPlayer.getPlayerId(), pos.getPositionId());
@@ -166,15 +187,57 @@ public class SelectionBuilderView {
         clearAllButton.setId("clear-all-button");
 
         clearAllButton.setOnAction(_ -> {
-            positionButtonMap.forEach((button, pos) -> {
-                button.setText(pos.getPositionAbreviation());
-                button.setUserData(null);
-                button.setStyle("-fx-opacity: 0.7;");
+            positionButtonMap.forEach((playerCard, pos) -> {
+                playerCard.getChildren().clear();
+                Label placeholder = new Label(pos.getPositionAbreviation());
+                placeholder.setId("placeholder");
+                playerCard.getChildren().add(placeholder);
+                playerCard.setMinWidth(115);
+                playerCard.setStyle("-fx-opacity: .7;");
+                playerCard.setUserData(null);
             });
             selectedPlayers.clear();
             selectionDetailsService.removeAllEntries(selection.getSelectionId());
         });
 
         return clearAllButton;
+    }
+
+    private VBox createPlayerCard(Player player) {
+        Image playerIconPath = new Image(getClass().getResource("/icons/user_icon.png").toExternalForm());
+        ImageView playerIcon = new ImageView(playerIconPath);
+        playerIcon.setFitWidth(30);
+        playerIcon.setFitHeight(30);
+        Label playerNumber = new Label(String.valueOf(player.getPlayerShirtNumber()));
+        playerNumber.setId("player-number");
+        HBox playerInfoTop = new HBox(playerIcon, playerNumber);
+        playerInfoTop.setSpacing(50);
+        playerInfoTop.setAlignment(Pos.CENTER);
+
+        String firstLetter = player.getPlayerFirstName().substring(0, 1);
+        Label playerInfoName = new Label(firstLetter + ". " + player.getPlayerLastName());
+        playerInfoName.setId("player-info-name");
+
+        PlayerDetailsController playerDetailsController = new PlayerDetailsController();
+
+        Label otherPosList = new Label("  " + playerDetailsController.getOtherPosColumn(player.getPlayerId()));
+        otherPosList.setId("other-pos-list");
+        Label ageTag = new Label(" Age: " + player.getPlayerAge());
+        ageTag.setId("age-tag");
+        ageTag.setMinWidth(52);
+        HBox playerInfoAge = new HBox(otherPosList, ageTag);
+        playerInfoAge.setAlignment(Pos.CENTER);
+
+        Label bestPosition = new Label(playerDetailsController.getFavPosColumn(player.getPlayerId()));
+        bestPosition.setId("best-position");
+        Label prefFoot = new Label(" " +player.getPlayerPrefFoot());
+        prefFoot.setId("pref-foot");
+        HBox playerInfoPos = new HBox(bestPosition, prefFoot);
+        playerInfoPos.setAlignment(Pos.CENTER);
+
+        VBox playerCard = new VBox(playerInfoTop, playerInfoName, playerInfoAge, playerInfoPos);
+        playerCard.setId("player-card");
+
+        return playerCard;
     }
 }

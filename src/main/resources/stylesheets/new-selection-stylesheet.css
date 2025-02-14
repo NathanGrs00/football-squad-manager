@@ -48,7 +48,9 @@
 }
 
 .opacity-button {
-    -fx-min-height: 100px;
+    -fx-alignment: center;
+    -fx-min-height: 110px;
+    -fx-min-width: 115px;
     -fx-opacity: 0.7;
     -fx-background-color: #2C0E37;
 }
@@ -82,7 +84,7 @@
 
 #grid-pane {
     -fx-hgap: 50px;
-    -fx-vgap: 20px;
+    -fx-vgap: 10px;
     -fx-padding: 50px;
     -fx-max-width: 900px;
     -fx-max-height: 300px;
@@ -95,4 +97,45 @@
 
 #clear-all-button {
     -fx-background-color: #2C0E37;
+}
+
+#player-number, #best-position {
+    -fx-font-size: 20px;
+    -fx-text-fill: #F2F2F2;
+    -fx-font-weight: bold;
+    -fx-font-family: Poppins;
+}
+
+#pref-foot {
+    -fx-font-size: 20px;
+    -fx-text-fill: #32DE8A;
+    -fx-font-weight: bold;
+    -fx-font-family: Poppins;
+}
+
+#other-pos-list, #age-tag {
+    -fx-text-fill: #F2F2F2;
+    -fx-font-weight: bold;
+    -fx-font-family: Poppins;
+}
+
+#player-info-name {
+    -fx-text-fill: #F2F2F2;
+    -fx-font-weight: bold;
+    -fx-font-family: Poppins;
+    -fx-font-size: 22px;
+}
+
+#player-card {
+    -fx-alignment: center;
+    -fx-min-width: 110px;
+    -fx-max-width: 115px;
+    -fx-spacing: 0;
+}
+
+#placeholder {
+    -fx-font-size: 30px;
+    -fx-text-fill: #F2F2F2;
+    -fx-font-weight: bold;
+    -fx-font-family: Poppins;
 }

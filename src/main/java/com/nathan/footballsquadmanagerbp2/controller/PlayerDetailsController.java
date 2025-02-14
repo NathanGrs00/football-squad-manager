@@ -26,14 +26,47 @@ public class PlayerDetailsController {
                                    ComboBox<String> favPos,
                                    TextField otherPos) {
 
-        String txtFirstName = firstName.getText();
-        String txtLastName = lastName.getText();
-        int intAge = Integer.parseInt(age.getText());
+        String txtFirstName = firstName.getText().trim();
+        String txtLastName = lastName.getText().trim();
+        String txtAge = age.getText().trim();
         String txtPrefFoot = prefFoot.getValue();
-        int intShirtNumber = Integer.parseInt(shirtNumber.getText());
+        String txtShirtNumber = shirtNumber.getText().trim();
         String txtStatus = status.getValue();
         String txtFavPos = favPos.getValue();
-        String txtOtherPos = otherPos.getText();
+        String txtOtherPos = otherPos.getText().trim();
+
+        //Check if name is empty.
+        if (txtFirstName.isEmpty() || txtLastName.isEmpty()) {
+            alertService.getAlert("Please enter a valid name");
+            return false;
+        }
+
+        // Check if age is empty.
+        if (txtAge.isEmpty()) {
+            alertService.getAlert("Age cannot be empty!");
+            return false;
+        }
+
+        // check if shirt number is empty.
+        if (txtShirtNumber.isEmpty()) {
+            alertService.getAlert("Shirt number cannot be empty!");
+            return false;
+        }
+
+        int intAge;
+        int intShirtNumber;
+        try {
+            intAge = Integer.parseInt(txtAge);
+            intShirtNumber = Integer.parseInt(txtShirtNumber);
+        } catch (NumberFormatException e) {
+            alertService.getAlert("Age and Shirt Number must be valid numbers!");
+            return false;
+        }
+
+        if (txtPrefFoot == null || txtStatus == null || txtFavPos == null) {
+            alertService.getAlert("All dropdowns must be selected!");
+            return false;
+        }
 
         //Takes each position split by comma's and puts it into an array, and converts it into a stream for processing.
         List<String> positions = Arrays.stream(txtOtherPos.split(","))
@@ -44,7 +77,6 @@ public class PlayerDetailsController {
                 //Puts them back into a List
                 .collect(Collectors.toList());
 
-        // TODO fix!
         // Returns alert if there is any in the validation.
         String alertString = playerService.ValidatePlayerForm(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos, positions);
 

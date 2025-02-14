@@ -2,6 +2,7 @@ package com.nathan.footballsquadmanagerbp2.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Player {
     private final int playerId;
@@ -65,5 +66,18 @@ public class Player {
     @Override
     public String toString() {
         return playerFirstName + " " + playerLastName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Player player = (Player) obj;
+        return this.playerId == player.playerId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerId);
     }
 }
