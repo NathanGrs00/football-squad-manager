@@ -10,7 +10,6 @@ public class Position {
     private final int xPosition;
     private final int yPosition;
 
-
     // First constructor is for the data in SQL, to a model.
     public Position(ResultSet rs) throws SQLException {
         positionId = rs.getInt("id");
@@ -33,6 +32,7 @@ public class Position {
         return positionId;
     }
 
+    //TODO use this!
     public String getPositionName() {
         return positionName;
     }

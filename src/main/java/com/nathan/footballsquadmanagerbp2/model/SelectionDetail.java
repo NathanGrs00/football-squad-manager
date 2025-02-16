@@ -1,9 +1,9 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
 public class SelectionDetail {
-    private int selectionId;
-    private int playerId;
-    private int positionId;
+    private final int selectionId;
+    private final int playerId;
+    private final int positionId;
 
     public SelectionDetail(int selectionId, int playerId, int positionId) {
         this.selectionId = selectionId;
@@ -21,17 +21,5 @@ public class SelectionDetail {
 
     public int getPositionId() {
         return positionId;
-    }
-
-    public void setSelectionId(int selectionId) {
-        this.selectionId = selectionId;
-    }
-
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
-
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
     }
 }

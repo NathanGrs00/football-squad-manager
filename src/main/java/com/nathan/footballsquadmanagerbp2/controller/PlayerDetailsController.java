@@ -78,7 +78,7 @@ public class PlayerDetailsController {
                 .collect(Collectors.toList());
 
         // Returns alert if there is any in the validation.
-        String alertString = playerService.ValidatePlayerForm(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos, positions);
+        String alertString = playerService.ValidatePlayerForm(txtFirstName, txtLastName, intAge, intShirtNumber, positions);
 
         if (!alertString.isEmpty()) {
             alertService.getAlert(alertString);

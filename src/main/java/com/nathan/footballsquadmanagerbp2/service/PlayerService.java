@@ -23,10 +23,7 @@ public class PlayerService {
     public String ValidatePlayerForm(String txtFirstName,
                                       String txtLastName,
                                       int intAge,
-                                      String txtPrefFoot,
                                       int intShirtNumber,
-                                      String txtStatus,
-                                      String txtFavPos,
                                       List<String> positions) {
 
         String alertString = "";

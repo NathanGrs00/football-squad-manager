@@ -119,6 +119,10 @@
     -fx-font-family: Poppins;
 }
 
+#age-tag {
+    -fx-min-width: 52px;
+}
+
 #player-info-name {
     -fx-text-fill: #F2F2F2;
     -fx-font-weight: bold;

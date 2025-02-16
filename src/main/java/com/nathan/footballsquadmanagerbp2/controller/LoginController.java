@@ -6,7 +6,7 @@ import com.nathan.footballsquadmanagerbp2.service.LoginService;
 
 public class LoginController {
 
-    // Checking if inputs are empty, and if they are the correct password
+    // Checking if inputs are empty, and if they are the correct password.
     public String checkLogin(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
             return "Username or password cannot be empty.";
@@ -15,7 +15,7 @@ public class LoginController {
         User loggedInUser = LoginService.getInstance().checkLogin(username, password);
 
         if (loggedInUser != null) {
-            // Send user to the homescreen
+            // Send user to the homescreen.
             FootballSquadManager footballSquadManager = new FootballSquadManager();
             footballSquadManager.getHomescreen();
             return "Login Successful";

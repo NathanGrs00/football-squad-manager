@@ -25,6 +25,7 @@ public class HomeController {
         footballSquadManager.getNewSelection();
     }
 
+    // Passing an empty list, because of the add function, not edit.
     public void sendToBuilder(Selection selection) {
         List<SelectionDetail> emptyList = new ArrayList<>();
         footballSquadManager.getBuilder(selection, emptyList);

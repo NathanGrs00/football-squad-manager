@@ -63,11 +63,13 @@ public class Player {
         return playerStatus;
     }
 
+    // Ensures player name can be used.
     @Override
     public String toString() {
         return playerFirstName + " " + playerLastName;
     }
 
+    // Determining if objects are equal.
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -76,6 +78,7 @@ public class Player {
         return this.playerId == player.playerId;
     }
 
+    // When storing objects in hashMaps, they must have the same hashcode to avoid bugs.
     @Override
     public int hashCode() {
         return Objects.hash(playerId);

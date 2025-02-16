@@ -25,6 +25,7 @@ public class User {
         return password;
     }
 
+    // Role for future role-based permissions
     public String getRole() {
         return role;
     }

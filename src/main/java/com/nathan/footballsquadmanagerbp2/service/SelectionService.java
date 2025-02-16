@@ -18,11 +18,6 @@ public class SelectionService {
         return selectionDAO.insertNewSelection(selection);
     }
 
-    public int getPlayerProficiencyForPosition(int playerId, int positionId) {
-        //TODO: add player filtering based on prof.
-        return 5;
-    }
-
     public void deleteSelection(Selection selection) {
         selectionDAO.deleteSelection(selection);
     }

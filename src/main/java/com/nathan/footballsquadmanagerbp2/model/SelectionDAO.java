@@ -40,6 +40,7 @@ public class SelectionDAO {
         return null;
     }
 
+    // Get specific selection query.
     public Selection getSelection(int selectionId) {
         String query = "SELECT * FROM selection WHERE id = ?";
 
@@ -57,6 +58,7 @@ public class SelectionDAO {
         return null;
     }
 
+    // Delete query.
     public void deleteSelection(Selection selection) {
         String query1 = "DELETE FROM selection_details WHERE selection_id = ?";
         String query2 = "DELETE FROM selection WHERE id = ?";
@@ -72,6 +74,7 @@ public class SelectionDAO {
         }
     }
 
+    // GetAll query.
     public ResultSet getAllSelections() {
         ResultSet selections;
         String query = "SELECT * FROM selection";

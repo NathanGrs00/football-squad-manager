@@ -109,6 +109,7 @@ public class PositionDAO {
         }
     }
 
+    // GetALl query
     public ResultSet getAllPositionsFromFormation(int formationId) {
         String query = "SELECT p.* FROM position p JOIN formation_position fp ON p.id = fp.position_id WHERE fp.formation_id = ?";
         try {
@@ -118,5 +119,24 @@ public class PositionDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // Get Proficiency query.
+    public Integer getPlayerProficiency(int playerId, int positionId) {
+        String query = "SELECT proficiency FROM player_position WHERE player_id = ? AND position_id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, playerId);
+            pstmt.setInt(2, positionId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("proficiency");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 }

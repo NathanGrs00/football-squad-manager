@@ -22,6 +22,7 @@ public class FootballSquadManager extends Application {
     }
 
     public void setGlobalOptions() {
+        // Default stage options for all stages.
         Image clubIcon = new Image(getClass().getResource("/images/logo_fc_club_second.png").toExternalForm(), 500, 500, true, true);
         StageController.getPrimaryStage().getIcons().add(clubIcon);
         StageController.getPrimaryStage().setTitle("Football Squad Manager");
@@ -32,6 +33,7 @@ public class FootballSquadManager extends Application {
         StageController.getPrimaryStage().show();
     }
 
+    // Navigating to different sections, with the stage.
     public void getLogin() {
         LoginView loginView = new LoginView();
         StageController.getPrimaryStage().setScene(loginView.getScene());

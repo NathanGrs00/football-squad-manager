@@ -123,6 +123,7 @@ public class LoginView {
         rootPane.getChildren().addAll(clubLogo, loginFields);
     }
 
+    // Sending to the controller check
     private void handleLoginButton() {
         String username = txtUsername.getText();
         String password = txtPassword.getText();

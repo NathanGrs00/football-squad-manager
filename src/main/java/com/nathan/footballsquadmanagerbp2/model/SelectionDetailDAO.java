@@ -20,18 +20,21 @@ public class SelectionDetailDAO {
         }
     }
 
+    // Insert query.
     public void insertDetails(SelectionDetail selectionDetail) {
         String query = "INSERT INTO selection_details (selection_id, player_id, position_id) VALUES (?, ?, ?)";
 
         executeQuery(selectionDetail, query);
     }
 
+    // Delete query.
     public void removePlayerFromSelection(SelectionDetail selectionDetail) {
         String query = "DELETE FROM selection_details WHERE selection_id = ? AND player_id = ? AND position_id = ?";
 
         executeQuery(selectionDetail, query);
     }
 
+    // Execute query to avoid redundancy.
     private void executeQuery(SelectionDetail selectionDetail, String query) {
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, selectionDetail.getSelectionId());
@@ -44,6 +47,7 @@ public class SelectionDetailDAO {
         }
     }
 
+    // Remove all details
     public void removeAllEntries(int selectionId) {
         String query = "DELETE FROM selection_details WHERE selection_id = ?";
 
@@ -55,6 +59,7 @@ public class SelectionDetailDAO {
         }
     }
 
+    // Get all details from a selection.
     public List<SelectionDetail> getSelectionDetails(Selection selection) {
         List<SelectionDetail> details = new ArrayList<>();
         String query = "SELECT * FROM selection_details WHERE selection_id = ?";

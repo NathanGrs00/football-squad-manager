@@ -17,6 +17,7 @@ public class FormationDAO {
         }
     }
 
+    // GetAll Query.
     public List<Formation> getAllFormations() {
         List<Formation> formations = new ArrayList<>();
         ResultSet resultSet;
@@ -33,6 +34,7 @@ public class FormationDAO {
         return formations;
     }
 
+    // GetSpecificFormation Query
     public Formation getFormationById(int id) {
         String query = "SELECT id, name FROM formation WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

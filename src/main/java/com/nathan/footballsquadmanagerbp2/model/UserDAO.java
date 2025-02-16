@@ -19,6 +19,7 @@ public class UserDAO {
         }
     }
 
+    // Get specific user by name.
     public User getUserByUsername(String username) {
         String query = "SELECT * FROM user WHERE name = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -33,6 +34,7 @@ public class UserDAO {
         return null;
     }
 
+    // Get user by id.
     public User getUserById(int userId) {
         String query = "SELECT * FROM user WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -47,6 +49,7 @@ public class UserDAO {
         return null;
     }
 
+    // Method to avoid redundancy.
     private User mapUser(ResultSet rs) throws SQLException {
         return new User(
                 rs.getInt("id"),

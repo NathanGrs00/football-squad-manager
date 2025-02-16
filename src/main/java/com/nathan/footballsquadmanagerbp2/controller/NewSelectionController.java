@@ -9,13 +9,12 @@ import javafx.scene.control.TextField;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewSelectionController {
     private final SelectionService selectionService;
     private final FormationDAO formationDAO;
-    private AlertService alertService;
+    private final AlertService alertService;
 
     public NewSelectionController() {
         formationDAO = new FormationDAO();
@@ -27,6 +26,7 @@ public class NewSelectionController {
         return formationDAO.getAllFormations();
     }
 
+    // Validation method.
     public Selection validateFields(TextField name, ComboBox<Formation> formation) {
         String txtname = name.getText();
         Formation selectedFormation = formation.getValue();
@@ -47,23 +47,5 @@ public class NewSelectionController {
             selection = selectionService.saveSelection(new Selection(0, txtname, sqlCurrentDate, loggedInUser, selectedFormation));
         }
         return selection;
-    }
-
-    //TODO: give suggestion!
-    public List<Player> getBestPlayers(List<Player> availablePlayers, Position position) {
-        List<Player> bestPlayers = new ArrayList<>();
-        int maxProficiency = -1;
-
-        for (Player player : availablePlayers) {
-            int proficiency = selectionService.getPlayerProficiencyForPosition(player.getPlayerId(), position.getPositionId());
-            if (proficiency > maxProficiency) {
-                maxProficiency = proficiency;
-                bestPlayers.clear();
-                bestPlayers.add(player);
-            } else if (proficiency == maxProficiency) {
-                bestPlayers.add(player);
-            }
-        }
-        return bestPlayers;
     }
 }

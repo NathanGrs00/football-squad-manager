@@ -1,11 +1,13 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
+import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.DBConnector;
 
 import java.sql.*;
 
 public class PlayerDAO {
     private final Connection conn;
+    private final AlertService alertService = new AlertService();
 
     // Getting the Instance of the connection variable, this avoids spamming connecting to the database.
     public PlayerDAO() {
@@ -40,6 +42,8 @@ public class PlayerDAO {
                     return rs.getInt(1);
                 }
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            alertService.getAlert("This player has already been inserted!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

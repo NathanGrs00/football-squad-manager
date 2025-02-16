@@ -30,6 +30,7 @@ public class NewSelectionView {
         initLayout();
     }
 
+    // Initializing variables.
     public void initVariables() {
         selectionController = new NewSelectionController();
         root = new HBox();
@@ -45,6 +46,7 @@ public class NewSelectionView {
         submitButton = new Button("Save new selection");
     }
 
+    // Layout choices.
     public void initLayout() {
         root.setId("root-pane");
         menuBar.setId("menubar");
@@ -66,6 +68,7 @@ public class NewSelectionView {
         return homeScene;
     }
 
+    // Sending to the controller checks.
     public void handleButtonClick() {
         Selection selection = selectionController.validateFields(selectionNameInput, formationChoice);
         HomeController homeController = new HomeController();
