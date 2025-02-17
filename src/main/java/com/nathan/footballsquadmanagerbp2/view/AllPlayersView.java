@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -63,9 +65,18 @@ public class AllPlayersView {
         playerList = allPlayersController.getAllPlayers();
 
         buttonBox = new HBox();
+        Image addLogo = new Image(getClass().getResource("/icons/add_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView addLogoImageView = new ImageView(addLogo);
         addPlayerButton = new Button("Add Player");
+        addPlayerButton.setGraphic(addLogoImageView);
+        Image editLogo = new Image(getClass().getResource("/icons/edit_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView editLogoView = new ImageView(editLogo);
         editPlayerButton = new Button("Edit Player");
+        editPlayerButton.setGraphic(editLogoView);
+        Image deleteLogo = new Image(getClass().getResource("/icons/delete_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView deleteLogoView = new ImageView(deleteLogo);
         deletePlayerButton = new Button("Delete Player");
+        deletePlayerButton.setGraphic(deleteLogoView);
     }
 
     // Layout and Styling

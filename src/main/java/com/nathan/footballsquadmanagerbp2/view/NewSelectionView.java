@@ -7,6 +7,8 @@ import com.nathan.footballsquadmanagerbp2.model.Formation;
 import com.nathan.footballsquadmanagerbp2.model.Selection;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.*;
@@ -43,7 +45,10 @@ public class NewSelectionView {
         formationChoice = new ComboBox<>();
         formations = selectionController.getFormations();
 
-        submitButton = new Button("Save new selection");
+        Image saveLogo = new Image(getClass().getResource("/icons/save_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView saveLogoView = new ImageView(saveLogo);
+        submitButton = new Button("Make selection");
+        submitButton.setGraphic(saveLogoView);
     }
 
     // Layout choices.

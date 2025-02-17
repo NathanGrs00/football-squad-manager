@@ -91,8 +91,9 @@ public class SelectionBuilderView {
     private void setupPositionButtons() {
         // All players
         List<Player> players = playerService.getPlayers();
-        // Remove player if player is not available.
+        // Remove player if player is not available or injured.
         players.removeIf(player -> player.getPlayerStatus().equals("Not available"));
+        players.removeIf(player -> player.getPlayerStatus().equals("Injured"));
 
         // Getting the positions from a specific formation.
         List<Position> positionsFromFormation = positionController.getPositionsList(selection.getSelectionFormation().getFormationId());
@@ -174,6 +175,8 @@ public class SelectionBuilderView {
             alertService.getAlert("No player available!");
             return;
         }
+
+        Collections.sort(playerOptions);
 
         // Making the dialogueBox. First parameter is the default value, second the choices.
         ChoiceDialog<String> dialogue = new ChoiceDialog<>(playerOptions.getFirst(), playerOptions);

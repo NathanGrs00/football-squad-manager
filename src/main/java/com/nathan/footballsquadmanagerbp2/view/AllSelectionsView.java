@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -59,9 +61,18 @@ public class AllSelectionsView {
         selectionList = allSelectionsController.getAllSelections();
 
         buttonBox = new HBox();
+        Image addLogo = new Image(getClass().getResource("/icons/add_selection.png").toExternalForm(), 25, 25, true, true);
+        ImageView addLogoView = new ImageView(addLogo);
         addSelectionButton = new Button("Add Selection");
+        addSelectionButton.setGraphic(addLogoView);
+        Image editLogo = new Image(getClass().getResource("/icons/edit_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView editLogoView = new ImageView(editLogo);
         editSelectionButton = new Button("Edit Selection");
+        editSelectionButton.setGraphic(editLogoView);
+        Image deleteLogo = new Image(getClass().getResource("/icons/delete_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView deleteLogoView = new ImageView(deleteLogo);
         deleteSelectionButton = new Button("Delete Selection");
+        deleteSelectionButton.setGraphic(deleteLogoView);
     }
 
     // Layout and Styling

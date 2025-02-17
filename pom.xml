@@ -71,7 +71,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.nathan.footballsquadmanagerbp2/com.nathan.footballsquadmanagerbp2.HelloApplication
+                                com.nathan.footballsquadmanagerbp2/com.nathan.footballsquadmanagerbp2.StartApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

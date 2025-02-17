@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -123,8 +124,14 @@ public class PlayerDetailsView {
         otherPositionsTag = new Label("Other viable positions (seperated by comma): ");
         otherPositionsField = new TextField();
 
+        Image backLogo = new Image(getClass().getResource("/icons/return_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView backLogoView = new ImageView(backLogo);
         goBackButton = new Button("Go Back");
+        goBackButton.setGraphic(backLogoView);
+        Image saveIcon = new Image(getClass().getResource("/icons/save_icon.png").toExternalForm(),25, 25, true, true);
+        ImageView saveIconView = new ImageView(saveIcon);
         saveButton = new Button("Save");
+        saveButton.setGraphic(saveIconView);
 
         // If there is a player passed, then fill in the values of the fields.
         if (player != null) {

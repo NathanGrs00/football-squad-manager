@@ -77,7 +77,10 @@ public class LoginView {
         txtPassword = new PasswordField();
         passwordBox = new VBox(passwordTag, txtPassword);
 
+        Image entranceLogo = new Image(getClass().getResource("/icons/entrance_icon.png").toExternalForm(), 25, 25, true, true);
+        ImageView entranceLogoView = new ImageView(entranceLogo);
         btnLogin = new Button("Login");
+        btnLogin.setGraphic(entranceLogoView);
 
         returnLabel = new Label();
     }
