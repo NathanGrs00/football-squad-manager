@@ -54,6 +54,12 @@ Clear the selection
 ## Usage
 Open the application.
 
+Enter the username 'manager' and the password 'admin213' to log into the manager's account.
+
+If you want to login to the physiotherapist account, use 'physio' for the username and 'cure213' for the password.
+
+If you want to login to the assistant manager account, use 'assistant' for the username and 'help213' for the password.
+
 Use the "Players" section to add, edit, delete, and view all players.
 
 Use the "New selection" section to create a new selection and specify a formation.
