@@ -40,10 +40,13 @@ public class MenuBar {
 
         allPlayersBox = new VBox();
         allPlayersButton = new Button("PLAYERS");
+        allPlayersButton.getStyleClass().add("button-enlarge");
         newSelectionBox = new VBox();
         newSelectionButton = new Button("NEW SELECTION");
+        newSelectionButton.getStyleClass().add("button-enlarge");
         allSelectionsBox = new VBox();
         allSelectionsButton = new Button("ALL SELECTIONS");
+        allSelectionsButton.getStyleClass().add("button-enlarge");
 
         timeline = new Timeline();
 
