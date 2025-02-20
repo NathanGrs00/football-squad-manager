@@ -14,8 +14,8 @@ These instructions will get you to run the application in a local environment, u
 
 The things you need before installing the software.
 
-* Java version 23.0.2
-* XAMPP, MAMPP or a different way to run an SQL-file.
+* Java Development Kit version 23.0.2 (JDK 23)
+* XAMPP, MAMPP or a different way to run an SQL-file locally.
 
 ### Installation
 
@@ -23,11 +23,14 @@ A step by step guide that will tell you how to get the development environment u
 
 ```
 Download the repository. Alternatively you can clone the repository and open it in your favourite IDE.
-
-Locate the 'f_squad_manager.sql' file in the project folder. Import this file in XAMPP.
-
+```
+```
+Locate the 'f_squad_manager.sql' file in the project folder. Import this file in localhost/phpmyadmin if you're using XAMPP.
+```
+```
 Locate the .jar file in football-squad-manager-bp2 > out > artifacts > football_squad_manager_bp2_jar
-
+```
+```
 Run the .jar file to launch the application.
 ```
 
@@ -54,9 +57,25 @@ Clear the selection
 ## Usage
 Open the application.
 
+Enter the username 'manager' and the password 'admin213' to log into the manager's account.
+
+![Image](https://github.com/user-attachments/assets/2da8eb1e-8f8b-4928-8b5d-da692e933321)
+
+If you want to login to the physiotherapist account, use 'physio' for the username and 'cure213' for the password.
+
+If you want to login to the assistant manager account, use 'assistant' for the username and 'help213' for the password.
+
+If you click on login, but nothing happens, make sure you imported the SQL file into a new database called 'f_squad_manager'. Also make sure MySQL is running.
+
+![Image](https://github.com/user-attachments/assets/5aef4e8f-b240-49d0-a2e1-0642cc77eca5)
+
 Use the "Players" section to add, edit, delete, and view all players.
 
+![Image](https://github.com/user-attachments/assets/558f5943-9ce0-44a1-9852-6ab0e8ccf8e6)
+
 Use the "New selection" section to create a new selection and specify a formation.
+
+![Image](https://github.com/user-attachments/assets/6e57347f-91d7-47ac-bab7-1e8180b01248)
 
 Assign players to each position within the selected formation.
 
@@ -104,6 +123,7 @@ Don't forget to give the project a star! Thanks again!
 - [x] Function to add, edit, view and delete player.
 - [x] Function to add players in selection.
 - [ ] Give suggestion for formation based on the players in the database.
+- [ ] Put the players with the highest proficiency first in the list of available players for a spot.
 - [ ] Ability to add more formations.
 - [ ] Make environments with less permissions:
     - [ ] Assistant-manager.
@@ -117,8 +137,9 @@ Nathan - [@LinkedIn](https://www.linkedin.com/in/nathangeers/) - nathangeers2@gm
 
 Project Link: [https://github.com/NathanGrs00/football-squad-manager-bp2](https://github.com/NathanGrs00/football-squad-manager-bp2)
 
+## License
 
-
+Distributed under the MIT license. See ```LICENSE.md``` for more information.
 
 
 
