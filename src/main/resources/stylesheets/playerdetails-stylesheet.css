@@ -48,7 +48,7 @@
     -fx-background-color: #7C72A0;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-    -fx-pref-width: 150;
+    -fx-pref-width: 250;
     -fx-pref-height: 50;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
     -fx-text-fill: #F2F2F2;
