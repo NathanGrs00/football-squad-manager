@@ -2,14 +2,12 @@ package com.nathan.footballsquadmanagerbp2.view;
 
 import com.nathan.footballsquadmanagerbp2.controller.PlayerDetailsController;
 import com.nathan.footballsquadmanagerbp2.controller.PositionController;
+import com.nathan.footballsquadmanagerbp2.model.Captain;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -57,6 +55,8 @@ public class PlayerDetailsView {
     private VBox otherPosBox;
     private Label otherPositionsTag;
     private TextField otherPositionsField;
+
+    private CheckBox captainCheckBox;
 
     private Button goBackButton;
     private Button saveButton;
@@ -124,6 +124,8 @@ public class PlayerDetailsView {
         otherPositionsTag = new Label("Other viable positions (seperated by comma): ");
         otherPositionsField = new TextField();
 
+        captainCheckBox = new CheckBox("Set as Captain");
+
         Image backLogo = new Image(getClass().getResource("/icons/return_icon.png").toExternalForm(), 25, 25, true, true);
         ImageView backLogoView = new ImageView(backLogo);
         goBackButton = new Button("Go Back");
@@ -168,6 +170,10 @@ public class PlayerDetailsView {
             popupStage.setTitle("Edit player: " + player.getPlayerFirstName() + " " + player.getPlayerLastName());
         }
 
+        if (player instanceof Captain) {
+            captainCheckBox.setSelected(true);
+        }
+
         popupStage.setResizable(false);
         popupStage.setScene(getScene());
         popupStage.show();
@@ -200,6 +206,7 @@ public class PlayerDetailsView {
         root.add(statusBox, 1, 2);
         root.add(favPosBox, 0, 3);
         root.add(otherPosBox, 1, 3);
+        root.add(captainCheckBox, 0, 4);
         root.add(goBackButton, 0, 5);
         root.add(saveButton, 1, 5);
     }
@@ -212,27 +219,35 @@ public class PlayerDetailsView {
     }
 
     // Handling the button clicks.
-    private void handleButtonClicks(){
+    private void handleButtonClicks() {
         goBackButton.setOnAction(_ -> popupStage.close());
+
         saveButton.setOnAction(_ -> {
-            int id;
-            // Passing the player, used in the player_position table.
-            if (player == null) {
-                id = 0;
-            } else {
-                id = player.getPlayerId();
-            }
-            // If changes have been made successfully, close the stage.
-            boolean isValid = playerController.ValidateAndSave(id,
-                                                               firstNameField,
-                                                               lastNameField,
-                                                               ageField,
-                                                               prefFootField,
-                                                               shirtNumberField,
-                                                               statusField,
-                                                               favPositionField,
-                                                               otherPositionsField);
-            if (isValid) {
+            int id = (player == null) ? 0 : player.getPlayerId();
+
+            // Get the player object from ValidateAndSave
+            Player updatedPlayer = playerController.ValidateInputs(
+                    id,
+                    firstNameField,
+                    lastNameField,
+                    ageField,
+                    prefFootField,
+                    shirtNumberField,
+                    statusField,
+                    favPositionField,
+                    otherPositionsField,
+                    captainCheckBox
+            );
+
+            if (updatedPlayer != null) {
+                // Insert new player or update existing player based on playerId
+                if (updatedPlayer.getPlayerId() == 0) {
+                    // Insert new player
+                    playerController.insertPlayer(updatedPlayer, favPositionField, otherPositionsField);
+                } else {
+                    // Update existing player
+                    playerController.updatePlayer(updatedPlayer, favPositionField, otherPositionsField);
+                }
                 popupStage.close();
             }
         });

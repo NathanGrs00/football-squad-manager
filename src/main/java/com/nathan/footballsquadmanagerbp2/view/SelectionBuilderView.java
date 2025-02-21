@@ -267,6 +267,10 @@ public class SelectionBuilderView {
         playerInfoPos.setAlignment(Pos.CENTER);
 
         VBox playerCard = new VBox(playerInfoTop, playerInfoName, playerInfoAge, playerInfoPos);
+
+        if (player instanceof Captain) {
+            playerCard.setStyle("-fx-background-color: #796612;");
+        }
         playerCard.setId("player-card");
 
         return playerCard;

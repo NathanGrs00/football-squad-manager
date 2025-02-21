@@ -1,5 +1,6 @@
 package com.nathan.footballsquadmanagerbp2.service;
 
+import com.nathan.footballsquadmanagerbp2.model.Captain;
 import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.PlayerDAO;
 
@@ -45,24 +46,13 @@ public class PlayerService {
         return alertString;
     }
 
-    public void insertPlayer(String firstName,
-                             String lastName,
-                             int age,
-                             String prefFoot,
-                             int shirtNumber,
-                             String status,
+    public void insertPlayer(Player player,
                              String favPos,
                              List<String> positions) {
 
-        int id = 0;
-        // Taking the first letter of the foot, database constraints.
-        String firstLetterFoot = prefFoot.substring(0, 1);
-
-        // Saving input as a player model.
-        Player player = new Player(id, firstName, lastName, age, firstLetterFoot, shirtNumber, status);
-
+        boolean isCaptain = (player instanceof Captain);
         // Inserting the player in the database and returning the generated id.
-        int generatedId = playerDAO.insertPlayer(player);
+        int generatedId = playerDAO.insertPlayer(player, isCaptain);
         // Using the generated id to insert data in player_position table.
         positionService.setPlayerBestPosition(generatedId, favPos);
 
@@ -70,23 +60,16 @@ public class PlayerService {
         positionService.setOtherPositions(generatedId, positions);
     }
 
-    public void editPlayer(int id, String firstName,
-                           String lastName,
-                           int age,
-                           String prefFoot,
-                           int shirtNumber,
-                           String status,
+    public void editPlayer(Player player,
                            String favPos,
                            List<String> positions) {
 
-        String firstLetterFoot = prefFoot.substring(0, 1);
-
+        boolean isCaptain = (player instanceof Captain);
         // Passing new values to the database method.
-        Player player = new Player(id, firstName, lastName, age, firstLetterFoot, shirtNumber, status);
-        playerDAO.editPlayer(id, player);
+        playerDAO.editPlayer(player.getPlayerId(), player, isCaptain);
         // Also passing the id with the new player positions.
-        positionService.editPlayerBestPosition(id, favPos);
-        positionService.editOtherPositions(id, positions);
+        positionService.editPlayerBestPosition(player.getPlayerId(), favPos);
+        positionService.editOtherPositions(player.getPlayerId(), positions);
     }
 
     public void deletePlayer(Player player) {
@@ -101,7 +84,14 @@ public class PlayerService {
 
         try {
             while (allPlayers.next()) {
-                players.add(new Player(allPlayers));
+                boolean isCaptain = allPlayers.getBoolean("is_captain");
+                Player player;
+                if (isCaptain) {
+                    player = new Captain(allPlayers);
+                } else {
+                    player = new Player(allPlayers);
+                }
+                players.add(player);
             }
         } catch(SQLException e) {
             throw new RuntimeException(e);

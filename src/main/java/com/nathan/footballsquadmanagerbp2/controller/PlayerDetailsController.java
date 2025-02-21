@@ -1,8 +1,11 @@
 package com.nathan.footballsquadmanagerbp2.controller;
 
+import com.nathan.footballsquadmanagerbp2.model.Captain;
+import com.nathan.footballsquadmanagerbp2.model.Player;
 import com.nathan.footballsquadmanagerbp2.model.PositionDAO;
 import com.nathan.footballsquadmanagerbp2.service.AlertService;
 import com.nathan.footballsquadmanagerbp2.service.PlayerService;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
@@ -16,20 +19,23 @@ public class PlayerDetailsController {
     PlayerService playerService = new PlayerService();
 
     // Method to get Strings, Integers or Values from Textfields or Comboboxes.
-    public boolean ValidateAndSave(int playerId,
-                                   TextField firstName,
-                                   TextField lastName,
-                                   TextField age,
-                                   ComboBox<String> prefFoot,
-                                   TextField shirtNumber,
-                                   ComboBox<String> status,
-                                   ComboBox<String> favPos,
-                                   TextField otherPos) {
+    public Player ValidateInputs(int playerId,
+                                  TextField firstName,
+                                  TextField lastName,
+                                  TextField age,
+                                  ComboBox<String> prefFoot,
+                                  TextField shirtNumber,
+                                  ComboBox<String> status,
+                                  ComboBox<String> favPos,
+                                  TextField otherPos,
+                                  CheckBox captainCheckbox) {
 
         String txtFirstName = firstName.getText().trim();
         String txtLastName = lastName.getText().trim();
         String txtAge = age.getText().trim();
         String txtPrefFoot = prefFoot.getValue();
+        // Taking the first letter of the foot, database constraints.
+        String firstLetterFoot = txtPrefFoot.substring(0, 1);
         String txtShirtNumber = shirtNumber.getText().trim();
         String txtStatus = status.getValue();
         String txtFavPos = favPos.getValue();
@@ -38,19 +44,19 @@ public class PlayerDetailsController {
         //Check if name is empty.
         if (txtFirstName.isEmpty() || txtLastName.isEmpty()) {
             alertService.getAlert("Please enter a valid name");
-            return false;
+            return null;
         }
 
         // Check if age is empty.
         if (txtAge.isEmpty()) {
             alertService.getAlert("Age cannot be empty!");
-            return false;
+            return null;
         }
 
         // check if shirt number is empty.
         if (txtShirtNumber.isEmpty()) {
             alertService.getAlert("Shirt number cannot be empty!");
-            return false;
+            return null;
         }
 
         int intAge;
@@ -60,12 +66,12 @@ public class PlayerDetailsController {
             intShirtNumber = Integer.parseInt(txtShirtNumber);
         } catch (NumberFormatException e) {
             alertService.getAlert("Age and Shirt Number must be valid numbers!");
-            return false;
+            return null;
         }
 
-        if (txtPrefFoot == null || txtStatus == null || txtFavPos == null) {
+        if (prefFoot.getValue() == null || txtStatus == null || txtFavPos == null) {
             alertService.getAlert("All dropdowns must be selected!");
-            return false;
+            return null;
         }
 
         //Takes each position split by comma's and puts it into an array, and converts it into a stream for processing.
@@ -82,17 +88,24 @@ public class PlayerDetailsController {
 
         if (!alertString.isEmpty()) {
             alertService.getAlert(alertString);
-            return false;
+            return null;
         }
 
-        // If playerId = 0, this means that there is no id yet, so insert the player.
+        Player player;
         if (playerId == 0) {
-            playerService.insertPlayer(txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos, positions);
+            if (shouldBeCaptain(captainCheckbox)) {
+                player = new Captain(0, txtFirstName, txtLastName, intAge, firstLetterFoot, intShirtNumber, txtStatus);
+            } else {
+                player = new Player(0, txtFirstName, txtLastName, intAge, firstLetterFoot, intShirtNumber, txtStatus);
+            }
         } else {
-            // If there is one, pass it so that the existing player can be mutated.
-            playerService.editPlayer(playerId, txtFirstName, txtLastName, intAge, txtPrefFoot, intShirtNumber, txtStatus, txtFavPos, positions);
+            if (shouldBeCaptain(captainCheckbox)) {
+                player = new Captain(playerId, txtFirstName, txtLastName, intAge, firstLetterFoot, intShirtNumber, txtStatus);
+            } else {
+                player = new Player(playerId, txtFirstName, txtLastName, intAge, firstLetterFoot, intShirtNumber, txtStatus);
+            }
         }
-        return true;
+        return player;
     }
 
     // Navigating to the Data access objects.
@@ -103,5 +116,35 @@ public class PlayerDetailsController {
     public String getOtherPosColumn(int playerId) {
         PositionDAO positionDAO = new PositionDAO();
         return positionDAO.getPlayerPositions(playerId, 3);
+    }
+
+    private boolean shouldBeCaptain(CheckBox captainCheckbox) {
+        return captainCheckbox.isSelected();
+    }
+
+    public void insertPlayer(Player player, ComboBox<String> favPos, TextField otherPos) {
+        String txtFavPos = favPos.getValue();
+        String txtOtherPos = otherPos.getText().trim();
+        List<String> positions = Arrays.stream(txtOtherPos.split(","))
+                //Trims all the whitespace.
+                .map(String::trim)
+                //Filters out any empty inputs
+                .filter(s -> !s.isEmpty())
+                //Puts them back into a List
+                .collect(Collectors.toList());
+        playerService.insertPlayer(player, txtFavPos, positions);
+    }
+
+    public void updatePlayer(Player player, ComboBox<String> favPos, TextField otherPos) {
+        String txtFavPos = favPos.getValue();
+        String txtOtherPos = otherPos.getText().trim();
+        List<String> positions = Arrays.stream(txtOtherPos.split(","))
+                //Trims all the whitespace.
+                .map(String::trim)
+                //Filters out any empty inputs
+                .filter(s -> !s.isEmpty())
+                //Puts them back into a List
+                .collect(Collectors.toList());
+        playerService.editPlayer(player, txtFavPos, positions);
     }
 }
