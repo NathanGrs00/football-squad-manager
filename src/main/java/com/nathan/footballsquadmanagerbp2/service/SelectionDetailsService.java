@@ -10,6 +10,7 @@ public class SelectionDetailsService {
         selectionDetailDAO = new SelectionDetailDAO();
     }
 
+    // Formatting int's into SelectionDetail model.
     public void insertDetails(int selectionId, int playerId, int positionId) {
         selectionDetailDAO.insertDetails(new SelectionDetail(selectionId, playerId, positionId));
     }

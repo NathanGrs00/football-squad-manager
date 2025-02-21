@@ -55,7 +55,7 @@ public class PlayerDAO {
     // Editing an existing player from the database.
     public void editPlayer(int id, Player player, boolean isCaptain) {
         String query = "UPDATE player SET first_name = ?, last_name = ?, age = ?, "
-                + "pref_foot = ?, playing_number = ?, status = ? WHERE id = ?";
+                + "pref_foot = ?, playing_number = ?, status = ?, is_captain = ? WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, player.getPlayerFirstName());
             pstmt.setString(2, player.getPlayerLastName());
@@ -66,7 +66,7 @@ public class PlayerDAO {
             pstmt.setBoolean(7, isCaptain);
 
             // id to specify which player to update
-            pstmt.setInt(7, id);
+            pstmt.setInt(8, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Selection {
+    // Storing User and Formation in Selection.
     private final int selectionId;
     private final String selectionName;
     private final Date selectionDate;

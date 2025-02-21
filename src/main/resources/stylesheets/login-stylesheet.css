@@ -1,9 +1,11 @@
+/*Text label*/
 .label {
     -fx-font-family: Poppins;
     -fx-font-size: 18px;
     -fx-text-fill: #F2F2F2;
 }
 
+/*Input fields*/
 .text-field {
     -fx-font-family: Poppins;
     -fx-font-size: 18px;
@@ -21,6 +23,7 @@
     -fx-border-color: #32DE8A;
 }
 
+/* Buttons */
 .button {
     -fx-background-color: #32DE8A;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 2, 2);
@@ -40,6 +43,8 @@
 .button:pressed {
     -fx-background-color: #0AD3FF;
 }
+
+/*Elements & layout*/
 
 #root-pane {
     -fx-background-color: linear-gradient(to top, #2C0E37, #1d1525);

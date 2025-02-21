@@ -1,5 +1,7 @@
+/* Importing menubar to avoid duplicate lines*/
 @import "menubar-stylesheet.css";
 
+/* TextField styling */
 .text-field {
     -fx-font-family: Poppins;
     -fx-font-size: 20px;
@@ -14,6 +16,7 @@
     -fx-background-radius: 0;
 }
 
+/*Combobox styling*/
 .combo-box {
     -fx-font-family: Poppins;
     -fx-font-size: 18px;
@@ -47,6 +50,7 @@
     -fx-text-fill: white;
 }
 
+/* Button for when no player is selected */
 .opacity-button {
     -fx-alignment: center;
     -fx-min-height: 110px;
@@ -59,6 +63,7 @@
     -fx-background-color: #7C72A0;
 }
 
+/* Selection styling */
 #formation-content {
     -fx-alignment: center;
     -fx-spacing: 20px;
@@ -75,6 +80,7 @@
     -fx-max-width: 250px;
 }
 
+/* Formation information */
 #title-tag, #formation-tag{
     -fx-font-weight: bold;
     -fx-text-fill: #F2F2F2;
@@ -82,6 +88,12 @@
     -fx-font-size: 24px;
 }
 
+#selection-details {
+    -fx-alignment: center;
+    -fx-spacing: 50px;
+}
+
+/* Grid options */
 #grid-pane {
     -fx-hgap: 50px;
     -fx-vgap: 10px;
@@ -90,15 +102,11 @@
     -fx-max-height: 300px;
 }
 
-#selection-details {
-    -fx-alignment: center;
-    -fx-spacing: 50px;
-}
-
 #clear-all-button {
     -fx-background-color: #2C0E37;
 }
 
+/* First row of player-card */
 #player-number, #best-position {
     -fx-font-size: 20px;
     -fx-text-fill: #F2F2F2;
@@ -106,6 +114,7 @@
     -fx-font-family: Poppins;
 }
 
+/* Preferred foot styling */
 #pref-foot {
     -fx-font-size: 20px;
     -fx-text-fill: #32DE8A;
@@ -113,6 +122,7 @@
     -fx-font-family: Poppins;
 }
 
+/* Second row of player-card  */
 #other-pos-list, #age-tag {
     -fx-text-fill: #F2F2F2;
     -fx-font-weight: bold;
@@ -123,13 +133,15 @@
     -fx-min-width: 52px;
 }
 
+/* Name Row of player-card */
 #player-info-name {
     -fx-text-fill: #F2F2F2;
     -fx-font-weight: bold;
     -fx-font-family: Poppins;
-    -fx-font-size: 22px;
+    -fx-font-size: 15px;
 }
 
+/* Card and empty slots styling */
 #player-card {
     -fx-alignment: center;
     -fx-min-width: 110px;

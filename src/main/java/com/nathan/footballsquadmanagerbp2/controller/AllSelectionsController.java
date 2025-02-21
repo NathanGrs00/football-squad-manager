@@ -42,7 +42,7 @@ public class AllSelectionsController {
         }
     }
 
-    // Calling selectionService to get all the selections in the database.
+    // Calling selectionService to get all the selections in the database and making an ObservableList of all selections.
     public ObservableList<Selection> getAllSelections() {
         ArrayList<Selection> selections = selectionService.getAllSelections();
         ObservableList<Selection> allSelections = FXCollections.observableArrayList();

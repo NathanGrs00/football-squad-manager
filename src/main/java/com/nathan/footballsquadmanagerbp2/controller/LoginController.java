@@ -12,10 +12,11 @@ public class LoginController {
             return "Username or password cannot be empty.";
         }
 
+        // Checking if login corresponds to a User.
         User loggedInUser = LoginService.getInstance().checkLogin(username, password);
 
+        // If there is a user, send user to the homescreen.
         if (loggedInUser != null) {
-            // Send user to the homescreen.
             FootballSquadManager footballSquadManager = new FootballSquadManager();
             footballSquadManager.getHomescreen();
             return "Login Successful";

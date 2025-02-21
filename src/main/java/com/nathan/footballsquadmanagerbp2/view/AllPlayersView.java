@@ -48,7 +48,7 @@ public class AllPlayersView {
     public Scene getScene() {
         Scene homeScene = new Scene(root, FootballSquadManager.screenSize[0], FootballSquadManager.screenSize[1]);
         homeScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-        homeScene.getStylesheets().add(getClass().getResource("/stylesheets/players-stylesheet.css").toExternalForm());
+        homeScene.getStylesheets().add(getClass().getResource("/stylesheets/tableview-stylesheet.css").toExternalForm());
         return homeScene;
     }
 

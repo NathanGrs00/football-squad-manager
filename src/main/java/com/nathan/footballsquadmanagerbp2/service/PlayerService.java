@@ -99,6 +99,7 @@ public class PlayerService {
         return players;
     }
 
+    // Getting player by id.
     public Player getPlayerById(int id) {
         for (Player player : getPlayers()) {
             if (player.getPlayerId() == id) {

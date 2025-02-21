@@ -225,7 +225,7 @@ public class PlayerDetailsView {
         saveButton.setOnAction(_ -> {
             int id = (player == null) ? 0 : player.getPlayerId();
 
-            // Get the player object from ValidateAndSave
+            // Get the player object after validating inputs
             Player updatedPlayer = playerController.ValidateInputs(
                     id,
                     firstNameField,

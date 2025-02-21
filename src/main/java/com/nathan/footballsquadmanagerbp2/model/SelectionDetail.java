@@ -5,6 +5,7 @@ public class SelectionDetail {
     private final int playerId;
     private final int positionId;
 
+    // Selection Detail is a player selected for a position in a selection.
     public SelectionDetail(int selectionId, int playerId, int positionId) {
         this.selectionId = selectionId;
         this.playerId = playerId;

@@ -15,8 +15,9 @@ import java.util.stream.Collectors;
 
 
 public class PlayerDetailsController {
-    AlertService alertService = new AlertService();
-    PlayerService playerService = new PlayerService();
+    private final AlertService alertService = new AlertService();
+    private final PlayerService playerService = new PlayerService();
+    private final PositionDAO positionDAO = new PositionDAO();
 
     // Method to get Strings, Integers or Values from Textfields or Comboboxes.
     public Player ValidateInputs(int playerId,
@@ -91,6 +92,7 @@ public class PlayerDetailsController {
             return null;
         }
 
+        // Setting player to either a new player or captain, or a new player or captain with the existing id.
         Player player;
         if (playerId == 0) {
             if (shouldBeCaptain(captainCheckbox)) {
@@ -110,41 +112,38 @@ public class PlayerDetailsController {
 
     // Navigating to the Data access objects.
     public String getFavPosColumn(int playerId) {
-        PositionDAO positionDAO = new PositionDAO();
         return positionDAO.getPlayerPositions(playerId, 5);
     }
     public String getOtherPosColumn(int playerId) {
-        PositionDAO positionDAO = new PositionDAO();
         return positionDAO.getPlayerPositions(playerId, 3);
     }
 
+    // Checking if checkbox is selected.
     private boolean shouldBeCaptain(CheckBox captainCheckbox) {
         return captainCheckbox.isSelected();
     }
 
+    // Formatting position details for adding new player.
     public void insertPlayer(Player player, ComboBox<String> favPos, TextField otherPos) {
         String txtFavPos = favPos.getValue();
         String txtOtherPos = otherPos.getText().trim();
-        List<String> positions = Arrays.stream(txtOtherPos.split(","))
-                //Trims all the whitespace.
-                .map(String::trim)
-                //Filters out any empty inputs
-                .filter(s -> !s.isEmpty())
-                //Puts them back into a List
-                .collect(Collectors.toList());
+        List<String> positions = parsePositions(txtOtherPos);
         playerService.insertPlayer(player, txtFavPos, positions);
     }
 
+    // Formatting details for editing a player.
     public void updatePlayer(Player player, ComboBox<String> favPos, TextField otherPos) {
         String txtFavPos = favPos.getValue();
         String txtOtherPos = otherPos.getText().trim();
-        List<String> positions = Arrays.stream(txtOtherPos.split(","))
-                //Trims all the whitespace.
-                .map(String::trim)
-                //Filters out any empty inputs
-                .filter(s -> !s.isEmpty())
-                //Puts them back into a List
-                .collect(Collectors.toList());
+        List<String> positions = parsePositions(txtOtherPos);
         playerService.editPlayer(player, txtFavPos, positions);
+    }
+
+    // Parsing other positions string into right format for inserting.
+    private List<String> parsePositions(String positionText) {
+        return Arrays.stream(positionText.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
     }
 }

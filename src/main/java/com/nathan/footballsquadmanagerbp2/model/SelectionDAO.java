@@ -74,7 +74,7 @@ public class SelectionDAO {
         }
     }
 
-    // GetAll query.
+    // Get all selections query.
     public ResultSet getAllSelections() {
         ResultSet selections;
         String query = "SELECT * FROM selection";

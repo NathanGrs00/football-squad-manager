@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2025 at 12:13 PM
+-- Generation Time: Feb 21, 2025 at 10:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -128,26 +128,31 @@ CREATE TABLE `player` (
   `age` int(2) NOT NULL,
   `pref_foot` varchar(1) NOT NULL,
   `playing_number` int(2) NOT NULL,
-  `status` varchar(15) NOT NULL
+  `status` varchar(15) NOT NULL,
+  `is_captain` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`id`, `first_name`, `last_name`, `age`, `pref_foot`, `playing_number`, `status`) VALUES
-(1, 'Leo', 'Blackwood', 27, 'R', 1, 'Available'),
-(2, 'Marco', 'Varela', 24, 'L', 2, 'Available'),
-(3, 'Felix', 'Drayton', 30, 'R', 3, 'Injured'),
-(4, 'Ryan', 'Holloway', 25, 'R', 4, 'Available'),
-(5, 'Dante', 'Moretti', 29, 'L', 5, 'Available'),
-(6, 'Javier', 'Mendoza', 23, 'R', 6, 'Available'),
-(7, 'Elias', 'Thornton', 28, 'R', 7, 'Available'),
-(8, 'Hugo', 'Lindholm', 26, 'L', 8, 'Available'),
-(9, 'Matteo', 'Santoro', 22, 'L', 9, 'Available'),
-(10, 'Rafael', 'Storm', 31, 'R', 10, 'Available'),
-(11, 'Zane', 'Holloway', 27, 'L', 11, 'Suspended'),
-(12, 'Bob', 'Hooper', 19, 'L', 48, 'Available');
+INSERT INTO `player` (`id`, `first_name`, `last_name`, `age`, `pref_foot`, `playing_number`, `status`, `is_captain`) VALUES
+(1, 'Daniel', 'Vasquez', 28, 'L', 1, 'Available', 0),
+(2, 'Lucas', 'Mendez', 24, 'L', 2, 'Available', 0),
+(3, 'Alex', 'Petrov', 30, 'R', 3, 'Available', 0),
+(4, 'Samuel', 'O\'Connor', 26, 'R', 4, 'Available', 1),
+(5, 'Felipe', 'Costa', 22, 'L', 5, 'Available', 0),
+(6, 'Johan', 'Svensson', 29, 'R', 6, 'Available', 0),
+(7, 'Marco', 'Benitez', 27, 'R', 7, 'Available', 0),
+(8, 'Liam', 'Harrison', 25, 'R', 8, 'Available', 0),
+(9, 'Diego', 'Ramirez', 24, 'L', 9, 'Available', 0),
+(10, 'Christian', 'Novak', 30, 'B', 10, 'Available', 0),
+(11, 'Julian', 'Park', 23, 'L', 11, 'Available', 0),
+(12, 'Ben', 'Callahan', 28, 'R', 12, 'Injured', 0),
+(13, 'Hector', 'Dominguez', 26, 'B', 13, 'Available', 0),
+(14, 'Martin', 'Fischer', 27, 'R', 14, 'Available', 0),
+(15, 'Andre', 'Fontaine', 24, 'L', 15, 'Available', 0),
+(16, 'Raul', 'Turner', 21, 'R', 16, 'Suspended', 0);
 
 -- --------------------------------------------------------
 
@@ -168,22 +173,25 @@ CREATE TABLE `player_position` (
 INSERT INTO `player_position` (`player_id`, `position_id`, `proficiency`) VALUES
 (1, 1, 5),
 (2, 3, 5),
-(2, 2, 3),
-(2, 5, 3),
-(2, 6, 3),
 (2, 4, 3),
+(2, 6, 3),
+(2, 8, 3),
+(2, 11, 3),
 (3, 2, 5),
-(3, 4, 3),
 (3, 5, 3),
+(3, 4, 3),
 (3, 7, 3),
+(3, 10, 3),
 (4, 4, 5),
 (4, 5, 3),
 (4, 6, 3),
-(4, 3, 3),
-(5, 4, 5),
-(5, 9, 3),
+(4, 9, 3),
+(4, 10, 3),
+(4, 11, 3),
+(5, 6, 5),
+(5, 4, 3),
 (5, 5, 3),
-(5, 6, 3),
+(5, 9, 3),
 (5, 10, 3),
 (5, 11, 3),
 (6, 9, 5),
@@ -192,40 +200,59 @@ INSERT INTO `player_position` (`player_id`, `position_id`, `proficiency`) VALUES
 (6, 14, 3),
 (6, 15, 3),
 (6, 16, 3),
-(7, 13, 5),
-(7, 14, 3),
-(7, 16, 3),
-(7, 21, 3),
+(7, 21, 5),
 (7, 8, 3),
+(7, 13, 3),
+(7, 16, 3),
+(7, 24, 3),
 (8, 14, 5),
+(8, 17, 3),
+(8, 18, 3),
+(8, 19, 3),
 (8, 15, 3),
 (8, 16, 3),
-(8, 17, 3),
-(8, 10, 3),
-(8, 9, 3),
-(8, 11, 3),
 (9, 22, 5),
-(9, 17, 3),
-(9, 19, 3),
-(9, 18, 3),
 (9, 23, 3),
 (9, 24, 3),
+(9, 20, 3),
+(9, 21, 3),
+(9, 17, 3),
 (10, 17, 5),
 (10, 18, 3),
 (10, 19, 3),
-(10, 20, 3),
-(10, 21, 3),
-(10, 22, 3),
+(10, 14, 3),
+(10, 15, 3),
+(10, 16, 3),
 (11, 20, 5),
 (11, 21, 3),
-(11, 22, 3),
 (11, 23, 3),
 (11, 24, 3),
 (11, 18, 3),
-(12, 2, 5),
-(12, 5, 3),
-(12, 6, 3),
-(12, 7, 3);
+(11, 19, 3),
+(11, 12, 3),
+(11, 13, 3),
+(12, 1, 5),
+(13, 6, 5),
+(13, 4, 3),
+(13, 2, 3),
+(13, 5, 3),
+(13, 3, 3),
+(14, 11, 5),
+(14, 9, 3),
+(14, 10, 3),
+(14, 14, 3),
+(14, 16, 3),
+(14, 15, 3),
+(15, 5, 5),
+(15, 2, 3),
+(15, 4, 3),
+(15, 6, 3),
+(15, 3, 3),
+(16, 22, 5),
+(16, 23, 3),
+(16, 24, 3),
+(16, 20, 3),
+(16, 21, 3);
 
 -- --------------------------------------------------------
 
@@ -290,7 +317,7 @@ CREATE TABLE `selection` (
 --
 
 INSERT INTO `selection` (`id`, `name`, `date`, `user_id`, `formation_id`) VALUES
-(1, 'Attacking Scenario 1', '2025-02-18', 1, 4);
+(1, 'Attacking First Team', '2025-02-21', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -309,17 +336,11 @@ CREATE TABLE `selection_details` (
 --
 
 INSERT INTO `selection_details` (`selection_id`, `player_id`, `position_id`) VALUES
-(1, 11, 20),
 (1, 9, 22),
-(1, 10, 17),
-(1, 2, 3),
-(1, 1, 1),
-(1, 7, 21),
-(1, 5, 5),
-(1, 4, 6),
-(1, 8, 15),
-(1, 6, 16),
-(1, 12, 2);
+(1, 4, 5),
+(1, 13, 6),
+(1, 10, 19),
+(1, 6, 10);
 
 -- --------------------------------------------------------
 
@@ -418,7 +439,7 @@ ALTER TABLE `formation`
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `position`

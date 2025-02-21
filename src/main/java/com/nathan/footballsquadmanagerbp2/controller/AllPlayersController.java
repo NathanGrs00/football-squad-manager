@@ -40,7 +40,7 @@ public class AllPlayersController {
         }
     }
 
-    // Calling playerService to get all the players in the database.
+    // Calling playerService to get all the players in the database and making an ObservableList for the table.
     public ObservableList<Player> getAllPlayers() {
         ArrayList<Player> players = playerService.getPlayers();
         ObservableList<Player> allPlayers = FXCollections.observableArrayList();

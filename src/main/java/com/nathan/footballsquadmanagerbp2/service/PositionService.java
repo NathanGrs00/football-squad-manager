@@ -30,6 +30,7 @@ public class PositionService {
         return positions;
     }
 
+    // Separate method to get the ResultSet, because in PlayerController I use getPositions() with an arraylist.
     public ArrayList<Position> getPositionsFromFormationId(int id) {
         ResultSet resultSet = positionDAO.getAllPositionsFromFormation(id);
         return getPositions(resultSet);

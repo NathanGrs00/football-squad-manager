@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class Captain extends Player {
 
+    // Captain class for the polymorphism checks.
     public Captain(ResultSet rs) throws SQLException {
         super(rs);
     }

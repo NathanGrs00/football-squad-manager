@@ -32,7 +32,7 @@ public class Position {
         return positionId;
     }
 
-    //TODO use this!
+    // If I ever make a way to view player details in the selectionbuilder, I would use this to display the full name.
     public String getPositionName() {
         return positionName;
     }

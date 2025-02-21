@@ -14,6 +14,7 @@ public class SelectionService {
         selectionDAO = new SelectionDAO();
     }
 
+    // Inserting selection and returning the selection so It can be used by the SelectionBuilderView.
     public Selection saveSelection(Selection selection) {
         return selectionDAO.insertNewSelection(selection);
     }
@@ -22,6 +23,7 @@ public class SelectionService {
         selectionDAO.deleteSelection(selection);
     }
 
+    // Getting an ArrayList of all Selections.
     public ArrayList<Selection> getAllSelections() {
         ArrayList<Selection> selections = new ArrayList<>();
         ResultSet allSelections = selectionDAO.getAllSelections();

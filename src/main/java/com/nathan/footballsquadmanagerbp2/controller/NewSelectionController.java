@@ -41,6 +41,7 @@ public class NewSelectionController {
             return null;
         }
 
+        // Making a new Selection if there is a user logged in.
         User loggedInUser = LoginService.getInstance().getLoggedInUser();
         Selection selection = null;
         if (loggedInUser != null) {

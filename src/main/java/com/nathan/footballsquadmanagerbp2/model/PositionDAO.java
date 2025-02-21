@@ -109,7 +109,7 @@ public class PositionDAO {
         }
     }
 
-    // GetALl query
+    // Get all positions query
     public ResultSet getAllPositionsFromFormation(int formationId) {
         String query = "SELECT p.* FROM position p JOIN formation_position fp ON p.id = fp.position_id WHERE fp.formation_id = ?";
         try {
