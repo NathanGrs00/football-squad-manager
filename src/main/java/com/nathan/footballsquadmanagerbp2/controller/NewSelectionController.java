@@ -49,4 +49,8 @@ public class NewSelectionController {
         }
         return selection;
     }
+
+    public List<String> getFormationCountsByName() {
+        return formationDAO.getFormationCountsByName();
+    }
 }

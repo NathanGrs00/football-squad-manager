@@ -48,4 +48,22 @@ public class FormationDAO {
         }
         return null;
     }
+
+    // Get the amount of formations by name, using GROUP BY.
+    public List<String> getFormationCountsByName() {
+        List<String> results = new ArrayList<>();
+        String query = "SELECT f.name, COUNT(*) as count " +
+                "FROM selection s " +
+                "JOIN formation f ON s.formation_id = f.id " +
+                "GROUP BY f.id, f.name";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                results.add(rs.getString("name") + ": " + rs.getInt("count"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return results;
+    }
 }

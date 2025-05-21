@@ -15,9 +15,11 @@ import java.util.*;
 
 public class NewSelectionView {
     private NewSelectionController selectionController;
+
     private HBox root;
     private Pane menuBar;
     private VBox formationContent;
+    private VBox formationAmountBox;
 
     private Label selectionNameTag;
     private TextField selectionNameInput;
@@ -37,6 +39,7 @@ public class NewSelectionView {
         selectionController = new NewSelectionController();
         root = new HBox();
         formationContent = new VBox();
+        formationAmountBox = new VBox();
         menuBar = new MenuBar().createMenuBar();
 
         selectionNameTag = new Label("Selection name: ");
@@ -49,6 +52,11 @@ public class NewSelectionView {
         ImageView saveLogoView = new ImageView(saveLogo);
         submitButton = new Button("Make selection");
         submitButton.setGraphic(saveLogoView);
+        List<String> formationCounts = selectionController.getFormationCountsByName();
+        formationAmountBox.getChildren().add(new Label("Current selections saved:"));
+        for (String count : formationCounts) {
+            formationAmountBox.getChildren().add(new Label(count));
+        }
     }
 
     // Layout choices.
@@ -62,7 +70,7 @@ public class NewSelectionView {
         for (Formation formation : formations) {
             formationChoice.getItems().add(formation);
         }
-        formationContent.getChildren().addAll(selectionNameTag, selectionNameInput, formationTag, formationChoice, submitButton);
+        formationContent.getChildren().addAll(formationAmountBox, selectionNameTag, selectionNameInput, formationTag, formationChoice, submitButton);
         root.getChildren().addAll(menuBar, formationContent);
     }
 
