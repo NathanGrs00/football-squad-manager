@@ -3,10 +3,15 @@ package com.nathan.footballsquadmanagerbp2.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// This class is used to represent a position in the football squad manager application.
+// like "Goalkeeper", "Defender", "Midfielder", "Forward" etc.
 public class Position {
+    // The fields represent the properties of a position.
     private final int positionId;
     private final String positionName;
     private final String positionAbreviation;
+    // The x and y positions are used to represent the position on a football field.
+    // We are using a 2D grid to represent the field.
     private final int xPosition;
     private final int yPosition;
 
@@ -28,6 +33,7 @@ public class Position {
         this.yPosition = yPosition;
     }
 
+    // Getters for the fields.
     public int getPositionId() {
         return positionId;
     }

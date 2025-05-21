@@ -1,11 +1,14 @@
 package com.nathan.footballsquadmanagerbp2.model;
 
+// Class representing a user in the system
 public class User {
+    // Fields for user ID, username, password, and role
     private final int userId;
     private final String userName;
     private final String password;
     private final String role;
 
+    // Constructor to initialize a User object
     public User(int userId, String userName, String password, String role) {
         this.userId = userId;
         this.userName = userName;
@@ -13,6 +16,7 @@ public class User {
         this.role = role;
     }
 
+    // Getters for user ID, username, password, and role
     public int getUserId() {
         return userId;
     }

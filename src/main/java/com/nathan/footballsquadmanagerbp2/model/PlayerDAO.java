@@ -5,14 +5,19 @@ import com.nathan.footballsquadmanagerbp2.service.DBConnector;
 
 import java.sql.*;
 
+// This class is used to interact with the player table in the database.
 public class PlayerDAO {
+    // This is the connection to the database.
     private final Connection conn;
+    // This is the alert service to show alerts to the user.
     private final AlertService alertService = new AlertService();
 
     // Getting the Instance of the connection variable, this avoids spamming connecting to the database.
     public PlayerDAO() {
         try {
+            // try to get the connection from the DBConnector class.
             conn = DBConnector.getInstance().getConnection();
+            // if the connection is null, throw an exception.
         } catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -35,28 +40,39 @@ public class PlayerDAO {
             pstmt.setInt(6, player.getPlayerShirtNumber());
             pstmt.setString(7, player.getPlayerStatus());
             pstmt.setBoolean(8, isCaptain);
+            // Execute the query.
             pstmt.executeUpdate();
 
             // Get the generated id in player table.
+            // getGeneratedKeys() returns a ResultSet with the generated keys.
+            // In this case, the generated key is the id of the player.
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                // If the id was generated, return it.
                 if(rs.next()) {
+                    // Get the generated id from the ResultSet.
                     return rs.getInt(1);
                 }
             }
+            // SQLIntegrityConstraintViolationException means that the player already exists in the database.
         } catch (SQLIntegrityConstraintViolationException e) {
+            // Give an alert to the user that the player already exists.
             alertService.getAlert("This player has already been inserted!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         // if no ID was generated, return -1.
+        // -1 stands for no id generated, 0 could be a valid id.
         return -1;
     }
 
     // Editing an existing player from the database.
     public void editPlayer(int id, Player player, boolean isCaptain) {
+        // SQL query, values have '?' to prevent SQL injection.
         String query = "UPDATE player SET first_name = ?, last_name = ?, age = ?, "
                 + "pref_foot = ?, playing_number = ?, status = ?, is_captain = ? WHERE id = ?";
+        // PreparedStatements are safer and more readable than Statements.
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            // Set the values for the query.
             pstmt.setString(1, player.getPlayerFirstName());
             pstmt.setString(2, player.getPlayerLastName());
             pstmt.setInt(3, player.getPlayerAge());
@@ -67,8 +83,10 @@ public class PlayerDAO {
 
             // id to specify which player to update
             pstmt.setInt(8, id);
+            // Execute the query.
             pstmt.executeUpdate();
         } catch (SQLException e) {
+            // throw a runtime exception if there is an error.
             throw new RuntimeException(e);
         }
     }
@@ -76,33 +94,45 @@ public class PlayerDAO {
     // Delete a player from the database.
     public void deletePlayer(int playerId) {
         // But first delete the foreign key link in player_position and selection_details.
+        // This is done to avoid foreign key constraint violations.
         String deletePlayerPositionLink = "DELETE FROM player_position WHERE player_id = ?";
         String deleteSelectionDetailsLink = "DELETE FROM selection_details WHERE player_id = ?";
+        // SQL query to delete the player.
         String query = "DELETE FROM player WHERE id = ?";
+        // PreparedStatements are safer and more readable than Statements.
         try (PreparedStatement pstmt1 = conn.prepareStatement(deletePlayerPositionLink);
              PreparedStatement pstmt2 = conn.prepareStatement(deleteSelectionDetailsLink);
              PreparedStatement pstmt3 = conn.prepareStatement(query)) {
+            // Set the values for the query.
             pstmt1.setInt(1, playerId);
+            // Execute the query.
             pstmt1.executeUpdate();
             pstmt2.setInt(1, playerId);
             pstmt2.executeUpdate();
             pstmt3.setInt(1, playerId);
             pstmt3.executeUpdate();
         } catch (SQLException e) {
+            // throw a runtime exception if there is an error.
             throw new RuntimeException(e);
         }
     }
 
     // Getting all the players.
     public ResultSet getAllPlayers() {
+        // This is the result set that will be returned.
         ResultSet players;
+        // SQL query to get all the players.
         String query = "SELECT * FROM player";
         try {
+            // Create a statement to execute the query.
             Statement stmt = conn.createStatement();
+            // Execute the query and get the result set.
             players = stmt.executeQuery(query);
+            // If the result set is empty, throw an exception.
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        // Return the result set.
         return players;
     }
 }
