@@ -131,6 +131,26 @@ Don't forget to give the project a star! Thanks again!
 
 See the [open issues](https://github.com/NathanGRS00/football-squad-manager-bp2/issues) for a full list of proposed features (and known issues).
 
+## Communication and evaluation strategy
+
+To ensure the Football Squad Manager continues to evolve and meet user expectations, this project adopts a clear communication and evaluation approach:
+
+### Feedback & communication
+
+- Users and contributors are encouraged to submit feedback, bug reports, and feature requests via **[GitHub Issues](https://github.com/NathanGrs00/football-squad-manager-bp2/issues)**.
+- For collaboration and discussions, use **GitHub Discussions** or comment on **Pull Requests**.
+- Major updates and changes will be documented in the **Releases** section.
+
+### Evaluation and improvement
+
+- All features are manually tested before each release to ensure the application remains stable and usable.
+- Feedback from users and testers plays a key role in prioritizing new features and improvements.
+- Reported bugs and edge cases are tracked and reviewed regularly through the issue tracker.
+- Internal testing focuses on:
+  - **Usability** – intuitive and user-friendly interface for managers, assistants, and physiotherapists.
+  - **Functionality** – ensuring smooth player and selection management.
+  - **Database integration** – reliability of local SQL data operations.
+
 ## Contact
 
 Nathan - [@LinkedIn](https://www.linkedin.com/in/nathangeers/) - nathangeers2@gmail.com
@@ -140,8 +160,3 @@ Project Link: [https://github.com/NathanGrs00/football-squad-manager-bp2](https:
 ## License
 
 Distributed under the MIT license. See ```LICENSE.md``` for more information.
-
-
-
-
-
